@@ -1,0 +1,13 @@
+<ion-view view-title="Puntos de Pago" >
+    <ion-content>
+        <div class="list"  >
+            <a class="item" ng-repeat="punto in puntos" >
+                <h2>{{ punto.nombre }}</h2>
+                <p>{{ punto.direccion }}</p>
+                <span class="item-note">
+                  {{ punto.distancia }}
+                </span>
+            </a>
+        </div>
+    </ion-content>
+</ion-view>

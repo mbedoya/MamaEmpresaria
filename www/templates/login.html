@@ -1,0 +1,16 @@
+<ion-view view-title="Login">
+    <ion-content>
+        <h4 class="padding">Para identificarte y mostrarte tu información, necesitamos conocer el número de tu documento de identificación</h4>
+        <form ng-submit="capturarCedula()">
+            <div class="list">
+                <label class="item item-input">
+                    <span class="input-label">Cédula</span>
+                    <input type="number" ng-model="datosInicio.cedula" >
+                </label>
+                <label class="item">
+                    <button class="button button-block button-positive" type="submit">Continuar</button>
+                </label>
+            </div>
+        </form>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,13 @@
+<ion-view view-title="Mis Predios Redimidos" >
+    <ion-content>
+        <div class="list"  >
+            <a class="item item-icon-left" ng-repeat="premio in puntos.productosRedimidos" >
+                <i class="icon ion-android-star"></i>
+                {{ premio.cantidad }} {{ premio.premioRedimido }}
+                <span class="item-note">
+                  {{ premio.puntosRedimidos }}
+                </span>
+            </a>
+        </div>
+    </ion-content>
+</ion-view>
