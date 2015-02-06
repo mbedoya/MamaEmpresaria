@@ -17,6 +17,11 @@ angular.module('novaventa', ['ionic', 'novaventa.controllers', 'novaventa.servic
     }
   });
 })
+    .config(['$ionicConfigProvider', function($ionicConfigProvider) {
+
+        $ionicConfigProvider.tabs.position('bottom'); //other values: top
+
+    }])
 
     .config(function($stateProvider, $urlRouterProvider) {
         $stateProvider
