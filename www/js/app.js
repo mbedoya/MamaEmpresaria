@@ -107,10 +107,31 @@ angular.module('novaventa', ['ionic', 'novaventa.controllers', 'novaventa.servic
 
             .state('app.menu.tabs.puntospago', {
                 url: "/puntospago",
+                abstract: true,
                 views: {
                     'puntospago-content': {
+                        templateUrl: "templates/tabspuntosdepago.html",
+                        controller: 'PuntosPagoCtrl'
+                    }
+                }
+            })
+
+            .state('app.menu.tabs.puntospago.puntospagolistado', {
+                url: "/puntospagolistado",
+                views: {
+                    'puntospago-listado-content': {
                         templateUrl: "templates/puntosdepago.html",
                         controller: 'PuntosPagoCtrl'
+                    }
+                }
+            })
+
+            .state('app.menu.tabs.puntospago.puntospagomapa', {
+                url: "/puntospagomapa",
+                views: {
+                    'puntospago-mapa-content': {
+                        templateUrl: "templates/puntosdepagomapa.html",
+                        controller: 'PuntosPagoMapaCtrl'
                     }
                 }
             })
