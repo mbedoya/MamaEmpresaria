@@ -1,5 +1,38 @@
 <ion-view view-title="Home" >
     <ion-content>
-        Home
+        <div class="list" ng-init="init()">
+            <label class="item item-input">
+                <span class="input-label" >{{ nombre() }}</span>
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Piedra preciosa</span>
+                {{ segmento() }}
+            </label>
+            <label class="item item-input">
+                <span class="input-label" ng-bind="etiquetaSaldo()"></span>
+                {{ saldo() | currency }}
+            </label>
+            <label class="item item-input" ng-show="mostrarCupo()">
+                <span class="input-label">Cupo</span>
+                {{ cupo() | currency}}
+            </label>
+            <!--
+            <label class="item item-input">
+                <span class="input-label">Flexibilización</span>
+                <input type="text" ng-model="datosInicio.flexibilizacion">
+            </label>
+            -->
+            <label class="item item-input">
+                <span class="input-label">&nbsp;</span>
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Campaña</span>
+                <input type="text" ng-model="campana.numero">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Fecha de Montaje<br /> de Pedido</span>
+                {{campana.fechaMontajePedido | date: 'MMMM dd' | uppercase }}
+            </label>
+        </div>
     </ion-content>
 </ion-view>

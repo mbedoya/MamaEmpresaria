@@ -57,7 +57,8 @@ angular.module('novaventa', ['ionic', 'novaventa.controllers', 'novaventa.servic
                 abstract: true,
                 views: {
                     'app-view': {
-                        templateUrl: "templates/menu.html"
+                        templateUrl: "templates/menu.html",
+                        controller: 'AppCtrl'
                     }
                 }
             })
@@ -76,7 +77,8 @@ angular.module('novaventa', ['ionic', 'novaventa.controllers', 'novaventa.servic
                 url: "/home",
                 views: {
                     'home-content': {
-                        templateUrl: "templates/home.html"
+                        templateUrl: "templates/home.html",
+                        controller: 'HomeCtrl'
                     }
                 }
             })

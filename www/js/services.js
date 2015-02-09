@@ -2,38 +2,24 @@ angular.module('novaventa.services', [])
 
     .factory('Mama', function() {
 
-        var puntos = {
-            "productosRedimidos": [   {
-                "cantidad": 1,
-                "premioRedimido": "DUCALES TENTACIÓN X 156G COMBO PREMIO 2",
-                "puntosRedimidos": 170
-            },
-            {
-                "cantidad": 2,
-                "premioRedimido": "TELEVISOR",
-                "puntosRedimidos": 36000
-            }],
-            "puntosDisponibles": 460,
-            "puntosPorPerder": 525,
-            "puntosRedimidos": 170,
-            "puntosAVerncer": 229,
-            "agnoCampagnaVencimiento": 201417
-        };
-
         return {
-            getPuntos: function() {
-                return puntos;
+            getPuntos: function(cedula, http, fx) {
+                http.get("http://www.mocky.io/v2/54d91ad61fad9a7e0b0fb3e5").
+                    success(function(data, status, headers, config) {
+                        fx(true, data);
+                    }).
+                    error(function(data, status, headers, config) {
+                        fx(false, {});
+                    });
             },
             autenticar: function(cedula, rootScope, http, fx) {
             	http.get(rootScope.configuracion.ip_servidores +  "/AntaresWebServices/interfaceAntares/validacionAntares/" + cedula +"/1").
-							success(function(data, status, headers, config) {
-								console.log("success");
-								fx(data);
-							}).
-							error(function(data, status, headers, config) {
-								console.log("error");
-								fx({});
-							});
+                    success(function(data, status, headers, config) {
+                       fx(true, data);
+                    }).
+                    error(function(data, status, headers, config) {
+                        fx(false, {});
+                    });
             
             }
         }

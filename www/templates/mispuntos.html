@@ -4,28 +4,28 @@
             <label class="item">
                 Puntos disponibles
                 <span class="item-note">
-                    {{ puntos.puntosDisponibles }}
+                    {{ puntosDisponibles() }}
                 </span>
             </label>
             <label class="item">
                 Puntos a perder (si no pagas antes de XXX)
                 <span class="item-note">
-                    {{ puntos.puntosPorPerder }}
+                    {{ puntosPorPerder() }}
                 </span>
             </label>
             <label class="item">
                 Puntos a vencer campaña XXX
                 <span class="item-note">
-                    {{ puntos.puntosAVerncer }}
+                    {{ puntosAVencer() }}
                 </span>
             </label>
             <label class="item item-input">
                 <span class="input-label">&nbsp;</span>
             </label>
-            <a class="item item-icon-right" href="#/app/menu/tabs/mispremiosredimidos">
+            <a class="item item-icon-right" href="#/app/menu/tabs/mispremiosredimidos" ng-show="mostrarPuntosRedimidos()">
                 Puntos redimidos campaña anterior
                 <span class="item-note">
-                  {{ puntos.puntosRedimidos }}
+                  {{ puntosRedimidos() }}
                 </span>
                 <i class="icon ion-chevron-right"></i>
             </a>
