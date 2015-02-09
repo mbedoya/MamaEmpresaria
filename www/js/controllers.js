@@ -1,25 +1,37 @@
 angular.module('novaventa.controllers', [])
 
-    .controller('LoginCtrl', function($scope, $state, Internet) {
-        $scope.capturarCedula = function() {
-            if(Internet.get()){
-                $state.go('app.menu.tabs.home');
-            }else{
-                alert("Por favor verificar tu conexión a internet")
-            }
-        }
+	.controller('InicializacionCtrl', function($scope, $rootScope, $state) {
+    
+    	$rootScope.configuracion = { ip_servidores: 'http://200.47.173.66:9081' };
+        $state.go('app.login');
     })
 
-    .controller('InicializacionCtrl', function($scope, $state) {
-        $state.go('app.login');
+    .controller('LoginCtrl', function($scope, $rootScope, $state, $http, Mama, Internet) {
+    
+    	$scope.datosInicio = {cedula: '' };
+    
+    	//Autenticar a la Mamá Empresaria
+        $scope.capturarCedula = function() {
+            if(Internet.get()){
+            	console.log($rootScope.configuracion);
+            	resultado = Mama.autenticar($scope.datosInicio.cedula, $rootScope, $http, function(data){
+            		console.log("resultado para " + $scope.datosInicio.cedula);
+                  	console.log(data);
+                    $state.go('app.menu.tabs.home');	
+            	});
+            	
+            }else{
+                alert("Por favor verifica tu conexión a internet")
+            }
+        }
     })
 
     .controller('HomeCtrl', function($scope, $state) {
         console.log('Inicializando Home');
     })
 
-    .controller('MisPuntosCtrl', function($scope, $state, Puntos) {
-        $scope.puntos = Puntos.get();
+    .controller('MisPuntosCtrl', function($scope, $state, Mama) {
+        $scope.puntos = Mama.getPuntos();
     })
 
     .controller('PuntosPagoCtrl', function($scope, $state, PuntosPago) {

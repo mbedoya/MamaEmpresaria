@@ -1,6 +1,6 @@
 angular.module('novaventa.services', [])
 
-    .factory('Puntos', function() {
+    .factory('Mama', function() {
 
         var puntos = {
             "productosRedimidos": [   {
@@ -21,8 +21,20 @@ angular.module('novaventa.services', [])
         };
 
         return {
-            get: function() {
+            getPuntos: function() {
                 return puntos;
+            },
+            autenticar: function(cedula, rootScope, http, fx) {
+            	http.get(rootScope.configuracion.ip_servidores +  "/AntaresWebServices/interfaceAntares/validacionAntares/" + cedula +"/1").
+							success(function(data, status, headers, config) {
+								console.log("success");
+								fx(data);
+							}).
+							error(function(data, status, headers, config) {
+								console.log("error");
+								fx({});
+							});
+            
             }
         }
     })
