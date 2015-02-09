@@ -236,6 +236,10 @@ angular.module('novaventa.controllers', [])
             alert("Por favor verifica tu conexión a internet");
         }
 
+        $scope.campanaVencimientoPuntos = function(){
+            return String($rootScope.puntos.agnoCampagnaVencimiento).substring(4,2) + " de " + String($rootScope.puntos.agnoCampagnaVencimiento).substring(0,4);
+        }
+
         $scope.puntosDisponibles = function(){
             return $rootScope.puntos.puntosDisponibles;
         }
@@ -254,6 +258,18 @@ angular.module('novaventa.controllers', [])
 
         $scope.mostrarPuntosRedimidos = function(){
             return Number($rootScope.puntos.puntosRedimidos) > 0;
+        }
+
+        $scope.mostrarPuntosAVencer = function(){
+            return Number($rootScope.puntos.puntosAVerncer) > 0;
+        }
+
+        $scope.mostrarPuntosPorPerder = function(){
+            return Number($rootScope.puntos.puntosPorPerder) > 0;
+        }
+
+        $scope.fechaMontajePedidoCampana = function(){
+            return $rootScope.campana.fechaMontajePedido;
         }
 
     })
