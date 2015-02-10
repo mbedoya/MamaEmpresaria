@@ -4,7 +4,9 @@ angular.module('novaventa.services', [])
 
         return {
             getPuntos: function(cedula, http, fx) {
-                http.get("http://www.mocky.io/v2/54d91ad61fad9a7e0b0fb3e5").
+                //http.get("http://www.mocky.io/v2/54d91ad61fad9a7e0b0fb3e5"). - con todo
+                //http.get("http://www.mocky.io/v2/54da75db267da3630cb0f39f"). - sin puntos redimidos
+                    http.get("http://www.mocky.io/v2/54d91ad61fad9a7e0b0fb3e5").
                     success(function(data, status, headers, config) {
                         fx(true, data);
                     }).
@@ -27,21 +29,16 @@ angular.module('novaventa.services', [])
 
     .factory('PuntosPago', function() {
 
-        var puntos = [
-            {
-                "nombre": "Panadería Pepe",
-                "direccion": "Calle 10",
-                "distancia": 2.3
-            },
-            {
-                "nombre": "Bancolombia Unicentro",
-                "direccion": "Carrera 66B",
-                "distancia": 3
-            }];
-
         return {
-            get: function() {
-                return puntos;
+            get: function(latitud, longitud, http, fx) {
+                http.get("http://www.mocky.io/v2/54da1eff267da3fc05b0f358").
+                    success(function(data, status, headers, config) {
+                        console.log(data);
+                        fx(true, data);
+                    }).
+                    error(function(data, status, headers, config) {
+                        fx(false, {});
+                    });
             }
         }
     })

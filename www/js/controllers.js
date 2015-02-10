@@ -74,7 +74,13 @@ angular.module('novaventa.controllers', [])
                                 $state.go('app.menu.tabs.home');
 
                             }else{
-                                alert("Tu rol no es válido para nuestra Aplicación");
+
+                                if(data.tiposUsuarios){
+                                    alert("Tu rol no es válido para nuestra Aplicación");
+                                }else{
+                                    alert("En este momento no podemos consultar tu información");
+                                }
+
                             }
 
 
@@ -157,7 +163,12 @@ angular.module('novaventa.controllers', [])
                             $state.go('app.menu.tabs.home');
 
                         }else{
-                            alert("Tu rol no es válido para nuestra Aplicación");
+
+                            if(data.tiposUsuarios){
+                                alert("Tu rol no es válido para nuestra Aplicación");
+                            }else{
+                                alert("En este momento no podemos consultar tu información");
+                            }
                         }
 
 
@@ -226,7 +237,6 @@ angular.module('novaventa.controllers', [])
                 if(success){
 
                     $rootScope.puntos = data;
-                    $scope.puntos = data;
 
                 }else{
                     alert("En este momento no podemos acceder a tu información");
@@ -274,11 +284,23 @@ angular.module('novaventa.controllers', [])
 
     })
 
-    .controller('PuntosPagoCtrl', function($scope, $state, PuntosPago) {
-        $scope.puntos = PuntosPago.get();
+    .controller('PuntosPagoCtrl', function($scope, $rootScope, $state, $http, PuntosPago) {
+
+        PuntosPago.get("", "", $http, function(success, data){
+            if(success){
+
+                $scope.puntos = data.puntosDePago;
+                $rootScope.puntosPago = data.puntosDePago;
+
+            }else{
+                alert("En este momento no podemos acceder a la información de puntos de pago");
+            }
+
+        });
+
     })
 
-    .controller('PuntosPagoMapaCtrl', function($scope, $state, PuntosPago) {
+    .controller('PuntosPagoMapaCtrl', function($scope, $rootScope, $state, PuntosPago) {
 
         console.log('Puntos pago mapa - initialize');
 
@@ -286,7 +308,7 @@ angular.module('novaventa.controllers', [])
 
         var mapOptions = {
             center: myLatlng,
-            zoom: 16,
+            zoom: 14,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         var map = new google.maps.Map(document.getElementById("map"),
@@ -294,35 +316,37 @@ angular.module('novaventa.controllers', [])
 
         var marker = new google.maps.Marker({
             position: myLatlng,
+            icon: {
+                path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                scale: 4
+            },
             map: map,
             title: 'Novaventa'
         });
 
-        //Marker + infowindow + angularjs compiled ng-click
-        //var contentString = "<div><a ng-click='clickTest()'>Click me!</a></div>";
-        //var compiled = $compile(contentString)($scope);
+        for (i = 0; i < $rootScope.puntosPago.length; i++) {
 
-        /*
-        var infowindow = new google.maps.InfoWindow({
-            content: contentString;
-        });
+            var latlngPunto = new google.maps.LatLng($rootScope.puntosPago[i].latitud, $rootScope.puntosPago[i].longitud);
 
+            var nombre = $rootScope.puntosPago[i].nombre;
 
+            var markerPunto = new google.maps.Marker({
+                position: latlngPunto,
+                map: map,
+                title:  nombre
+            });
 
-        google.maps.event.addListener(marker, 'click', function() {
-            infowindow.open(map,marker);
-        });
-        */
+            var infowindow = new google.maps.InfoWindow({
+                content: '<div style="height:25px">' + nombre + '</div>'
+            });
 
-        console.log(map);
+            google.maps.event.addListener(markerPunto, 'click', function() {
+                infowindow.open(map,markerPunto);
+            });
+        }
 
         $scope.map = map;
 
-        function initialize() {
-
-
-        }
-        google.maps.event.addDomListener(window, 'load', initialize);
-
     })
+
 ;
