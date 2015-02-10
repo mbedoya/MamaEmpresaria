@@ -302,8 +302,6 @@ angular.module('novaventa.controllers', [])
 
     .controller('PuntosPagoMapaCtrl', function($scope, $rootScope, $state, PuntosPago) {
 
-        console.log('Puntos pago mapa - initialize');
-
         var myLatlng = new google.maps.LatLng(6.222611,-75.57935);
 
         var mapOptions = {
@@ -324,26 +322,24 @@ angular.module('novaventa.controllers', [])
             title: 'Novaventa'
         });
 
-        for (i = 0; i < $rootScope.puntosPago.length; i++) {
+        $.each ($rootScope.puntosPago, function(i, val){
 
-            var latlngPunto = new google.maps.LatLng($rootScope.puntosPago[i].latitud, $rootScope.puntosPago[i].longitud);
+            var nombrePunto = val.nombre;
 
-            var nombre = $rootScope.puntosPago[i].nombre;
-
-            var markerPunto = new google.maps.Marker({
-                position: latlngPunto,
+            var marcador = new google.maps.Marker({
+                position: new google.maps.LatLng(val.latitud, val.longitud),
                 map: map,
-                title:  nombre
+                title:  nombrePunto
             });
 
             var infowindow = new google.maps.InfoWindow({
-                content: '<div style="height:25px">' + nombre + '</div>'
+                content: '<div style="height:25px">' + nombrePunto + '</div>'
             });
 
-            google.maps.event.addListener(markerPunto, 'click', function() {
-                infowindow.open(map,markerPunto);
+            google.maps.event.addListener(marcador, 'click', function() {
+                infowindow.open(map,marcador);
             });
-        }
+        });
 
         $scope.map = map;
 
