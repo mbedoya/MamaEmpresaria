@@ -286,9 +286,29 @@ angular.module('novaventa.controllers', [])
 
     .controller('PuntosPagoCtrl', function($scope, $rootScope, $state, $http, PuntosPago) {
 
-        PuntosPago.get("", "", $http, function(success, data){
-            if(success){
 
+		//Establecer la posición por defecto para el Mapa si no se ha iniciado el GPS
+		$rootScope.posicion = { latitud: 6.222611, longitud: -75.57935};
+//6.222611,-75.57935
+
+		// onSuccess Callback
+// This method accepts a Position object, which contains the
+// current GPS coordinates
+//
+$scope.onSuccess = function(position) {
+    alert('Latitude: '          +           + '\n' +
+          'Longitude: '         + position.coords.longitude         + '\n' +
+          'Altitude: '          + position.coords.altitude          + '\n' +
+          'Accuracy: '          + position.coords.accuracy          + '\n' +
+          'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+          'Heading: '           + position.coords.heading           + '\n' +
+          'Speed: '             + position.coords.speed             + '\n' +
+          'Timestamp: '         + position.timestamp                + '\n');
+          
+          $rootScope.posicion = { latitud: position.coords.latitude, longitud: position.coords.longitude};
+          
+     PuntosPago.get(position.coords.latitude, position.coords.longitude, $http, function(success, data){
+            if(success){
                 $scope.puntos = data.puntosDePago;
                 $rootScope.puntosPago = data.puntosDePago;
 
@@ -296,13 +316,25 @@ angular.module('novaventa.controllers', [])
                 alert("En este momento no podemos acceder a la información de puntos de pago");
             }
 
-        });
+        });     
+};
+
+// onError Callback receives a PositionError object
+//
+  $scope.onError =function(error) {
+    alert('code: '    + error.code    + '\n' +
+          'message: ' + error.message + '\n');
+}
+
+navigator.geolocation.getCurrentPosition($scope.onSuccess, $scope.onError, { maximumAge: 3000, timeout: 5000, enableHighAccuracy: true };);
+
+        
 
     })
 
     .controller('PuntosPagoMapaCtrl', function($scope, $rootScope, $state, PuntosPago) {
 
-        var myLatlng = new google.maps.LatLng(6.222611,-75.57935);
+        var myLatlng = new google.maps.LatLng($rootScope.posicion.latitud, $rootScope.posicion.longitud);
 
         var mapOptions = {
             center: myLatlng,
