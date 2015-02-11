@@ -296,14 +296,6 @@ angular.module('novaventa.controllers', [])
 // current GPS coordinates
 //
 $scope.onSuccess = function(position) {
-    alert('Latitude: '          +           + '\n' +
-          'Longitude: '         + position.coords.longitude         + '\n' +
-          'Altitude: '          + position.coords.altitude          + '\n' +
-          'Accuracy: '          + position.coords.accuracy          + '\n' +
-          'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
-          'Heading: '           + position.coords.heading           + '\n' +
-          'Speed: '             + position.coords.speed             + '\n' +
-          'Timestamp: '         + position.timestamp                + '\n');
           
           $rootScope.posicion = { latitud: position.coords.latitude, longitud: position.coords.longitude};
           
@@ -333,6 +325,8 @@ navigator.geolocation.getCurrentPosition($scope.onSuccess, $scope.onError, { max
     })
 
     .controller('PuntosPagoMapaCtrl', function($scope, $rootScope, $state, PuntosPago) {
+
+		console.log($rootScope.posicion);
 
         var myLatlng = new google.maps.LatLng($rootScope.posicion.latitud, $rootScope.posicion.longitud);
 
