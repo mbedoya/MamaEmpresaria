@@ -400,6 +400,8 @@ angular.module('novaventa.controllers', [])
         $.each ($rootScope.puntosPago, function(i, val){
 
             var nombrePunto = val.nombre;
+            var direccion = val.direccion;
+            var horario = val.horario;
 
             var marcador = new google.maps.Marker({
                 position: new google.maps.LatLng(val.latitud, val.longitud),
@@ -408,7 +410,7 @@ angular.module('novaventa.controllers', [])
             });
 
             var infowindow = new google.maps.InfoWindow({
-                content: '<div style="height:25px">' + nombrePunto + '</div>'
+                content: '<div style="height:60px">' + nombrePunto + '<br />' + direccion + '<br />' + horario + '</div>'
             });
 
             google.maps.event.addListener(marcador, 'click', function() {
