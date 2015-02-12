@@ -480,7 +480,7 @@ angular.module('novaventa.controllers', [])
 
             $scope.interval = setInterval(function(){
 
-                if($scope.intentosGps < 8){
+                if($scope.intentosGps < 4){
                     console.log("intentando leer gps nuevamente");
                     navigator.geolocation.getCurrentPosition($scope.onSuccess, $scope.onError, { maximumAge: 3000, timeout: 8000, enableHighAccuracy: true });
                 }else{
