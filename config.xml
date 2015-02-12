@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.ionicframework.mamaempresaria604952" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.ionicframework.mamaempresaria604952" version="1.0.0" 
+xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" 
+xmlns:gap = "http://phonegap.com/ns/1.0" >
   <name>Mama Empresaria</name>
   <description>
         Aplicación de Novaventa para las Mamás Empresarias
@@ -19,5 +21,7 @@
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
+  
+  <gap:plugin name="org.apache.cordova.geolocation" />
   
 </widget>
