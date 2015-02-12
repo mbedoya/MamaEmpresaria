@@ -284,7 +284,7 @@ angular.module('novaventa.controllers', [])
 
     })
 
-    .controller('PuntosPagoCtrl', function($scope, $rootScope, $state, $http, PuntosPago) {
+    .controller('PuntosPagoCtrl', function($scope, $rootScope, $ionicLoading, $state, $http, PuntosPago) {
 
 
 		//Establecer la posición por defecto para el Mapa si no se ha iniciado el GPS
@@ -296,7 +296,9 @@ angular.module('novaventa.controllers', [])
 // current GPS coordinates
 //
 $scope.onSuccess = function(position) {
-          
+
+        $ionicLoading.hide();
+                  
           $rootScope.posicion = { latitud: position.coords.latitude, longitud: position.coords.longitude};
           
      PuntosPago.get(position.coords.latitude, position.coords.longitude, $http, function(success, data){
@@ -314,11 +316,29 @@ $scope.onSuccess = function(position) {
 // onError Callback receives a PositionError object
 //
   $scope.onError =function(error) {
-    alert('code: '    + error.code    + '\n' +
+  
+    $ionicLoading.hide();
+    
+  	console.log('code: '    + error.code    + '\n' +
           'message: ' + error.message + '\n');
+          
+  	alert("Lo sentimos, no podemos encontrar tu ubicación");
+  	$state.go("app.menu.tabs.puntospago.puntospagomapa");
+    
 }
 
-navigator.geolocation.getCurrentPosition($scope.onSuccess, $scope.onError, { maximumAge: 3000, enableHighAccuracy: true });
+if(navigator && navigator.geolocation){
+   $scope.loading =  $ionicLoading.show({
+                        template: 'Detectando ubicación...'
+                    });
+                    
+   navigator.geolocation.getCurrentPosition($scope.onSuccess, $scope.onError, { maximumAge: 3000, enableHighAccuracy: true });                 
+}else{
+   alert("Lo sentimos, no podemos encontrar tu ubicación");
+  $state.go("app.menu.tabs.puntospago.puntospagomapa");
+}
+
+
 
         
 
