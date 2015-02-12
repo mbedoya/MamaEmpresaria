@@ -19,9 +19,17 @@ angular.module('novaventa.services', [])
             	       {
             	         urlServicio = "http://www.mocky.io/v2/54dcd39625c3389004d653c2";
             	       }else{
-            		      
+
+                            if(cedula == "43110847")
+                            {
+                                urlServicio = "http://www.mocky.io/v2/54dcf75f25c3389607d653df";
+                            }else{
+                                if(cedula == "43544882")
+                                {
+                                    urlServicio = "http://www.mocky.io/v2/54dcf9bd25c338bd07d653e0";
+                                }
+                            }
             	       }
-            		   
             	    }
             	}
             	

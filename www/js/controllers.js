@@ -308,72 +308,68 @@ angular.module('novaventa.controllers', [])
 
 		//Establecer la posición por defecto para el Mapa si no se ha iniciado el GPS
 		$rootScope.posicion = { latitud: 6.222611, longitud: -75.57935};
-//6.222611,-75.57935
 
-		// onSuccess Callback
-// This method accepts a Position object, which contains the
-// current GPS coordinates
-//
-$scope.onSuccess = function(position) {
+            // onSuccess Callback
+        // This method accepts a Position object, which contains the
+        // current GPS coordinates
+        //
+        $scope.onSuccess = function(position) {
 
-        $ionicLoading.hide();
-                  
-          $rootScope.posicion = { latitud: position.coords.latitude, longitud: position.coords.longitude};
-          
-          if(Internet.get()){
-        
-           $scope.loading =  $ionicLoading.show({
-                    template: 'Estamos buscando los puntos cercanos a ti...'
-                });
-          
-            PuntosPago.get(position.coords.latitude, position.coords.longitude, $http, function(success, data){
-            if(success){
                 $ionicLoading.hide();
-                $scope.puntos = data.puntosDePago;
-                $rootScope.puntosPago = data.puntosDePago;
 
-            }else{
-                 $ionicLoading.hide();
-                alert("En este momento no podemos acceder a la información de puntos de pago");
-            }
+                  $rootScope.posicion = { latitud: position.coords.latitude, longitud: position.coords.longitude};
 
-        });
-            
-        }else{
-            alert("Por favor verifica tu conexión a internet");
+                  if(Internet.get()){
+
+                   $scope.loading =  $ionicLoading.show({
+                            template: 'Estamos buscando los puntos cercanos a ti...'
+                        });
+
+                    PuntosPago.get(position.coords.latitude, position.coords.longitude, $http, function(success, data){
+                    if(success){
+                        $ionicLoading.hide();
+                        $scope.puntos = data.puntosDePago;
+                        $rootScope.puntosPago = data.puntosDePago;
+
+                    }else{
+                         $ionicLoading.hide();
+                        alert("En este momento no podemos acceder a la información de puntos de pago");
+                    }
+
+                });
+
+                }else{
+                    alert("Por favor verifica tu conexión a internet");
+                }
+
+
+        };
+
+        // onError Callback receives a PositionError object
+        //
+      $scope.onError =function(error) {
+
+            $ionicLoading.hide();
+
+            console.log('code: '    + error.code    + '\n' +
+                  'message: ' + error.message + '\n');
+
+          alert("Lo sentimos, no podemos encontrar tu ubicación, si dispones de GPS debes prenderlo para mejorar tu experiencia");
+            $state.go("app.menu.tabs.puntospago.puntospagomapa");
+
         }
-          
-          
-};
 
-// onError Callback receives a PositionError object
-//
-  $scope.onError =function(error) {
-  
-    $ionicLoading.hide();
-    
-  	console.log('code: '    + error.code    + '\n' +
-          'message: ' + error.message + '\n');
-          
-  	alert("Lo sentimos, no podemos encontrar tu ubicación");
-  	$state.go("app.menu.tabs.puntospago.puntospagomapa");
-    
-}
+        if(navigator && navigator.geolocation){
+           $scope.loading =  $ionicLoading.show({
+                                template: 'Estamos detectando tu ubicación...'
+                            });
 
-if(navigator && navigator.geolocation){
-   $scope.loading =  $ionicLoading.show({
-                        template: 'Estamos detectando tu ubicación...'
-                    });
-                    
-   navigator.geolocation.getCurrentPosition($scope.onSuccess, $scope.onError, { maximumAge: 3000, timeout: 8000, enableHighAccuracy: true });                 
-}else{
-   alert("Lo sentimos, no podemos encontrar tu ubicación");
-  $state.go("app.menu.tabs.puntospago.puntospagomapa");
-}
+           navigator.geolocation.getCurrentPosition($scope.onSuccess, $scope.onError, { maximumAge: 3000, timeout: 8000, enableHighAccuracy: true });
+        }else{
+           alert("Lo sentimos, no podemos encontrar tu ubicación, si dispones de GPS debes prenderlo para mejorar tu experiencia");
+          $state.go("app.menu.tabs.puntospago.puntospagomapa");
+        }
 
-
-
-        
 
     })
 
