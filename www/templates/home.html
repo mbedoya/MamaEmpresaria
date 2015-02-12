@@ -6,11 +6,11 @@
             </label>
             <label class="item item-input">
                 <span class="input-label">Piedra preciosa</span>
-                {{ segmento() }}
+                <span id="piedra">{{ segmento() }}</span>
             </label>
             <label class="item item-input">
                 <span class="input-label" ng-bind="etiquetaSaldo()"></span>
-                {{ saldo() | currency }}
+                <span id="saldo">{{ saldo() | currency }}</span>
             </label>
             <label class="item item-input" ng-show="mostrarCupo()">
                 <span class="input-label">Cupo</span>

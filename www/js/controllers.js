@@ -309,6 +309,8 @@ angular.module('novaventa.controllers', [])
 		//Establecer la posición por defecto para el Mapa si no se ha iniciado el GPS
 		$rootScope.posicion = { latitud: 6.222611, longitud: -75.57935};
 
+        $scope.mostrarError = true;
+
             // onSuccess Callback
         // This method accepts a Position object, which contains the
         // current GPS coordinates
@@ -349,13 +351,14 @@ angular.module('novaventa.controllers', [])
         //
       $scope.onError =function(error) {
 
-            $ionicLoading.hide();
+           $ionicLoading.hide();
 
             console.log('code: '    + error.code    + '\n' +
                   'message: ' + error.message + '\n');
 
-          alert("Lo sentimos, no podemos encontrar tu ubicación, si dispones de GPS debes prenderlo para mejorar tu experiencia");
-            $state.go("app.menu.tabs.puntospago.puntospagomapa");
+          $rootScope.errorPosicion = true;
+
+          $state.go("app.menu.tabs.puntospago.puntospagomapa");
 
         }
 
@@ -366,59 +369,129 @@ angular.module('novaventa.controllers', [])
 
            navigator.geolocation.getCurrentPosition($scope.onSuccess, $scope.onError, { maximumAge: 3000, timeout: 8000, enableHighAccuracy: true });
         }else{
-           alert("Lo sentimos, no podemos encontrar tu ubicación, si dispones de GPS debes prenderlo para mejorar tu experiencia");
-          $state.go("app.menu.tabs.puntospago.puntospagomapa");
+            alert("Lo sentimos, no es posible detectar tu ubicación, veras los puntos cercanos a tu zona");
+            $state.go("app.menu.tabs.puntospago.puntospagomapa");
         }
 
 
     })
 
-    .controller('PuntosPagoMapaCtrl', function($scope, $rootScope, $state, PuntosPago) {
+    .controller('PuntosPagoMapaCtrl', function($scope, $rootScope, $state, $ionicLoading, PuntosPago, Internet) {
 
-		console.log($rootScope.posicion);
+        $scope.intentosGps = 0;
 
-        var myLatlng = new google.maps.LatLng($rootScope.posicion.latitud, $rootScope.posicion.longitud);
 
-        var mapOptions = {
-            center: myLatlng,
-            zoom: 14,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var map = new google.maps.Map(document.getElementById("map"),
-            mapOptions);
+        $scope.inicializar = function(){
 
-        var marker = new google.maps.Marker({
-            position: myLatlng,
-            icon: {
-                path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-                scale: 4
-            },
-            map: map,
-            title: 'Novaventa'
-        });
+            console.log($rootScope.posicion);
 
-        $.each ($rootScope.puntosPago, function(i, val){
+            var myLatlng = new google.maps.LatLng($rootScope.posicion.latitud, $rootScope.posicion.longitud);
 
-            var nombrePunto = val.nombre;
-            var direccion = val.direccion;
-            var horario = val.horario;
+            var mapOptions = {
+                center: myLatlng,
+                zoom: 16,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("map"),
+                mapOptions);
 
-            var marcador = new google.maps.Marker({
-                position: new google.maps.LatLng(val.latitud, val.longitud),
+            var marker = new google.maps.Marker({
+                position: myLatlng,
+                icon: {
+                    path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                    scale: 4
+                },
                 map: map,
-                title:  nombrePunto
+                title: 'Novaventa'
             });
 
-            var infowindow = new google.maps.InfoWindow({
-                content: '<div style="height:60px">' + nombrePunto + '<br />' + direccion + '<br />' + horario + '</div>'
+            $.each ($rootScope.puntosPago, function(i, val){
+
+                var nombrePunto = val.nombre;
+                var direccion = val.direccion;
+                var horario = val.horario;
+
+                var marcador = new google.maps.Marker({
+                    position: new google.maps.LatLng(val.latitud, val.longitud),
+                    map: map,
+                    title:  nombrePunto
+                });
+
+                var infowindow = new google.maps.InfoWindow({
+                    content: '<div style="height:60px">' + nombrePunto + '<br />' + direccion + '<br />' + horario + '</div>'
+                });
+
+                google.maps.event.addListener(marcador, 'click', function() {
+                    infowindow.open(map,marcador);
+                });
             });
 
-            google.maps.event.addListener(marcador, 'click', function() {
-                infowindow.open(map,marcador);
-            });
-        });
+            $scope.map = map;
+        }
 
-        $scope.map = map;
+        $scope.onSuccess = function(position) {
+
+            $rootScope.posicion = { latitud: position.coords.latitude, longitud: position.coords.longitude};
+
+            if(Internet.get()){
+
+                $scope.loading =  $ionicLoading.show({
+                    template: 'Estamos buscando los puntos cercanos a ti...'
+                });
+
+                PuntosPago.get(position.coords.latitude, position.coords.longitude, $http, function(success, data){
+                    if(success){
+                        $ionicLoading.hide();
+                        $rootScope.puntosPago = data.puntosDePago;
+
+                        $scope.inicializar();
+
+                    }else{
+                        $ionicLoading.hide();
+                        alert("En este momento no podemos acceder a la información de puntos de pago");
+                    }
+
+                });
+
+            }else{
+                alert("Por favor verifica tu conexión a internet");
+            }
+
+
+        };
+
+        // onError Callback receives a PositionError object
+        //
+        $scope.onError =function(error) {
+
+            console.log('code: '    + error.code    + '\n' +
+                'message: ' + error.message + '\n');
+
+            $scope.intentosGps = $scope.intentosGps + 1;
+
+        }
+
+        if($rootScope.errorPosicion){
+            alert("Lo sentimos, no podemos encontrar tu ubicación, si dispones de GPS debes prenderlo para mejorar tu experiencia");
+
+            $scope.loading =  $ionicLoading.show({
+                template: 'Esperando activación de GPS...'
+            });
+
+            $scope.interval = setInterval(function(){
+
+                if($scope.intentosGps < 8){
+                    console.log("intentando leer gps nuevamente");
+                    navigator.geolocation.getCurrentPosition($scope.onSuccess, $scope.onError, { maximumAge: 3000, timeout: 8000, enableHighAccuracy: true });
+                }else{
+                    $ionicLoading.hide();
+                    clearInterval($scope.interval);
+                }
+
+            }, 4000);
+        }else{
+            $scope.inicializar();
+        }
 
     })
 
