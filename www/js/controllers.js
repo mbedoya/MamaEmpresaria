@@ -332,7 +332,7 @@ if(navigator && navigator.geolocation){
                         template: 'Detectando ubicación...'
                     });
                     
-   navigator.geolocation.getCurrentPosition($scope.onSuccess, $scope.onError, { maximumAge: 3000, enableHighAccuracy: false });                 
+   navigator.geolocation.getCurrentPosition($scope.onSuccess, $scope.onError, { maximumAge: 3000, enableHighAccuracy: true });                 
 }else{
    alert("Lo sentimos, no podemos encontrar tu ubicación");
   $state.go("app.menu.tabs.puntospago.puntospagomapa");
