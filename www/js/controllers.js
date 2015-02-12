@@ -17,10 +17,23 @@ angular.module('novaventa.controllers', [])
 
     })
 
-	.controller('InicializacionCtrl', function($scope, $rootScope, $ionicLoading, $http, $state, Internet, Mama) {
+	.controller('InicializacionCtrl', function($scope, $rootScope, $ionicPopup, $ionicLoading, $http, $state, Internet, Mama) {
+
+		// An alert dialog
+ $scope.showAlert = function() {
+   var alertPopup = $ionicPopup.alert({
+     title: 'Don\'t eat that!',
+     template: 'It might taste good'
+   });
+   alertPopup.then(function(res) {
+     console.log('Thank you for not eating my delicious ice cream cone');
+   });
+ };
 
         $scope.inicializar = function(){
 
+			//$scope.showAlert();
+			
             $rootScope.datos = {};
             $rootScope.puntos = {};
             $rootScope.configuracion = { ip_servidores: 'http://200.47.173.66:9081' };
@@ -230,15 +243,21 @@ angular.module('novaventa.controllers', [])
 
     })
 
-    .controller('MisPuntosCtrl', function($scope, $rootScope, $state, $http, Mama, Internet) {
+    .controller('MisPuntosCtrl', function($scope, $rootScope, $state, $ionicLoading, $http, Mama, Internet) {
 
         if(Internet.get()){
+        
+           $scope.loading =  $ionicLoading.show({
+                    template: 'Estamos consultando tus puntos...'
+                });
+          
             Mama.getPuntos($rootScope.datos.cedula, $http, function (success, data){
                 if(success){
-
+					$ionicLoading.hide();
                     $rootScope.puntos = data;
 
                 }else{
+                    $ionicLoading.hide();
                     alert("En este momento no podemos acceder a tu información");
                 }
             });
@@ -265,26 +284,26 @@ angular.module('novaventa.controllers', [])
         $scope.puntosRedimidos = function(){
             return $rootScope.puntos.puntosRedimidos;
         }
-
-        $scope.mostrarPuntosRedimidos = function(){
-            return Number($rootScope.puntos.puntosRedimidos) > 0;
-        }
-
-        $scope.mostrarPuntosAVencer = function(){
-            return Number($rootScope.puntos.puntosAVerncer) > 0;
-        }
-
-        $scope.mostrarPuntosPorPerder = function(){
-            return Number($rootScope.puntos.puntosPorPerder) > 0;
-        }
-
+        
         $scope.fechaMontajePedidoCampana = function(){
             return $rootScope.campana.fechaMontajePedido;
         }
 
+        $scope.mostrarPuntosRedimidos = function(){
+            return $rootScope.puntos.puntosRedimidos && Number($rootScope.puntos.puntosRedimidos) > 0;
+        }
+
+        $scope.mostrarPuntosAVencer = function(){
+            return $rootScope.puntos.puntosAVerncer && Number($rootScope.puntos.puntosAVerncer) > 0;
+        }
+
+        $scope.mostrarPuntosPorPerder = function(){
+            return $rootScope.puntos.puntosPorPerder && Number($rootScope.puntos.puntosPorPerder) > 0;
+        }
+
     })
 
-    .controller('PuntosPagoCtrl', function($scope, $rootScope, $ionicLoading, $state, $http, PuntosPago) {
+    .controller('PuntosPagoCtrl', function($scope, $rootScope, $ionicLoading, $state, $http, PuntosPago, Internet) {
 
 
 		//Establecer la posición por defecto para el Mapa si no se ha iniciado el GPS
@@ -301,16 +320,30 @@ $scope.onSuccess = function(position) {
                   
           $rootScope.posicion = { latitud: position.coords.latitude, longitud: position.coords.longitude};
           
-     PuntosPago.get(position.coords.latitude, position.coords.longitude, $http, function(success, data){
+          if(Internet.get()){
+        
+           $scope.loading =  $ionicLoading.show({
+                    template: 'Estamos buscando los puntos cercanos a ti...'
+                });
+          
+            PuntosPago.get(position.coords.latitude, position.coords.longitude, $http, function(success, data){
             if(success){
+                $ionicLoading.hide();
                 $scope.puntos = data.puntosDePago;
                 $rootScope.puntosPago = data.puntosDePago;
 
             }else{
+                 $ionicLoading.hide();
                 alert("En este momento no podemos acceder a la información de puntos de pago");
             }
 
-        });     
+        });
+            
+        }else{
+            alert("Por favor verifica tu conexión a internet");
+        }
+          
+          
 };
 
 // onError Callback receives a PositionError object
@@ -329,7 +362,7 @@ $scope.onSuccess = function(position) {
 
 if(navigator && navigator.geolocation){
    $scope.loading =  $ionicLoading.show({
-                        template: 'Detectando ubicación...'
+                        template: 'Estamos detectando tu ubicación...'
                     });
                     
    navigator.geolocation.getCurrentPosition($scope.onSuccess, $scope.onError, { maximumAge: 3000, timeout: 8000, enableHighAccuracy: true });                 

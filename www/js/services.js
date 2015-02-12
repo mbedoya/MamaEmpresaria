@@ -4,9 +4,28 @@ angular.module('novaventa.services', [])
 
         return {
             getPuntos: function(cedula, http, fx) {
-                //http.get("http://www.mocky.io/v2/54d91ad61fad9a7e0b0fb3e5"). - con todo
-                //http.get("http://www.mocky.io/v2/54da75db267da3630cb0f39f"). - sin puntos redimidos
-                    http.get("http://www.mocky.io/v2/54d91ad61fad9a7e0b0fb3e5").
+            
+            	var urlServicio = "http://www.mocky.io/v2/54d91ad61fad9a7e0b0fb3e5";
+            	
+            	if(cedula == "43361856")
+            	{
+            	   urlServicio = "http://www.mocky.io/v2/54dccfa925c3389004d653bf";
+            	}else{
+            		if(cedula == "42692122")
+            	    {
+            	      urlServicio = "http://www.mocky.io/v2/54dcd17225c3388a04d653c1";
+            	    }else{
+            	        if(cedula == "43671595")
+            	       {
+            	         urlServicio = "http://www.mocky.io/v2/54dcd39625c3389004d653c2";
+            	       }else{
+            		      
+            	       }
+            		   
+            	    }
+            	}
+            	
+                    http.get(urlServicio).
                     success(function(data, status, headers, config) {
                         fx(true, data);
                     }).
