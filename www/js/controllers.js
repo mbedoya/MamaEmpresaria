@@ -376,7 +376,7 @@ angular.module('novaventa.controllers', [])
 
     })
 
-    .controller('PuntosPagoMapaCtrl', function($scope, $rootScope, $state, $ionicLoading, PuntosPago, Internet) {
+    .controller('PuntosPagoMapaCtrl', function($scope, $rootScope, $state, $http, $ionicLoading, PuntosPago, Internet) {
 
         $scope.intentosGps = 0;
 
@@ -389,7 +389,7 @@ angular.module('novaventa.controllers', [])
 
             var mapOptions = {
                 center: myLatlng,
-                zoom: 16,
+                zoom: 14,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
             var map = new google.maps.Map(document.getElementById("map"),
@@ -430,6 +430,9 @@ angular.module('novaventa.controllers', [])
         }
 
         $scope.onSuccess = function(position) {
+        
+        	$ionicLoading.hide();
+        	clearInterval($scope.interval);
 
             $rootScope.posicion = { latitud: position.coords.latitude, longitud: position.coords.longitude};
 
@@ -486,6 +489,25 @@ angular.module('novaventa.controllers', [])
                 }else{
                     $ionicLoading.hide();
                     clearInterval($scope.interval);
+                    
+                    //Mostrar Puntos Acorde a la Zona de la Mamá
+                    $scope.loading =  $ionicLoading.show({
+                    template: 'Estamos buscando los puntos cercanos tu zona...'
+                });
+
+                PuntosPago.get(6.222611, -75.57935, $http, function(success, data){
+                    if(success){
+                        $ionicLoading.hide();
+                        $rootScope.puntosPago = data.puntosDePago;
+
+                        $scope.inicializar();
+
+                    }else{
+                        $ionicLoading.hide();
+                        alert("En este momento no podemos acceder a la información de puntos de pago");
+                    }
+
+                });
                 }
 
             }, 4000);
