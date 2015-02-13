@@ -13,7 +13,7 @@ angular.module('novaventa.services', [])
             	}else{
             		if(cedula == "42692122")
             	    {
-            	      urlServicio = "http://www.mocky.io/v2/54dcd17225c3388a04d653c1";
+            	      urlServicio = "http://www.mocky.io/v2/54dd4ca825c338740ed65419";
             	    }else{
             	        if(cedula == "43671595")
             	       {

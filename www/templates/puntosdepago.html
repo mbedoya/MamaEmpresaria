@@ -1,7 +1,7 @@
 <ion-view view-title="Puntos de Pago - Listado" >
     <ion-content>
         <ion-list>
-            <ion-item  class="item" ng-repeat="punto in puntos" href="#/app/menu/tabs/puntospago/puntospagodetalle/0" >
+            <ion-item  class="item" ng-repeat="punto in puntos()" href="#/app/menu/tabs/puntospago/puntospagodetalle/0" >
                 <h2>{{ punto.nombre }}</h2><br />
                 {{ punto.direccion }} <br />
                 {{ punto.horario }}

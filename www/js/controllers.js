@@ -73,6 +73,8 @@ angular.module('novaventa.controllers', [])
                                 $rootScope.datos.segmento = data.clasificacionValor;
                                 $rootScope.datos.cupo = data.cupo;
                                 $rootScope.datos.saldo = data.saldoBalance;
+                                $rootScope.datos.valorFlexibilizacion = data.valorFlexibilizacion;
+                                
 
                                 $rootScope.campana = {numero: '-', fechaMontajePedido:'-'};
 
@@ -155,6 +157,7 @@ angular.module('novaventa.controllers', [])
                             $rootScope.datos.segmento = data.clasificacionValor;
                             $rootScope.datos.cupo = data.cupo;
                             $rootScope.datos.saldo = data.saldoBalance;
+                            $rootScope.datos.valorFlexibilizacion = data.valorFlexibilizacion;
 
                             $rootScope.campana = {numero: '-', fechaMontajePedido:'-'};
 
@@ -165,6 +168,15 @@ angular.module('novaventa.controllers', [])
                                 error(function(data, status, headers, config) {
                                     console.log("Error consultando los datos de campaña");
                                 });
+                                
+                            Mama.getPuntos($rootScope.datos.cedula, $http, function (success, data){
+                if(success){
+                    $rootScope.puntos = data;
+
+                }else{
+                    //alert("En este momento no podemos acceder a tu información");
+                }
+            });
 
                             //Almacenar la cédula si hay almacenamiento local
                             if(localStorage){
@@ -240,6 +252,10 @@ angular.module('novaventa.controllers', [])
         $scope.fechaMontajePedidoCampana = function(){
             return $rootScope.campana.fechaMontajePedido;
         }
+        
+        $scope.flexibilizacion = function(){
+           return $rootScope.datos.valorFlexibilizacion;
+        }
 
     })
 
@@ -310,6 +326,10 @@ angular.module('novaventa.controllers', [])
 		$rootScope.posicion = { latitud: 6.222611, longitud: -75.57935};
 
         $scope.mostrarError = true;
+        
+        $scope.puntos = function(){
+        	return $rootScope.puntosPago;
+        }
 
             // onSuccess Callback
         // This method accepts a Position object, which contains the
@@ -330,7 +350,7 @@ angular.module('novaventa.controllers', [])
                     PuntosPago.get(position.coords.latitude, position.coords.longitude, $http, function(success, data){
                     if(success){
                         $ionicLoading.hide();
-                        $scope.puntos = data.puntosDePago;
+                        //$scope.puntos = data.puntosDePago;
                         $rootScope.puntosPago = data.puntosDePago;
 
                     }else{
