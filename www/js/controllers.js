@@ -31,7 +31,7 @@ angular.module('novaventa.controllers', [])
 
         }, function(){
             alert("ga error");
-        }, "UA-12345678-1", 10);
+        }, "UA-59821648-1", 10);
 
 		// An alert dialog
  $scope.showAlert = function() {
