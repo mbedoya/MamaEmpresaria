@@ -19,8 +19,19 @@ angular.module('novaventa.controllers', [])
 
 	.controller('InicializacionCtrl', function($scope, $rootScope, $ionicPopup, $ionicLoading, $http, $state, Internet, Mama) {
 
+        $rootScope.gaPlugin = window.plugins.gaPlugin;
+        $rootScope.gaPlugin.init(function(){
+            alert("ga ok");
 
-        if(typeof analytics !== "undefined") { analytics.trackView("Inicio"); }
+            $rootScope.gaPlugin.trackPage(function(){
+                alert("ga inicio ok");
+            }, function(){
+                alert("ga inicio error");
+            }, "Inicio");
+
+        }, function(){
+            alert("ga error");
+        }, "UA-12345678-1", 10);
 
 		// An alert dialog
  $scope.showAlert = function() {

@@ -17,12 +17,6 @@ angular.module('novaventa', ['ionic', 'novaventa.controllers', 'novaventa.servic
       StatusBar.styleDefault();
     }
 
-      if(typeof analytics !== "undefined") {
-          analytics.startTrackerWithId("UA-59821648-1");
-      } else {
-          console.log("Google Analytics Unavailable");
-      }
-
   });
 })
     .config(['$ionicConfigProvider', function($ionicConfigProvider) {
