@@ -23,5 +23,6 @@ xmlns:gap = "http://phonegap.com/ns/1.0" >
   </feature>
   
   <gap:plugin name="org.apache.cordova.geolocation" />
+  <gap:plugin name="com.danielcwilson.plugins.analytics.UniversalAnalyticsPlugin" />
   
 </widget>

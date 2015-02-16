@@ -19,6 +19,9 @@ angular.module('novaventa.controllers', [])
 
 	.controller('InicializacionCtrl', function($scope, $rootScope, $ionicPopup, $ionicLoading, $http, $state, Internet, Mama) {
 
+
+        if(typeof analytics !== "undefined") { analytics.trackView("Inicio"); }
+
 		// An alert dialog
  $scope.showAlert = function() {
    var alertPopup = $ionicPopup.alert({
@@ -121,7 +124,9 @@ angular.module('novaventa.controllers', [])
     })
 
     .controller('LoginCtrl', function($scope, $rootScope, $ionicLoading, $state, $http, Mama, Internet) {
-    
+
+        if(typeof analytics !== "undefined") { analytics.trackView("Inicio de sesión"); }
+
     	$scope.datosInicio = {cedula: '' };
     
     	//Autenticar a la Mamá Empresaria
@@ -209,6 +214,8 @@ angular.module('novaventa.controllers', [])
 
     .controller('HomeCtrl', function($scope, $rootScope, $state) {
 
+        if(typeof analytics !== "undefined") { analytics.trackView("Home"); }
+
         $scope.mostrarCupo = function(){
             return Number($rootScope.datos.cupo) > 0;
         }
@@ -260,6 +267,8 @@ angular.module('novaventa.controllers', [])
     })
 
     .controller('MisPuntosCtrl', function($scope, $rootScope, $state, $ionicLoading, $http, Mama, Internet) {
+
+        if(typeof analytics !== "undefined") { analytics.trackView("Mis Puntos"); }
 
         if(Internet.get()){
         
@@ -321,6 +330,7 @@ angular.module('novaventa.controllers', [])
 
     .controller('PuntosPagoCtrl', function($scope, $rootScope, $ionicLoading, $state, $http, PuntosPago, Internet) {
 
+        if(typeof analytics !== "undefined") { analytics.trackView("Puntos de Pago"); }
 
 		//Establecer la posición por defecto para el Mapa si no se ha iniciado el GPS
 		$rootScope.posicion = { latitud: 6.222611, longitud: -75.57935};

@@ -12,9 +12,17 @@ angular.module('novaventa', ['ionic', 'novaventa.controllers', 'novaventa.servic
     if(window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
+
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
+
+      if(typeof analytics !== "undefined") {
+          analytics.startTrackerWithId("UA-59821648-1");
+      } else {
+          console.log("Google Analytics Unavailable");
+      }
+
   });
 })
     .config(['$ionicConfigProvider', function($ionicConfigProvider) {
