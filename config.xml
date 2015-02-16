@@ -22,9 +22,10 @@ xmlns:gap = "http://phonegap.com/ns/1.0" >
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
 
+    <!--
     <feature name="GAPlugin" >
         < param name="android-package" value="com.adobe.plugins.GAPlugin"/>
-    </feature>
+    </feature> -->
   
   <gap:plugin name="org.apache.cordova.geolocation" />
   <gap:plugin name="com.adobe.plugins.gaplugin" />
