@@ -19,6 +19,8 @@ angular.module('novaventa.controllers', [])
 
 	.controller('InicializacionCtrl', function($scope, $rootScope, $ionicPopup, $ionicLoading, $http, $state, Internet, Mama, GA) {
 
+    alert("init");
+
      setTimeout(function(){
        if(window.plugins && window.plugins.gaPlugin){
     
