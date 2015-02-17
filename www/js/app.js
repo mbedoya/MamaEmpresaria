@@ -16,19 +16,6 @@ angular.module('novaventa', ['ionic', 'novaventa.controllers', 'novaventa.servic
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
-    
-    alert("antes ga");
-    if(window.plugins && window.plugins.gaPlugin){
-    
-        alert("plugins");
-    	$rootScope.gaPlugin = window.plugins.gaPlugin;
-    	$rootScope.gaPlugin.init(function(){
-                alert("ga ok");
-
-            }, function(){
-                alert("ga error");
-            }, "UA-59821648-1", 10);
-    }
 
   });
 })
