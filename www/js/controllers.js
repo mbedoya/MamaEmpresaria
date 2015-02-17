@@ -19,30 +19,35 @@ angular.module('novaventa.controllers', [])
 
 	.controller('InicializacionCtrl', function($scope, $rootScope, $ionicPopup, $ionicLoading, $http, $state, Internet, Mama) {
 
-        $rootScope.gaPlugin = window.plugins.gaPlugin;
-        $rootScope.gaPlugin.init(function(){
-            alert("ga ok");
+        try {
+            $rootScope.gaPlugin = window.plugins.gaPlugin;
+            $rootScope.gaPlugin.init(function(){
+                alert("ga ok");
 
-            $rootScope.gaPlugin.trackPage(function(){
-                alert("ga inicio ok");
+                $rootScope.gaPlugin.trackPage(function(){
+                    alert("ga inicio ok");
+                }, function(){
+                    alert("ga inicio error");
+                }, "Inicio");
+
             }, function(){
-                alert("ga inicio error");
-            }, "Inicio");
-
-        }, function(){
-            alert("ga error");
-        }, "UA-59821648-1", 10);
+                alert("ga error");
+            }, "UA-59821648-1", 10);
+        }
+        catch(err) {
+            alert(err.message);
+        }
 
 		// An alert dialog
- $scope.showAlert = function() {
-   var alertPopup = $ionicPopup.alert({
-     title: 'Don\'t eat that!',
-     template: 'It might taste good'
-   });
-   alertPopup.then(function(res) {
-     console.log('Thank you for not eating my delicious ice cream cone');
-   });
- };
+         $scope.showAlert = function() {
+           var alertPopup = $ionicPopup.alert({
+             title: 'Don\'t eat that!',
+             template: 'It might taste good'
+           });
+           alertPopup.then(function(res) {
+             console.log('Thank you for not eating my delicious ice cream cone');
+           });
+         };
 
         $scope.inicializar = function(){
 

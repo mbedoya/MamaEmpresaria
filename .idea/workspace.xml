@@ -26,10 +26,10 @@
       <file leaf-file-name="controllers.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/www/js/controllers.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5173913" vertical-offset="323" max-vertical-offset="9622">
-              <caret line="33" column="25" selection-start-line="33" selection-start-column="25" selection-end-line="33" selection-end-column="25" />
+            <state vertical-scroll-proportion="0.18478261" vertical-offset="306" max-vertical-offset="9707">
+              <caret line="23" column="12" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="12" />
               <folding>
-                <marker date="1424128490269" expanded="true" signature="16521:16532" placeholder="..." />
+                <marker date="1424129201658" expanded="true" signature="16724:16735" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -475,7 +475,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="408" max-vertical-offset="578">
           <caret line="24" column="26" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="26" />
           <folding>
-            <marker date="1424128490269" expanded="true" signature="16521:16532" placeholder="..." />
+            <marker date="1424129201658" expanded="true" signature="16724:16735" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -550,7 +550,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="476">
           <caret line="19" column="37" selection-start-line="19" selection-start-column="37" selection-end-line="19" selection-end-column="37" />
           <folding>
-            <marker date="1424128490269" expanded="true" signature="16521:16532" placeholder="..." />
+            <marker date="1424129201658" expanded="true" signature="16724:16735" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -787,10 +787,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/www/js/controllers.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5173913" vertical-offset="323" max-vertical-offset="9622">
-          <caret line="33" column="25" selection-start-line="33" selection-start-column="25" selection-end-line="33" selection-end-column="25" />
+        <state vertical-scroll-proportion="0.18478261" vertical-offset="306" max-vertical-offset="9707">
+          <caret line="23" column="12" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="12" />
           <folding>
-            <marker date="1424128490269" expanded="true" signature="16521:16532" placeholder="..." />
+            <marker date="1424129201658" expanded="true" signature="16724:16735" placeholder="..." />
           </folding>
         </state>
       </provider>
