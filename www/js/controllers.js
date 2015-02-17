@@ -19,8 +19,8 @@ angular.module('novaventa.controllers', [])
 
 	.controller('InicializacionCtrl', function($scope, $rootScope, $ionicPopup, $ionicLoading, $http, $state, Internet, Mama, GA) {
 
-
-      if(window.plugins && window.plugins.gaPlugin){
+     setTimeout(function(){
+       if(window.plugins && window.plugins.gaPlugin){
     
         alert("plugins");
     	$rootScope.gaPlugin = window.plugins.gaPlugin;
@@ -30,7 +30,12 @@ angular.module('novaventa.controllers', [])
             }, function(){
                 alert("ga error");
             }, "UA-59821648-1", 10);
-    }
+    }else{
+      alert("no plugins");
+    }  
+     }, 2000);
+
+      
 	   //Registro en Analytics      
        GA.trackPage($rootScope.gaPlugin, "App Iniciada");  
 
