@@ -76,8 +76,29 @@ angular.module('novaventa.services', [])
 
         return {
             get: function() {
-                //return connection && connection.type.toLowerCase() != "none";
-                return true;
+                //Se puede establecer el tipo de conexión a Internet?
+                if(connection && connection.type){
+                   return connection.type.toLowerCase() != "none";
+                }else{
+                   return true;
+                }
+            }
+        }
+    })
+    
+    .factory('GA', function() {
+
+        return {
+            trackPage: function(gaPlugin, page) {
+            
+               if(gaPlugin){
+                  gaPlugin.trackPage(function(){
+                    
+                   }, function(){
+                    
+                   }, page);
+               }
+                
             }
         }
     })

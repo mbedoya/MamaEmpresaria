@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('novaventa', ['ionic', 'novaventa.controllers', 'novaventa.services'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $rootScope) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -15,6 +15,17 @@ angular.module('novaventa', ['ionic', 'novaventa.controllers', 'novaventa.servic
 
     if(window.StatusBar) {
       StatusBar.styleDefault();
+    }
+    
+    if(window.plugins && window.plugins.gaPlugin){
+    
+    	$rootScope.gaPlugin = window.plugins.gaPlugin;
+    	$rootScope.gaPlugin.init(function(){
+                alert("ga ok");
+
+            }, function(){
+                alert("ga error");
+            }, "UA-59821648-1", 10);
     }
 
   });

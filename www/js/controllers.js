@@ -17,26 +17,10 @@ angular.module('novaventa.controllers', [])
 
     })
 
-	.controller('InicializacionCtrl', function($scope, $rootScope, $ionicPopup, $ionicLoading, $http, $state, Internet, Mama) {
+	.controller('InicializacionCtrl', function($scope, $rootScope, $ionicPopup, $ionicLoading, $http, $state, Internet, Mama, GA) {
 
-        try {
-            $rootScope.gaPlugin = window.plugins.gaPlugin;
-            $rootScope.gaPlugin.init(function(){
-                alert("ga ok");
-
-                $rootScope.gaPlugin.trackPage(function(){
-                    alert("ga inicio ok");
-                }, function(){
-                    alert("ga inicio error");
-                }, "Inicio");
-
-            }, function(){
-                alert("ga error");
-            }, "UA-59821648-1", 10);
-        }
-        catch(err) {
-            alert(err.message);
-        }
+	   //Registro en Analytics      
+       GA.trackPage($rootScope.gaPlugin, "App Iniciada");  
 
 		// An alert dialog
          $scope.showAlert = function() {
@@ -139,9 +123,10 @@ angular.module('novaventa.controllers', [])
 
     })
 
-    .controller('LoginCtrl', function($scope, $rootScope, $ionicLoading, $state, $http, Mama, Internet) {
+    .controller('LoginCtrl', function($scope, $rootScope, $ionicLoading, $state, $http, Mama, Internet, GA) {
 
-        if(typeof analytics !== "undefined") { analytics.trackView("Inicio de sesión"); }
+       //Registro en Analytics      
+       GA.trackPage($rootScope.gaPlugin, "Inicio de sesión");  
 
     	$scope.datosInicio = {cedula: '' };
     
@@ -228,9 +213,10 @@ angular.module('novaventa.controllers', [])
         }
     })
 
-    .controller('HomeCtrl', function($scope, $rootScope, $state) {
+    .controller('HomeCtrl', function($scope, $rootScope, $state, GA) {
 
-        if(typeof analytics !== "undefined") { analytics.trackView("Home"); }
+        //Registro en Analytics      
+       GA.trackPage($rootScope.gaPlugin, "Home");
 
         $scope.mostrarCupo = function(){
             return Number($rootScope.datos.cupo) > 0;
@@ -282,9 +268,10 @@ angular.module('novaventa.controllers', [])
 
     })
 
-    .controller('MisPuntosCtrl', function($scope, $rootScope, $state, $ionicLoading, $http, Mama, Internet) {
+    .controller('MisPuntosCtrl', function($scope, $rootScope, $state, $ionicLoading, $http, Mama, Internet, GA) {
 
-        if(typeof analytics !== "undefined") { analytics.trackView("Mis Puntos"); }
+         //Registro en Analytics      
+       GA.trackPage($rootScope.gaPlugin, "Mis Puntos");
 
         if(Internet.get()){
         
@@ -344,9 +331,10 @@ angular.module('novaventa.controllers', [])
 
     })
 
-    .controller('PuntosPagoCtrl', function($scope, $rootScope, $ionicLoading, $state, $http, PuntosPago, Internet) {
+    .controller('PuntosPagoCtrl', function($scope, $rootScope, $ionicLoading, $state, $http, PuntosPago, Internet, GA) {
 
-        if(typeof analytics !== "undefined") { analytics.trackView("Puntos de Pago"); }
+         //Registro en Analytics      
+       GA.trackPage($rootScope.gaPlugin, "Puntos de Pago");
 
 		//Establecer la posición por defecto para el Mapa si no se ha iniciado el GPS
 		$rootScope.posicion = { latitud: 6.222611, longitud: -75.57935};
@@ -422,7 +410,10 @@ angular.module('novaventa.controllers', [])
 
     })
 
-    .controller('PuntosPagoMapaCtrl', function($scope, $rootScope, $state, $http, $ionicLoading, PuntosPago, Internet) {
+    .controller('PuntosPagoMapaCtrl', function($scope, $rootScope, $state, $http, $ionicLoading, PuntosPago, Internet, GA) {
+
+         //Registro en Analytics      
+       GA.trackPage($rootScope.gaPlugin, "Puntos de Pago - Mapa");
 
         $scope.intentosGps = 0;
 
