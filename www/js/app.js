@@ -17,8 +17,10 @@ angular.module('novaventa', ['ionic', 'novaventa.controllers', 'novaventa.servic
       StatusBar.styleDefault();
     }
     
+    alert("antes ga");
     if(window.plugins && window.plugins.gaPlugin){
     
+        alert("plugins");
     	$rootScope.gaPlugin = window.plugins.gaPlugin;
     	$rootScope.gaPlugin.init(function(){
                 alert("ga ok");
