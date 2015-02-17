@@ -19,22 +19,13 @@ angular.module('novaventa.controllers', [])
 
 	.controller('InicializacionCtrl', function($scope, $rootScope, $ionicPopup, $ionicLoading, $http, $state, Internet, Mama, GA) {
 
-    alert("init");
-
      setTimeout(function(){
        if(window.plugins && window.plugins.gaPlugin){
-    
-        alert("plugins");
-    	$rootScope.gaPlugin = window.plugins.gaPlugin;
-    	$rootScope.gaPlugin.init(function(){
-                alert("ga ok");
-
-            }, function(){
-                alert("ga error");
-            }, "UA-59821648-1", 10);
-    }else{
-      alert("no plugins");
-    }  
+        	$rootScope.gaPlugin = window.plugins.gaPlugin;
+    	    $rootScope.gaPlugin.init(function(){
+              }, function(){
+              }, "UA-59821648-1", 10);
+             }  
      }, 2000);
 
       
