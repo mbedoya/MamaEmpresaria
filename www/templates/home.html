@@ -1,35 +1,35 @@
-<ion-view view-title="Home" >
-    <ion-content>
+<ion-view view-title="Novaventa" >
+    <ion-content >
         <div class="list" ng-init="init()">
             <label class="item item-input">
                 <span class="input-label" >{{ nombre() }}</span>
             </label>
-            <label class="item item-input">
-                <span class="input-label">Piedra preciosa</span>
-                <span id="piedra">{{ segmento() }}</span>
+            <label class="item">
+                Estás en Campaña {{campana.numero}}
             </label>
-            <label class="item item-input">
-                <span class="input-label" ng-bind="etiquetaSaldo()"></span>
-                <span id="saldo">{{ saldo() | currency }}</span>
+            <label class="item item-icon-right">
+                <i class="icon ion-star"></i>
+                Eres una Mamá {{ segmento() }}
             </label>
-            <label class="item item-input" ng-show="mostrarCupo()">
-                <span class="input-label">Cupo</span>
-                {{ cupo() | currency}}
+            <label class="item" ng-show="mostrarSaldoPagar()">
+                Tienes un pago pendiente por {{ saldo() | currency }}  <br />
+                y debes realizarlo hasta {{campana.fechaMontajePedido | date: 'MMMM dd' }}
+                <span class="item-note">
+                    Podrías quedar debiendo {{ flexibilizacion() | currency }}
+                </span>
             </label>
-            <label class="item item-input">
-                <span class="input-label">Flexibilización</span>
-                {{ flexibilizacion() | currency}}
+            <label class="item item-input" ng-show="mostrarSaldoFavor()">
+                Tienes un saldo a favor de {{ saldo() | currency }}
+            </label>
+            <label class="item" ng-show="mostrarCupo()">
+                Tienes un Cupo de {{ cupo() | currency}}
             </label>
             <label class="item item-input">
                 <span class="input-label">&nbsp;</span>
             </label>
-            <label class="item item-input">
-                <span class="input-label">Campaña</span>
-                <input type="text" ng-model="campana.numero">
-            </label>
-            <label class="item item-input">
-                <span class="input-label">Fecha de Montaje<br /> de Pedido</span>
-                {{campana.fechaMontajePedido | date: 'MMMM dd' | uppercase }}
+            <label class="item">
+                La fecha máxima de Montaje<br /> de Pedido es
+                {{campana.fechaMontajePedido | date: 'MMMM dd' }}
             </label>
         </div>
     </ion-content>

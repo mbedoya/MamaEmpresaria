@@ -241,11 +241,19 @@ angular.module('novaventa.controllers', [])
                 if(Number($rootScope.datos.saldo) < 0) {
                     etiqueta = "Saldo a favor";
                 }else{
-                    etiqueta = "Saldo a pagar";
+                    etiqueta = "Debes pagar " + $scope.saldo() + " de la Campaña XXX";
                 }
             }
 
             return etiqueta;
+        }
+
+        $scope.mostrarSaldoFavor = function(){
+            return ($rootScope.datos && $rootScope.datos.saldo && Number($rootScope.datos.saldo) < 0);
+        }
+
+        $scope.mostrarSaldoPagar = function(){
+            return !$scope.mostrarSaldoFavor();
         }
 
         $scope.nombre = function(){
