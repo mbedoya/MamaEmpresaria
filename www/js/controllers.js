@@ -185,7 +185,7 @@ angular.module('novaventa.controllers', [])
                                     console.log("Error consultando los datos de campaña");
                                 });
                                 
-                            Mama.getPuntos($rootScope.datos.cedula, $http, function (success, data){
+                            Mama.getPuntos($rootScope.datos.cedula, $rootScope, $http, function (success, data){
                 if(success){
                     $rootScope.puntos = data;
 
@@ -289,7 +289,7 @@ angular.module('novaventa.controllers', [])
                     template: 'Estamos consultando tus puntos...'
                 });
           
-            Mama.getPuntos($rootScope.datos.cedula, $http, function (success, data){
+            Mama.getPuntos($rootScope.datos.cedula, $rootScope, $http, function (success, data){
                 if(success){
 					$ionicLoading.hide();
                     $rootScope.puntos = data;

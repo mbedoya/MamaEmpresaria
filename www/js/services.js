@@ -3,35 +3,9 @@ angular.module('novaventa.services', [])
     .factory('Mama', function() {
 
         return {
-            getPuntos: function(cedula, http, fx) {
+            getPuntos: function(cedula, rootScope, http, fx) {
             
-            	var urlServicio = "http://www.mocky.io/v2/54d91ad61fad9a7e0b0fb3e5";
-            	
-            	if(cedula == "43361856")
-            	{
-            	   urlServicio = "http://www.mocky.io/v2/54dccfa925c3389004d653bf";
-            	}else{
-            		if(cedula == "42692122")
-            	    {
-            	      urlServicio = "http://www.mocky.io/v2/54dd4ca825c338740ed65419";
-            	    }else{
-            	        if(cedula == "43671595")
-            	       {
-            	         urlServicio = "http://www.mocky.io/v2/54dcd39625c3389004d653c2";
-            	       }else{
-
-                            if(cedula == "43110847")
-                            {
-                                urlServicio = "http://www.mocky.io/v2/54dcf75f25c3389607d653df";
-                            }else{
-                                if(cedula == "43544882")
-                                {
-                                    urlServicio = "http://www.mocky.io/v2/54dcf9bd25c338bd07d653e0";
-                                }
-                            }
-            	       }
-            	    }
-            	}
+            	var urlServicio = rootScope.configuracion.ip_servidores +  "/AntaresWebServices/resumenPuntos/ResumenPuntosEmpresaria/" + cedula;
             	
                     http.get(urlServicio).
                     success(function(data, status, headers, config) {
