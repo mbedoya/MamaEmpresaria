@@ -16,6 +16,30 @@ angular.module('novaventa.controllers', [])
         };
 
     })
+    
+    .controller('TabsCtrl', function($scope, $state, $ionicActionSheet) {
+
+
+        $scope.mostrarOpcionesMas = function() {
+           // Show the action sheet
+      var hojaOpciones = $ionicActionSheet.show({
+     buttons: [
+       { text: 'Club de Privilegios' },
+       { text: 'Información general' },
+       { text: 'Contacto' }
+     ],
+     titleText: 'Opciones',
+     cancelText: 'Cancelar',
+     cancel: function() {
+          // add cancel code..
+        },
+     buttonClicked: function(index) {
+       return true;
+     }
+   });
+        };
+
+    })
 
 	.controller('InicializacionCtrl', function($scope, $rootScope, $ionicPopup, $ionicLoading, $http, $state, Internet, Mama, GA) {
 
@@ -283,6 +307,35 @@ angular.module('novaventa.controllers', [])
         $scope.flexibilizacion = function(){
            return $rootScope.datos.valorFlexibilizacion;
         }
+        
+        $scope.flexibilizacionPago = function(){
+           //La flexibilización es mayor que el valor a Pagar?
+           if(Number($rootScope.datos.valorFlexibilizacion)>Number($rootScope.datos.saldo)){
+              return 0;
+           }else{
+              return Number($rootScope.datos.saldo)-Number($rootScope.datos.valorFlexibilizacion);
+           }
+        }
+        
+        $scope.flexibilizacionDeuda = function(){
+           //La flexibilización es mayor que el valor a Pagar?
+           if(Number($rootScope.datos.valorFlexibilizacion)>Number($rootScope.datos.saldo)){
+              return Number($rootScope.datos.saldo);
+           }else{
+              return Number($rootScope.datos.valorFlexibilizacion);
+           }
+        }
+        
+        $scope.diasParaPago = function(){
+           if($rootScope.campana && $rootScope.campana.fechaMontajePedido){
+               var t2 = new Date($rootScope.campana.fechaMontajePedido).getTime();
+               var t1 = new Date().getTime();
+
+               return parseInt((t2-t1)/(24*3600*1000));    
+           }else{
+              return -1;
+           }
+        }
 
     })
 
@@ -346,6 +399,26 @@ angular.module('novaventa.controllers', [])
         $scope.mostrarPuntosPorPerder = function(){
             return $rootScope.puntos.puntosPorPerder && Number($rootScope.puntos.puntosPorPerder) > 0;
         }
+
+    })
+    
+    .controller('MiPedidoCtrl', function($scope, $rootScope, $state, $ionicLoading, $http, $ionicPopup, Mama, Internet, GA) {
+
+         //Registro en Analytics      
+       GA.trackPage($rootScope.gaPlugin, "Mi Pedido");
+       
+       // An alert dialog
+         $scope.mostrarAyuda = function(titulo) {
+           var alertPopup = $ionicPopup.alert({
+             title: titulo,
+             template: 'Debes cancelar $50.000 antes de febrero 16 para que tu pedido te sea enviado'
+           });
+         };
+       
+       $scope.verAyudaNovedad = function(){
+         $scope.mostrarAyuda('Novedades');
+       }
+       
 
     })
 

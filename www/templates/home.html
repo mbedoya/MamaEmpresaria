@@ -1,9 +1,7 @@
-<ion-view view-title="Novaventa" >
+<ion-view view-title="" >
     <ion-content >
+    	<span class="padding-left">{{ nombre() }}</span>	
         <div class="list" ng-init="init()">
-            <label class="item item-input">
-                <span class="input-label" >{{ nombre() }}</span>
-            </label>
             <label class="item">
                 Estás en Campaña {{campana.numero}}
             </label>
@@ -11,26 +9,38 @@
                 <i class="icon ion-star"></i>
                 Eres una Mamá {{ segmento() }}
             </label>
-            <label class="item" ng-show="mostrarSaldoPagar()">
-                Tienes un pago pendiente por {{ saldo() | currency }}  <br />
+            
+            <a class="item item-avatar" href="#" ng-show="mostrarSaldoPagar()">
+              <img src="img/coins.png">
+              <h2>Tienes un pago pendiente por {{ saldo() | currency }}  <br />
                 y debes realizarlo hasta {{campana.fechaMontajePedido | date: 'MMMM dd' }}
-                <span class="item-note">
-                    Podrías quedar debiendo {{ flexibilizacion() | currency }}
-                </span>
-            </label>
-            <label class="item item-input" ng-show="mostrarSaldoFavor()">
-                Tienes un saldo a favor de {{ saldo() | currency }}
-            </label>
-            <label class="item" ng-show="mostrarCupo()">
-                Tienes un Cupo de {{ cupo() | currency}}
-            </label>
-            <label class="item item-input">
-                <span class="input-label">&nbsp;</span>
-            </label>
-            <label class="item">
-                La fecha máxima de Montaje<br /> de Pedido es
+              </h2>
+            <p>Podrías pagar {{ flexibilizacionPago() | currency }} y quedar debiendo {{ flexibilizacionDeuda() | currency }}</p>
+            </a>
+            
+            <a class="item item-avatar" href="#" ng-show="mostrarSaldoFavor()">
+              <img src="img/coins.png">
+              <h2>Tienes un saldo a favor de {{ saldo() | currency }}
+              </h2>
+            <p>&nbsp;</p>
+            </a>
+                        
+            <a class="item item-avatar" href="#" ng-show="mostrarCupo()">
+              <img src="img/creditcard.png">
+              <h2>Puedes realizar pedidos hasta <br /> máximo {{ cupo() | currency}}
+              </h2>
+            <p>Podrías aumentar tu cupo si...</p>
+            </a>
+            
+            <!-- ng-show="diasParaPago()>-1" -->
+            <a class="item item-avatar" href="#" >
+              <img src="img/calendar.png">
+              <h2>Tu fecha máxima de Montaje<br /> de Pedido es
                 {{campana.fechaMontajePedido | date: 'MMMM dd' }}
-            </label>
+              </h2>
+              <p>Te quedan {{ diasParaPago() }} días</p>
+            </a>
+            
         </div>
     </ion-content>
 </ion-view>

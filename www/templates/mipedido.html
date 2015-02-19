@@ -1,41 +1,50 @@
-<ion-view view-title=" Mi Pedido" >
+<ion-view view-title="" >
     <ion-content>
-
+         
+        <span class="padding-left">Mi Pedido</span>	
+         
         <div class="list list-inset">
 
             <div class="item item-divider">
                 Tienes las siguientes novedades
             </div>
 
-            <div class="item assertive item-icon-right">
+            <a class="item assertive item-icon-right" ng-click="verAyudaNovedad()" href="#">
                 Has excedido tu cupo asignado.
                 <i class="icon ion-chevron-right"></i>
-            </div>
+            </a>
 
         </div>
 
         <div class="list">
-            <a class="item item-icon-left" href="#">
-                <i class="icon ion-social-dropbox-outline"></i>
-                 Recibido
-                <span class="item-note">
-                  Febrero 3
-                </span>
+            <a class="item item-avatar" href="#" >
+              <img src="img/invoice.jpg">
+              <h2>Recibido
+              </h2>
+            <p>Febrero 6</p>
             </a>
-            <a class="item item-icon-left" href="#">
-                <i class="icon ion-social-dropbox-outline"></i>
-                Facturación
-                <span class="item-note">
-                  Febrero 4
-                </span>
+            
+            <a class="item item-avatar" href="#" >
+              <img src="img/invoice.jpg">
+              <h2>Facturación
+              </h2>
+            <p>Febrero 7</p>
             </a>
-            <a class="item item-icon-left" href="#">
-                <i class="icon ion-android-star"></i>
-                Camión
-                <span class="item-note">
-                  Febrero 6
-                </span>
+          
+            <a class="item item-avatar" href="#" >
+              <img src="img/box.png">
+              <h2>Empacado
+              </h2>
+            <p>Febrero 9</p>
             </a>
+            
+            <a class="item item-avatar" href="#" >
+              <img src="img/truck.png">
+              <h2>En Camión
+              </h2>
+            <p>Febrero 10</p>
+            </a>
+            
         </div>
     </ion-content>
 </ion-view>

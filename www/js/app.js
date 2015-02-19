@@ -21,6 +21,8 @@ angular.module('novaventa', ['ionic', 'novaventa.controllers', 'novaventa.servic
 })
     .config(['$ionicConfigProvider', function($ionicConfigProvider) {
 
+        $ionicConfigProvider.navBar.alignTitle("left");
+        $ionicConfigProvider.views.transition("none");
         $ionicConfigProvider.tabs.position('bottom'); //other values: top
 
     }])
@@ -70,7 +72,8 @@ angular.module('novaventa', ['ionic', 'novaventa.controllers', 'novaventa.servic
                 abstract: true,
                 views: {
                     'menu-content': {
-                        templateUrl: "templates/tabs.html"
+                        templateUrl: "templates/tabs.html",
+                        controller: 'TabsCtrl' 
                     }
                 }
             })
@@ -85,11 +88,21 @@ angular.module('novaventa', ['ionic', 'novaventa.controllers', 'novaventa.servic
                 }
             })
 
+            .state('app.menu.tabs.minegocio', {
+                url: "/minegocio",
+                views: {
+                    'negocio-content': {
+                        templateUrl: "templates/minegocio.html"
+                    }
+                }
+            })
+
             .state('app.menu.tabs.mipedido', {
                 url: "/mipedido",
                 views: {
                     'pedido-content': {
-                        templateUrl: "templates/mipedido.html"
+                        templateUrl: "templates/mipedido.html",
+                        controller: 'MiPedidoCtrl'
                     }
                 }
             })
@@ -100,6 +113,15 @@ angular.module('novaventa', ['ionic', 'novaventa.controllers', 'novaventa.servic
                     'puntos-content': {
                         templateUrl: "templates/mispuntos.html",
                         controller: 'MisPuntosCtrl'
+                    }
+                }
+            })
+            
+            .state('app.menu.tabs.mas', {
+                url: "/mas",
+                views: {
+                    'mas-content': {
+                        templateUrl: "templates/mas.html"
                     }
                 }
             })

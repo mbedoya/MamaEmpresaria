@@ -76,4 +76,15 @@ angular.module('novaventa.services', [])
             }
         }
     })
+    
+    .factory('Utilidades', function() {
+
+        return {
+            mostrarMensaje: function(scope, mensaje) {
+            
+               
+                
+            }
+        }
+    })
 ;
