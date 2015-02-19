@@ -186,6 +186,33 @@ angular.module('novaventa', ['ionic', 'novaventa.controllers', 'novaventa.servic
                     }
                 }
             })
+            
+            .state('app.menu.tabs.mas.informacion.agotados', {
+                url: "/agotados",
+                views: {
+                    'informacion-agotados-content': {
+                        templateUrl: "templates/informacionagotados.html"
+                    }
+                }
+            })
+            
+            .state('app.menu.tabs.mas.informacion.notificaciones', {
+                url: "/notificaciones",
+                views: {
+                    'informacion-notificaciones-content': {
+                        templateUrl: "templates/informacionnotificaciones.html"
+                    }
+                }
+            })
+            
+            .state('app.menu.tabs.mas.informacion.noticias', {
+                url: "/noticias",
+                views: {
+                    'informacion-noticias-content': {
+                        templateUrl: "templates/informacionnoticias.html"
+                    }
+                }
+            })
         ;
 
         // if none of the above states are matched, use this as the fallback
