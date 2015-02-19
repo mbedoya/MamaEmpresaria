@@ -166,6 +166,26 @@ angular.module('novaventa', ['ionic', 'novaventa.controllers', 'novaventa.servic
                     }
                 }
             })
+            
+            .state('app.menu.tabs.mas.informacion', {
+                url: "/informacion",
+                abstract: true,
+                views: {
+                    'mas-interna-content': {
+                        templateUrl: "templates/tabsinformacion.html"
+                    }
+                }
+            })
+            
+            .state('app.menu.tabs.mas.informacion.fechas', {
+                url: "/fechas",
+                views: {
+                    'informacion-fechas-content': {
+                        templateUrl: "templates/informacionfechas.html",
+                        controller: 'InformacionFechasCtrl'
+                    }
+                }
+            })
         ;
 
         // if none of the above states are matched, use this as the fallback

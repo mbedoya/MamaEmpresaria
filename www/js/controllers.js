@@ -34,7 +34,9 @@ angular.module('novaventa.controllers', [])
           // add cancel code..
         },
      buttonClicked: function(index) {
-       return true;
+     
+       $state.go('app.menu.tabs.mas.informacion.fechas');
+       //return true;
      }
    });
         };
@@ -77,8 +79,6 @@ angular.module('novaventa.controllers', [])
 
             //Almacenar la cédula si hay almacenamiento local
             if(localStorage && localStorage.cedula){
-
-                console.log("Cedula almacenada " + localStorage.cedula);
 
                 $rootScope.datos = { cedula: localStorage.cedula }
 
@@ -642,6 +642,12 @@ angular.module('novaventa.controllers', [])
         }else{
             $scope.inicializar();
         }
+
+    })
+    
+    .controller('InformacionFechasCtrl', function($scope, $state, $ionicActionSheet) {
+
+
 
     })
 
