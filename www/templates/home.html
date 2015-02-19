@@ -12,10 +12,10 @@
             
             <a class="item item-avatar" href="#" ng-show="mostrarSaldoPagar()">
               <img src="img/coins.png">
-              <h2>Tienes un pago pendiente por {{ saldo() | currency }}  <br />
-                y debes realizarlo hasta {{campana.fechaMontajePedido | date: 'MMMM dd' }}
+              <h2>Tienes un pago pendiente por <br /> {{ saldo() | currency }}
+                y debes realizarlo hasta   <br /> {{campana.fechaMontajePedido | date: 'MMMM dd' }}
               </h2>
-            <p>Podrías pagar {{ flexibilizacionPago() | currency }} y quedar debiendo {{ flexibilizacionDeuda() | currency }}</p>
+            <p>Podrías pagar {{ flexibilizacionPago() | currency }}   <br /> y quedar debiendo {{ flexibilizacionDeuda() | currency }}</p>
             </a>
             
             <a class="item item-avatar" href="#" ng-show="mostrarSaldoFavor()">
