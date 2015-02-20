@@ -1,49 +1,30 @@
 <ion-view view-title="" >
     <ion-content>
-         
-        <span class="padding-left">Mi Pedido</span>	
-         
+        <span class="padding-left">Mi Pedido</span>
         <div class="list list-inset">
-
             <div class="item item-divider">
-                Tienes las siguientes novedades
+                Tu pedido presenta novedad. Te invitamos a resolverla
             </div>
-
             <a class="item assertive" ng-click="verAyudaNovedad()" href="#">
                 Has excedido tu cupo asignado.
             </a>
-
         </div>
 
-        <div class="list">
-            <a class="item item-avatar" href="#" >
-              <img src="img/invoice.jpg">
-              <h2>Recibido
-              </h2>
-            <p>Febrero 6</p>
+        <div class="list pedido">
+
+            <a class="item item-avatar" href="#" ng-show="pedido.razonRechazo" >
+                El estado de tu pedido se verá reflejado el {{fechaCorreteo() | date: 'dd' }} de {{fechaCorreteo() | date: 'MMMM' }}
             </a>
-            
-            <a class="item item-avatar" href="#" >
-              <img src="img/invoice.jpg">
-              <h2>Facturación
-              </h2>
-            <p>Febrero 7</p>
+
+            <a class="item item-avatar" href="#" ng-repeat="pedido in pedido().historiaEstados" ng-show="pedido.estado != 'Impresión'" >
+               <img src="img/invoice.jpg">
+               <h2>{{ cambiarNombreEstado(pedido.estado)}}
+               </h2>
+               <p>{{pedido.fecha | date: 'dd'}} de {{pedido.fecha | date: 'MMMM'}}</p>
+                <div style="border-left: solid 1px #ccc; padding-left: 5px;" ng-show="pedido.estado != 'Cargue'">&nbsp;
+                </div>
             </a>
-          
-            <a class="item item-avatar" href="#" >
-              <img src="img/box.png">
-              <h2>Empacado
-              </h2>
-            <p>Febrero 9</p>
-            </a>
-            
-            <a class="item item-avatar" href="#" >
-              <img src="img/truck.png">
-              <h2>En Camión
-              </h2>
-            <p>Febrero 10</p>
-            </a>
-            
         </div>
+
     </ion-content>
 </ion-view>

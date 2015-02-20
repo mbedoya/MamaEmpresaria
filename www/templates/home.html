@@ -12,32 +12,32 @@
             
             <a class="item item-avatar" href="#" ng-show="mostrarSaldoPagar()" ng-click="mostrarAyudaSaldoPagar()">
               <img src="img/coins.png">
-              <h2>Tienes un pago pendiente de <br /> {{ saldo() | currency }} .
+              <h2>Tienes un pago pendiente de <br /> {{ saldo() | currency }}.
                 Realízalo antes del <br /> {{campana.fechaMontajePedido | date: 'dd' }} de {{campana.fechaMontajePedido | date: 'MMMM' }}
               </h2>
             <p ng-show="flexibilizacionPago() > 0">Podrías pagar {{ flexibilizacionPago() | currency }}   <br /> y quedar debiendo {{ flexibilizacionDeuda() | currency }}</p>
-             <p ng-show="flexibilizacionPago() == 0">Puedes dejar de pagar tu pedido <br /> esta Campaña y pagar en la próxima.</p>
+             <p ng-show="flexibilizacionPago() == 0">Puedes dejar de pagar tu pedido <br /> esta campaña y pagarlo en la próxima.</p>
             </a>
             
             <a class="item item-avatar" href="#" ng-show="mostrarSaldoFavor()">
               <img src="img/coins.png">
-              <h2>Tienes un saldo a favor de {{ saldo() | currency }}
+              <h2>Tienes un saldo a favor de <br /> {{ saldo() | currency }}
               </h2>
             <p>&nbsp;</p>
             </a>
                         
             <a class="item item-avatar" href="#" ng-show="mostrarCupo()">
               <img src="img/creditcard.png">
-              <h2>Puedes realizar pedidos hasta <br /> máximo {{ cupo() | currency}}
+              <h2>Realiza tu próximo pedido <br /> máximo por {{ cupo() | currency}}
               </h2>
-            <p>Podrías aumentar tu cupo si...</p>
+            <p>&nbsp;</p>
             </a>
             
             <!-- ng-show="diasParaPago()>-1" -->
             <a class="item item-avatar" href="#" >
               <img src="img/calendar.png">
-              <h2>Tu fecha máxima de Montaje<br /> de Pedido es
-                {{campana.fechaMontajePedido | date: 'MMMM dd' }}
+              <h2>Realiza tu próximo pedido el<br />
+                  {{campana.fechaMontajePedido | date: 'dd' }} de {{campana.fechaMontajePedido | date: 'MMMMM' }}
               </h2>
               <p>Te quedan {{ diasParaPago() }} días</p>
             </a>

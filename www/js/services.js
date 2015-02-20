@@ -4,7 +4,6 @@ angular.module('novaventa.services', [])
 
         return {
             getPuntos: function(cedula, rootScope, http, fx) {
-            
             	var urlServicio = rootScope.configuracion.ip_servidores +  "/AntaresWebServices/resumenPuntos/ResumenPuntosEmpresaria/" + cedula;
             	
                     http.get(urlServicio).
@@ -24,6 +23,17 @@ angular.module('novaventa.services', [])
                         fx(false, {});
                     });
             
+            },
+            getTrazabilidadPedido: function(cedula, rootScope, http, fx) {
+                var urlServicio = rootScope.configuracion.ip_servidores +  "/AntaresWebServices/pedidos/PedidoCampagna/" + cedula;
+
+                http.get(urlServicio).
+                    success(function(data, status, headers, config) {
+                        fx(true, data);
+                    }).
+                    error(function(data, status, headers, config) {
+                        fx(false, {});
+                    });
             }
         }
     })

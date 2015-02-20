@@ -126,6 +126,7 @@ angular.module('novaventa.controllers', [])
                                 $http.get($rootScope.configuracion.ip_servidores + "/AntaresWebServices/interfaceAntares/getRecordatoriosAntares/" + data.listaZonas[0]).
                                     success(function(data, status, headers, config) {
                                         $rootScope.campana = {numero: data.listaRecordatorios[0].campagna, fechaMontajePedido:data.listaRecordatorios[0].fecha};
+                                        $rootScope.fechas = data.listaRecordatorios;
                                     }).
                                     error(function(data, status, headers, config) {
                                         console.log("Error consultando los datos de campaña");
@@ -212,6 +213,7 @@ angular.module('novaventa.controllers', [])
                             $http.get($rootScope.configuracion.ip_servidores + "/AntaresWebServices/interfaceAntares/getRecordatoriosAntares/" + data.listaZonas[0]).
                                 success(function(data, status, headers, config) {
                                     $rootScope.campana = {numero: data.listaRecordatorios[0].campagna, fechaMontajePedido:data.listaRecordatorios[0].fecha};
+                                    $rootScope.fechas = data.listaRecordatorios;
                                 }).
                                 error(function(data, status, headers, config) {
                                     console.log("Error consultando los datos de campaña");
@@ -358,7 +360,7 @@ angular.module('novaventa.controllers', [])
         }
         
         $scope.mostrarAyudaSaldoPagar = function(){
-           $scope.mostrarAyuda('Pagos','El pago que dejas de hacer es debido al beneficio que tienes llamado "Flexibilización", los $' + $scope.flexibilizacionDeuda() + ' que quedas debiendo los debes cancelar en el próximo pedido.');
+           $scope.mostrarAyuda('Pagos','El pago que dejas de hacer es debido al beneficio que tienes llamado "Flexibilización", los $' + $scope.flexibilizacionDeuda() + ' que quedas debiendo, los debes cancelar antes de tu próximo pedido.');
         }
 
     })
@@ -428,22 +430,68 @@ angular.module('novaventa.controllers', [])
     
     .controller('MiPedidoCtrl', function($scope, $rootScope, $state, $ionicLoading, $http, $ionicPopup, Mama, Internet, GA) {
 
-         //Registro en Analytics      
-       GA.trackPage($rootScope.gaPlugin, "Mi Pedido");
-       
-        // An alert dialog
-         $scope.mostrarAyuda = function(titulo, mensaje) {
-           var alertPopup = $ionicPopup.alert({
-             title: titulo,
-             template: mensaje
-           });
-         };
+        //Registro en Analytics
+        GA.trackPage($rootScope.gaPlugin, "Mi Pedido");
+
+        $scope.mostrarAyuda = function(titulo, mensaje) {
+            var alertPopup = $ionicPopup.alert({
+                title: titulo,
+                template: mensaje
+                });
+            };
+
+        if(Internet.get()){
+
+            $scope.loading =  $ionicLoading.show({
+                template: 'Estamos consultando el estado de tu pedido...'
+            });
+
+            Mama.getTrazabilidadPedido($rootScope.datos.cedula, $rootScope, $http, function (success, data){
+                if(success){
+                    $ionicLoading.hide();
+                    $rootScope.pedido = data;
+
+                    console.log("Pedido");
+                    console.log($rootScope.pedido);
+
+                }else{
+                    $ionicLoading.hide();
+                    alert("En este momento no podemos acceder a tu información");
+                }
+            });
+        }else{
+            alert("Por favor verifica tu conexión a internet");
+        }
        
        $scope.verAyudaNovedad = function(){
          $scope.mostrarAyuda('Novedades', 'Debes cancelar $50.000 antes del 24 de febrero para que tu pedido te sea enviado');
        }
-       
 
+        $scope.pedido = function(){
+            return $rootScope.pedido;
+        }
+
+        $scope.cambiarNombreEstado = function(nombre){
+
+            if(nombre.toLowerCase() == "ingresado"){
+                return "Recibido";
+            }else{
+                if(nombre.toLowerCase() == "en línea"){
+                    return "En proceso de empaque";
+                }else{
+
+                    if(nombre.toLowerCase() == "cargue"){
+                        return "Entregado al transportador";
+                    }else{
+                        return nombre;
+                    }
+                }
+            }
+        }
+
+        $scope.fechaCorreteo = function(){
+            return $rootScope.fechas[$rootScope.fechas.length-1].fecha;
+        }
     })
 
     .controller('PuntosPagoCtrl', function($scope, $rootScope, $ionicLoading, $state, $http, PuntosPago, Internet, GA) {
