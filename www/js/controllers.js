@@ -35,8 +35,16 @@ angular.module('novaventa.controllers', [])
         },
      buttonClicked: function(index) {
      
-       $state.go('app.menu.tabs.mas.informacion.fechas');
-       //return true;
+       if(index == 0){
+          $state.go('app.menu.tabs.mas.club.piedrapreciosa');
+       }else{
+          if(index == 1){
+            $state.go('app.menu.tabs.mas.informacion.fechas');
+          }else{
+             $state.go('app.menu.tabs.mas.contacto');
+          }
+       }
+       
      }
    });
         };
@@ -247,10 +255,17 @@ angular.module('novaventa.controllers', [])
         }
     })
 
-    .controller('HomeCtrl', function($scope, $rootScope, $state, GA) {
+    .controller('HomeCtrl', function($scope, $rootScope, $state, $ionicPopup, GA) {
 
         //Registro en Analytics      
        GA.trackPage($rootScope.gaPlugin, "Home");
+       
+         $scope.mostrarAyuda = function(titulo, mensaje) {
+           var alertPopup = $ionicPopup.alert({
+             title: titulo,
+             template: mensaje
+           });
+         };
 
         $scope.mostrarCupo = function(){
             return Number($rootScope.datos.cupo) > 0;
@@ -281,7 +296,12 @@ angular.module('novaventa.controllers', [])
         }
 
         $scope.nombre = function(){
-            return $rootScope.datos.nombre;
+             var nombrePascal = $rootScope.datos.nombre.split(' ');
+             for	(index = 0; index < nombrePascal.length; index++) {  
+               nombrePascal[index] = nombrePascal[index].substring(0,1).toUpperCase() + nombrePascal[index].substring(1, nombrePascal[index].length).toLowerCase();
+             }
+            
+            return nombrePascal.join(' ');
         }
 
         $scope.segmento = function(){
@@ -335,6 +355,10 @@ angular.module('novaventa.controllers', [])
            }else{
               return -1;
            }
+        }
+        
+        $scope.mostrarAyudaSaldoPagar = function(){
+           $scope.mostrarAyuda('Pagos','El pago que dejas de hacer es debido al beneficio que tienes llamado "Flexibilización", los $' + $scope.flexibilizacionDeuda() + ' que quedas debiendo los debes cancelar en el próximo pedido.');
         }
 
     })
@@ -407,16 +431,16 @@ angular.module('novaventa.controllers', [])
          //Registro en Analytics      
        GA.trackPage($rootScope.gaPlugin, "Mi Pedido");
        
-       // An alert dialog
-         $scope.mostrarAyuda = function(titulo) {
+        // An alert dialog
+         $scope.mostrarAyuda = function(titulo, mensaje) {
            var alertPopup = $ionicPopup.alert({
              title: titulo,
-             template: 'Debes cancelar $50.000 antes de febrero 16 para que tu pedido te sea enviado'
+             template: mensaje
            });
          };
        
        $scope.verAyudaNovedad = function(){
-         $scope.mostrarAyuda('Novedades');
+         $scope.mostrarAyuda('Novedades', 'Debes cancelar $50.000 antes del 24 de febrero para que tu pedido te sea enviado');
        }
        
 
@@ -648,6 +672,15 @@ angular.module('novaventa.controllers', [])
     .controller('InformacionFechasCtrl', function($scope, $state, $ionicActionSheet) {
 
 
+
+    })
+    
+    .controller('ContactoCtrl', function($scope, $rootScope) {
+    
+         $scope.nombre = function(){
+             var nombre = $rootScope.datos.nombre.split(' ');
+             return nombre[0].substring(0,1).toUpperCase() + nombre[0].substring(1,nombre[0].length).toLowerCase();
+         }
 
     })
 

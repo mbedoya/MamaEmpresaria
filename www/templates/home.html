@@ -7,15 +7,16 @@
             </label>
             <label class="item item-icon-right">
                 <i class="icon ion-star"></i>
-                Eres una Mamá {{ segmento() }}
+                Mamá Empresaria {{ segmento() }}
             </label>
             
-            <a class="item item-avatar" href="#" ng-show="mostrarSaldoPagar()">
+            <a class="item item-avatar" href="#" ng-show="mostrarSaldoPagar()" ng-click="mostrarAyudaSaldoPagar()">
               <img src="img/coins.png">
-              <h2>Tienes un pago pendiente por <br /> {{ saldo() | currency }}
-                y debes realizarlo hasta   <br /> {{campana.fechaMontajePedido | date: 'MMMM dd' }}
+              <h2>Tienes un pago pendiente de <br /> {{ saldo() | currency }} .
+                Realízalo antes del <br /> {{campana.fechaMontajePedido | date: 'dd' }} de {{campana.fechaMontajePedido | date: 'MMMM' }}
               </h2>
-            <p>Podrías pagar {{ flexibilizacionPago() | currency }}   <br /> y quedar debiendo {{ flexibilizacionDeuda() | currency }}</p>
+            <p ng-show="flexibilizacionPago() > 0">Podrías pagar {{ flexibilizacionPago() | currency }}   <br /> y quedar debiendo {{ flexibilizacionDeuda() | currency }}</p>
+             <p ng-show="flexibilizacionPago() == 0">Puedes dejar de pagar tu pedido <br /> esta Campaña y pagar en la próxima.</p>
             </a>
             
             <a class="item item-avatar" href="#" ng-show="mostrarSaldoFavor()">

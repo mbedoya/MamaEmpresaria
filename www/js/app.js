@@ -109,10 +109,29 @@ angular.module('novaventa', ['ionic', 'novaventa.controllers', 'novaventa.servic
 
             .state('app.menu.tabs.mispuntos', {
                 url: "/mispuntos",
+                abstract: true,
                 views: {
                     'puntos-content': {
+                        templateUrl: "templates/tabsmispuntos.html"
+                    }
+                }
+            })
+            
+            .state('app.menu.tabs.mispuntos.puntos', {
+                url: "/puntos",
+                views: {
+                    'mis-puntos-puntos-content': {
                         templateUrl: "templates/mispuntos.html",
                         controller: 'MisPuntosCtrl'
+                    }
+                }
+            })
+            
+            .state('app.menu.tabs.mispuntos.premiosredimir', {
+                url: "/premiosredimir",
+                views: {
+                    'mis-puntos-premios-content': {
+                        templateUrl: "templates/mispuntospremiosredimir.html"
                     }
                 }
             })
@@ -163,6 +182,53 @@ angular.module('novaventa', ['ionic', 'novaventa.controllers', 'novaventa.servic
                     'puntospago-mapa-content': {
                         templateUrl: "templates/puntosdepagomapa.html",
                         controller: 'PuntosPagoMapaCtrl'
+                    }
+                }
+            })
+            
+            .state('app.menu.tabs.mas.contacto', {
+                url: "/contacto",
+                views: {
+                    'mas-interna-content': {
+                        templateUrl: "templates/contacto.html",
+                        controller: 'ContactoCtrl'
+                    }
+                }
+            })
+            
+            .state('app.menu.tabs.mas.club', {
+                url: "/club",
+                abstract: true,
+                views: {
+                    'mas-interna-content': {
+                        templateUrl: "templates/tabsclub.html"
+                    }
+                }
+            })
+            
+            .state('app.menu.tabs.mas.club.piedrapreciosa', {
+                url: "/piedrapreciosa",
+                views: {
+                    'club-piedrapreciosa-content': {
+                        templateUrl: "templates/piedrapreciosa.html"
+                    }
+                }
+            })
+            
+            .state('app.menu.tabs.mas.club.catalogopremios', {
+                url: "/catalogopremios",
+                views: {
+                    'club-catalogopremios-content': {
+                        templateUrl: "templates/catalogopremios.html"
+                    }
+                }
+            })
+            
+            .state('app.menu.tabs.mas.club.proyeccion', {
+                url: "/proyeccion",
+                views: {
+                    'club-proyeccion-content': {
+                        templateUrl: "templates/proyeccion.html"
                     }
                 }
             })
