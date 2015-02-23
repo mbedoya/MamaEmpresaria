@@ -50,7 +50,7 @@ angular.module('novaventa.controllers', [])
 
     })
 
-	.controller('InicializacionCtrl', function($scope, $rootScope, $ionicPopup, $ionicLoading, $http, $state, Internet, Mama, GA) {
+	.controller('InicializacionCtrl', function($scope, $rootScope, $ionicPopup, $ionicLoading, $ionicHistory, $http, $state, Internet, Mama, GA) {
 
         $scope.mostrarMensajeError = false;
 
