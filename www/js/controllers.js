@@ -174,7 +174,7 @@ angular.module('novaventa.controllers', [])
 
     })
 
-    .controller('LoginCtrl', function($scope, $rootScope, $ionicLoading, $state, $http, Mama, Internet, GA) {
+    .controller('LoginCtrl', function($scope, $rootScope, $ionicLoading, $state, $http, $ionicHistory, Mama, Internet, GA) {
 
        //Registro en Analytics      
        GA.trackPage($rootScope.gaPlugin, "Inicio de sesión");  
