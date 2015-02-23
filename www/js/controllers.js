@@ -418,7 +418,7 @@ angular.module('novaventa.controllers', [])
         }
 
         $scope.puntosAVencer = function(){
-            return $rootScope.puntos.puntosAVerncer;
+            return $rootScope.puntos.puntosAVencer;
         }
 
         $scope.puntosRedimidos = function(){
@@ -434,7 +434,7 @@ angular.module('novaventa.controllers', [])
         }
 
         $scope.mostrarPuntosAVencer = function(){
-            return $rootScope.puntos.puntosAVerncer && Number($rootScope.puntos.puntosAVerncer) > 0;
+            return $rootScope.puntos.puntosAVencer && Number($rootScope.puntos.puntosAVencer) > 0;
         }
 
         $scope.mostrarPuntosPorPerder = function(){
