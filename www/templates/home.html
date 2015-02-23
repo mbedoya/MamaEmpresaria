@@ -12,8 +12,9 @@
                 Mamá Empresaria {{ segmento() }}
             </label>
             
-            <a class="item item-avatar" href="#" ng-show="mostrarSaldoPagar()" ng-click="mostrarAyudaSaldoPagar()">
+            <a class="item item-avatar item-icon-right" href="#" ng-show="mostrarSaldoPagar() && saldo()>0" ng-click="mostrarAyudaSaldoPagar()">
               <img src="img/coins.png">
+                <i class="icon ion-plus-circled"></i>
               <h2>Tienes un pago pendiente de <br /> {{ saldo() | currency }}.
                 Realízalo antes del <br /> {{campana.fechaMontajePedido | date: 'dd' }} de {{campana.fechaMontajePedido | date: 'MMMM' }}
               </h2>

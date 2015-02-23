@@ -56,11 +56,13 @@ angular.module('novaventa.services', [])
 
     .factory('Internet', function() {
 
-        var connection = navigator.connection;
+        var connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
 
         return {
             get: function() {
                 //Se puede establecer el tipo de conexión a Internet?
+                console.log(connection);
+
                 if(connection && connection.type){
                    return connection.type.toLowerCase() != "none";
                 }else{

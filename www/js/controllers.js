@@ -28,7 +28,6 @@ angular.module('novaventa.controllers', [])
        { text: 'Información general' },
        { text: 'Contacto' }
      ],
-     titleText: 'Opciones',
      cancelText: 'Cancelar',
      cancel: function() {
           // add cancel code..
@@ -53,6 +52,8 @@ angular.module('novaventa.controllers', [])
 
 	.controller('InicializacionCtrl', function($scope, $rootScope, $ionicPopup, $ionicLoading, $http, $state, Internet, Mama, GA) {
 
+        $scope.mostrarMensajeError = false;
+
      setTimeout(function(){
        if(window.plugins && window.plugins.gaPlugin){
         	$rootScope.gaPlugin = window.plugins.gaPlugin;
@@ -62,7 +63,6 @@ angular.module('novaventa.controllers', [])
              }  
      }, 2000);
 
-      
 	   //Registro en Analytics      
        GA.trackPage($rootScope.gaPlugin, "App Iniciada");  
 
@@ -139,6 +139,7 @@ angular.module('novaventa.controllers', [])
                                 if(data.tiposUsuarios){
                                     alert("Tu rol no es válido para nuestra Aplicación");
                                 }else{
+                                    $scope.mostrarMensajeError = true;
                                     alert("En este momento no podemos consultar tu información");
                                 }
 
@@ -150,6 +151,7 @@ angular.module('novaventa.controllers', [])
                     });
 
                 }else{
+                    $scope.mostrarMensajeError = true;
                     alert("Por favor verifica tu conexión a internet")
                 }
 
@@ -220,28 +222,26 @@ angular.module('novaventa.controllers', [])
                                 });
                                 
                                 
-                                Mama.getTrazabilidadPedido($rootScope.datos.cedula, $rootScope, $http, function (success, data){
-                if(success){
-                    $rootScope.pedido = data;
-                    console.log("Pedido");
-                    console.log($rootScope.pedido);
+                            Mama.getTrazabilidadPedido($rootScope.datos.cedula, $rootScope, $http, function (success, data){
+                                if(success){
+                                    $rootScope.pedido = data;
+                                    console.log("Pedido");
+                                    console.log($rootScope.pedido);
 
-                }else{
-                    //$ionicLoading.hide();
-                    //alert("En este momento no podemos acceder a tu información");
-                }
-            });
-                                
-                            
-                                
+                                }else{
+                                    //$ionicLoading.hide();
+                                    //alert("En este momento no podemos acceder a tu información");
+                                }
+                            });
+
                             Mama.getPuntos($rootScope.datos.cedula, $rootScope, $http, function (success, data){
-                if(success){
-                    $rootScope.puntos = data;
+                                if(success){
+                                    $rootScope.puntos = data;
 
-                }else{
-                    //alert("En este momento no podemos acceder a tu información");
-                }
-            });
+                                }else{
+                                    //alert("En este momento no podemos acceder a tu información");
+                                }
+                            });
 
                             //Almacenar la cédula si hay almacenamiento local
                             if(localStorage){
@@ -479,7 +479,7 @@ angular.module('novaventa.controllers', [])
         }
        
        $scope.verAyudaNovedad = function(){
-         $scope.mostrarAyuda('Novedades', 'Debes cancelar $50.000 antes del 24 de febrero para que tu pedido te sea enviado');
+         $scope.mostrarAyuda('Novedades', 'Debes cancelar $50.000 antes del 24 de febrero para que tu pedido sea enviado');
        }
 
         $scope.pedido = function(){
@@ -536,6 +536,16 @@ angular.module('novaventa.controllers', [])
 
         $scope.fechaCorreteo = function(){
             return $rootScope.fechas[$rootScope.fechas.length-1].fecha;
+        }
+
+        $scope.mostrarNovedad = function(novedad){
+            console.log(novedad);
+            var mostrar = false;
+            if(novedad.toLowerCase().indexOf('morosa')>=0 ||
+                novedad.toLowerCase().indexOf('tope')>=0){
+                mostrar = true;
+            }
+            return mostrar;
         }
     })
 

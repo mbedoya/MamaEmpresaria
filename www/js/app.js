@@ -135,6 +135,15 @@ angular.module('novaventa', ['ionic', 'novaventa.controllers', 'novaventa.servic
                     }
                 }
             })
+
+            .state('app.menu.tabs.mispuntos.catalogopremios', {
+                url: "/catalogopremios",
+                views: {
+                    'club-catalogopremios-content': {
+                        templateUrl: "templates/catalogopremios.html"
+                    }
+                }
+            })
             
             .state('app.menu.tabs.mas', {
                 url: "/mas",
@@ -211,15 +220,6 @@ angular.module('novaventa', ['ionic', 'novaventa.controllers', 'novaventa.servic
                 views: {
                     'club-piedrapreciosa-content': {
                         templateUrl: "templates/piedrapreciosa.html"
-                    }
-                }
-            })
-            
-            .state('app.menu.tabs.mas.club.catalogopremios', {
-                url: "/catalogopremios",
-                views: {
-                    'club-catalogopremios-content': {
-                        templateUrl: "templates/catalogopremios.html"
                     }
                 }
             })

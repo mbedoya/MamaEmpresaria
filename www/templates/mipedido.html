@@ -1,19 +1,28 @@
 <ion-view view-title="" >
     <ion-content>
         <span class="padding-left">Mi Pedido</span>
-        <div class="list list-inset" ng-show="false">
+        <div class="list list-inset" ng-show="!estadoEncontrado('Facturado') && estadoEncontrado('Novedad') && mostrarNovedad(buscarEstado('Novedad').motivo)">
             <div class="item">
                 Tu pedido presenta novedad. <br />Te invitamos a resolverla
             </div>
             <a class="item assertive" ng-click="verAyudaNovedad()" href="#">
-                Has excedido tu cupo asignado.
+                {{ buscarEstado('Novedad').motivo }}
+            </a>
+        </div>
+
+        <div class="list list-inset" ng-show="estadoEncontrado('Anulado') && estadoEncontrado('Novedad')">
+            <div class="item">
+                Tu pedido no será enviado,<br /> puedes ver el detalle a continuación:
+            </div>
+            <a class="item assertive" ng-click="verAyudaNovedad()" href="#">
+                {{ buscarEstado('Novedad').motivo }}
             </a>
         </div>
 
         <div class="list pedido">
 
             <a class="item" href="#" ng-show="pedido().razonRechazo" >
-                Aún no tenemos información para el estado <br /> de tu pedido de esta campaña, te invitamos <br /> a consultar a partir del {{fechaCorreteo() | date: 'dd' }} de {{fechaCorreteo() | date: 'MMMM' }}.
+                Aún no tenemos información sobre tu pedido<br /> de esta campaña, te invitamos <br /> a consultar a partir del {{fechaCorreteo() | date: 'dd' }} de {{fechaCorreteo() | date: 'MMMM' }}.
             </a>
             
             <div ng-show="!pedido().razonRechazo"> 
@@ -36,7 +45,7 @@
                 </div>
             </a>
             
-            <a class="item item-avatar" href="#" ng-show="estadoEncontrado('Facturado')" >
+            <a class="item item-avatar" href="#" ng-show="estadoEncontrado('Facturado') && !estadoEncontrado('Anulado')" >
                <img src="img/invoice.jpg">
                <h2 class="balanced">Facturado
                </h2>
@@ -45,7 +54,7 @@
                 </div>
             </a>
             
-            <a class="item item-avatar" href="#" ng-show="!estadoEncontrado('Facturado')" >
+            <a class="item item-avatar" href="#" ng-show="!estadoEncontrado('Facturado') || estadoEncontrado('Anulado')" >
                <img src="img/invoice.jpg">
                <h2 class="dark">Facturado
                </h2>
