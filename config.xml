@@ -29,6 +29,6 @@ xmlns:gap = "http://phonegap.com/ns/1.0" >
   
   <gap:plugin name="org.apache.cordova.geolocation" />
   <gap:plugin name="com.adobe.plugins.gaplugin" />
-
+  <gap:plugin name="org.apache.cordova.network-information" />
   
 </widget>
