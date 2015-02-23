@@ -1,9 +1,9 @@
 <ion-view view-title="" >
     <ion-content>
         <span class="padding-left">Mi Pedido</span>
-        <div class="list list-inset">
-            <div class="item item-divider">
-                Tu pedido presenta novedad. Te invitamos a resolverla
+        <div class="list list-inset" ng-show="false">
+            <div class="item">
+                Tu pedido presenta novedad. <br />Te invitamos a resolverla
             </div>
             <a class="item assertive" ng-click="verAyudaNovedad()" href="#">
                 Has excedido tu cupo asignado.
@@ -12,10 +12,83 @@
 
         <div class="list pedido">
 
-            <a class="item item-avatar" href="#" ng-show="pedido.razonRechazo" >
-                El estado de tu pedido se verá reflejado el {{fechaCorreteo() | date: 'dd' }} de {{fechaCorreteo() | date: 'MMMM' }}
+            <a class="item" href="#" ng-show="pedido().razonRechazo" >
+                Aún no tenemos información para el estado <br /> de tu pedido de esta campaña, te invitamos <br /> a consultar a partir del {{fechaCorreteo() | date: 'dd' }} de {{fechaCorreteo() | date: 'MMMM' }}.
             </a>
+            
+            <div ng-show="!pedido().razonRechazo"> 
+            
+            <a class="item item-avatar" href="#" ng-show="estadoEncontrado('Recibido')" >
+               <img src="img/invoice.jpg">
+               <h2 class="balanced">Recibido
+               </h2>
+               <p >{{ buscarEstado('Recibido').fecha | date: 'dd'}} de {{ buscarEstado('Recibido').fecha | date: 'MMMM'}}</p>
+                <div style="border-left: solid 1px #ccc; padding-left: 5px;" ng-show="pedido.estado != 'Cargue'">&nbsp;
+                </div>
+            </a>
+            
+            <a class="item item-avatar" href="#" ng-show="!estadoEncontrado('Recibido')" >
+               <img src="img/invoice.jpg">
+               <h2 class="dark">Recibido
+               </h2>
+               <p>&nbsp;</p>
+                <div style="border-left: solid 1px #ccc; padding-left: 5px;" ng-show="pedido.estado != 'Cargue'">&nbsp;
+                </div>
+            </a>
+            
+            <a class="item item-avatar" href="#" ng-show="estadoEncontrado('Facturado')" >
+               <img src="img/invoice.jpg">
+               <h2 class="balanced">Facturado
+               </h2>
+               <p>{{ buscarEstado('Facturado').fecha | date: 'dd'}} de {{ buscarEstado('Facturado').fecha | date: 'MMMM'}}</p>
+                <div style="border-left: solid 1px #ccc; padding-left: 5px;" ng-show="pedido.estado != 'Cargue'">&nbsp;
+                </div>
+            </a>
+            
+            <a class="item item-avatar" href="#" ng-show="!estadoEncontrado('Facturado')" >
+               <img src="img/invoice.jpg">
+               <h2 class="dark">Facturado
+               </h2>
+               <p>&nbsp;</p>
+                <div style="border-left: solid 1px #ccc; padding-left: 5px;" ng-show="pedido.estado != 'Cargue'">&nbsp;
+                </div>
+            </a>
+            
+            <a class="item item-avatar" href="#" ng-show="estadoEncontrado('En proceso de empaque')" >
+               <img src="img/box.png">
+               <h2 class="balanced">En proceso de empaque
+               </h2>
+               <p>{{ buscarEstado('En proceso de empaque').fecha | date: 'dd'}} de {{ buscarEstado('En proceso de empaque').fecha | date: 'MMMM'}}</p>
+                <div style="border-left: solid 1px #ccc; padding-left: 5px;" ng-show="pedido.estado != 'Cargue'">&nbsp;
+                </div>
+            </a>
+            
+            <a class="item item-avatar" href="#" ng-show="!estadoEncontrado('En proceso de empaque')" >
+               <img src="img/box.png">
+               <h2 class="dark">En proceso de empaque
+               </h2>
+               <p>&nbsp;</p>
+                <div style="border-left: solid 1px #ccc; padding-left: 5px;" ng-show="pedido.estado != 'Cargue'">&nbsp;
+                </div>
+            </a>
+            
+            <a class="item item-avatar" href="#" ng-show="estadoEncontrado('Entregado al transportador')" >
+               <img src="img/truck.png">
+               <h2 class="balanced">Entregado al transportador
+               </h2>
+               <p>{{ buscarEstado('Entregado al transportador').fecha | date: 'dd'}} de {{ buscarEstado('Entregado al transportador').fecha | date: 'MMMM'}}</p>
+            </a>
+            
+            <a class="item item-avatar" href="#" ng-show="!estadoEncontrado('Entregado al transportador')" >
+               <img src="img/truck.png">
+               <h2 class="dark">Entregado al transportador
+               </h2>
+               <p>&nbsp;</p>
+            </a>
+            
+            </div>
 
+            <!-- 
             <a class="item item-avatar" href="#" ng-repeat="pedido in pedido().historiaEstados" ng-show="pedido.estado != 'Impresión'" >
                <img src="img/invoice.jpg">
                <h2>{{ cambiarNombreEstado(pedido.estado)}}
@@ -23,7 +96,7 @@
                <p>{{pedido.fecha | date: 'dd'}} de {{pedido.fecha | date: 'MMMM'}}</p>
                 <div style="border-left: solid 1px #ccc; padding-left: 5px;" ng-show="pedido.estado != 'Cargue'">&nbsp;
                 </div>
-            </a>
+            </a> -->
         </div>
 
     </ion-content>

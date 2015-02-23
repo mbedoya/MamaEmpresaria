@@ -219,6 +219,21 @@ angular.module('novaventa.controllers', [])
                                     console.log("Error consultando los datos de campaña");
                                 });
                                 
+                                
+                                Mama.getTrazabilidadPedido($rootScope.datos.cedula, $rootScope, $http, function (success, data){
+                if(success){
+                    $rootScope.pedido = data;
+                    console.log("Pedido");
+                    console.log($rootScope.pedido);
+
+                }else{
+                    //$ionicLoading.hide();
+                    //alert("En este momento no podemos acceder a tu información");
+                }
+            });
+                                
+                            
+                                
                             Mama.getPuntos($rootScope.datos.cedula, $rootScope, $http, function (success, data){
                 if(success){
                     $rootScope.puntos = data;
@@ -469,6 +484,36 @@ angular.module('novaventa.controllers', [])
 
         $scope.pedido = function(){
             return $rootScope.pedido;
+        }
+        
+        $scope.estadoEncontrado = function(estado){
+           var encontrado = false;
+           
+           if($rootScope.pedido && $rootScope.pedido.historiaEstados){
+             for (i = 0; i < $rootScope.pedido.historiaEstados.length; i++) { 
+              if($scope.cambiarNombreEstado($rootScope.pedido.historiaEstados[i].estado) == estado){
+                 encontrado = true;
+                 break;
+              }
+             }
+           }
+           
+           return encontrado;
+        }
+        
+        $scope.buscarEstado = function(estado){
+           var miestado = null;
+           
+           if($rootScope.pedido && $rootScope.pedido.historiaEstados){
+             for (i = 0; i < $rootScope.pedido.historiaEstados.length; i++) { 
+              if($scope.cambiarNombreEstado($rootScope.pedido.historiaEstados[i].estado) == estado){
+                 miestado = $rootScope.pedido.historiaEstados[i];
+                 break;
+              }
+             }
+           }
+           
+           return miestado;
         }
 
         $scope.cambiarNombreEstado = function(nombre){

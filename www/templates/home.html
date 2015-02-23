@@ -1,6 +1,8 @@
 <ion-view view-title="" >
     <ion-content >
-    	<span class="padding-left">{{ nombre() }}</span>	
+        <div class="row">
+         <div class="col" style="text-align: center;">{{ nombre() }}</div>
+       </div>
         <div class="list" ng-init="init()">
             <label class="item">
                 Estás en Campaña {{campana.numero}}
@@ -37,7 +39,7 @@
             <a class="item item-avatar" href="#" >
               <img src="img/calendar.png">
               <h2>Realiza tu próximo pedido el<br />
-                  {{campana.fechaMontajePedido | date: 'dd' }} de {{campana.fechaMontajePedido | date: 'MMMMM' }}
+                  {{campana.fechaMontajePedido | date: 'dd' }} de {{campana.fechaMontajePedido | date: 'MMMM' }}
               </h2>
               <p>Te quedan {{ diasParaPago() }} días</p>
             </a>
