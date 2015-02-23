@@ -132,6 +132,9 @@ angular.module('novaventa.controllers', [])
                                         console.log("Error consultando los datos de campaña");
                                     });
 
+								$ionicHistory.nextViewOptions({
+                                 disableBack: true
+                                });
                                 $state.go('app.menu.tabs.home');
 
                             }else{
@@ -158,6 +161,9 @@ angular.module('novaventa.controllers', [])
             }else{
 
                 console.log("hay almacenamiento local");
+                $ionicHistory.nextViewOptions({
+                    disableBack: true
+                });
                 $state.go('app.login');
 
             }
@@ -250,6 +256,9 @@ angular.module('novaventa.controllers', [])
 
                             $scope.datosInicio = {cedula: '' };
 
+                            $ionicHistory.nextViewOptions({
+                             disableBack: true
+                            });
                             $state.go('app.menu.tabs.home');
 
                         }else{
