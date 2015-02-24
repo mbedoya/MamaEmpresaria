@@ -137,7 +137,7 @@ angular.module('novaventa.controllers', [])
                                     $scope.mostrarAyuda("Inicio de sesión","Tu rol no es válido para nuestra Aplicación");
                                 }else{
                                     $scope.mostrarMensajeError = true;
-                                    a$scope.mostrarAyuda("Inicio de sesión","En este momento no podemos consultar tu información");
+                                    $scope.mostrarAyuda("Inicio de sesión","En este momento no podemos consultar tu información");
                                 }
 
                             }
@@ -849,13 +849,77 @@ angular.module('novaventa.controllers', [])
 
     })
     
-    .controller('InformacionFechasCtrl', function($scope, $state, $ionicActionSheet) {
+    .controller('InformacionFechasCtrl', function($scope, $rootScope, $state, $ionicActionSheet) {
     
        $scope.semanas = null;
     
        $scope.padStr = function(i) {
            return (i < 10) ? "0" + i : "" + i;
-        }   
+       }
+       
+       $scope.fechaVisibleCalendario = function(){
+          return new Date();
+       }
+       
+       $scope.numeroCampana = function(){
+            return $rootScope.campana.numero;
+       }
+       
+       $scope.fechaEsCampanaVisible = function(fecha){
+            encontrado = false;
+            
+            var fechaCalendario = new Date(fecha);
+            
+            for (i = 0; i < $rootScope.fechas.length; i++){
+            
+                var fechaMinimaCampana = new Date(fecha);
+                fechaMinimaCampana.setDate(new Date($rootScope.fechas[i].fecha).getDate() - 21); 
+            
+                if($rootScope.fechas[i].actividad.toLowerCase() == 'fecha correteo' && 
+                  fechaCalendario <= new Date($rootScope.fechas[i].fecha) &&
+                  fechaCalendario >= fechaMinimaCampana){
+                     encontrado = true;
+                     break;
+                }
+            }
+            return encontrado;
+       }
+       
+       $scope.fechaEsCorreteo = function(fecha){
+            encontrado = false;
+            for (i = 0; i < $rootScope.fechas.length; i++){
+                if($rootScope.fechas[i].actividad.toLowerCase() == 'fecha correteo' && 
+                  $rootScope.fechas[i].fecha == fecha ){
+                     encontrado = true;
+                     break;
+                }
+            }
+            return encontrado;
+       }
+       
+       $scope.fechaEsEncuentro = function(fecha){
+            encontrado = false;
+            for (i = 0; i < $rootScope.fechas.length; i++){
+                if($rootScope.fechas[i].actividad.toLowerCase() == 'encuentro' && 
+                  $rootScope.fechas[i].fecha == fecha ){
+                     encontrado = true;
+                     break;
+                }
+            }
+            return encontrado;
+       }
+       
+       $scope.fechaEsRepartoPedido = function(fecha){
+            encontrado = false;
+            for (i = 0; i < $rootScope.fechas.length; i++){
+                if($rootScope.fechas[i].actividad.toLowerCase() == 'reparto de pedido 1' && 
+                  $rootScope.fechas[i].fecha == fecha ){
+                     encontrado = true;
+                     break;
+                }
+            }
+            return encontrado;
+       }
     
        $scope.semanasCalendario = function(){
           
@@ -887,7 +951,11 @@ angular.module('novaventa.controllers', [])
                 for(j=primerDiaMes; j>0; j--){
                     var fechaAnterior = new Date();
                     fechaAnterior.setDate(inicioMes.getDate()-j);
-                    semana.push({ "dia": fechaAnterior.getDate()});
+                    semana.push({ "dia": fechaAnterior.getDate(), 
+                    "fechaCompleta":  $scope.padStr(fechaAnterior.getFullYear()) + "-" +
+                                      $scope.padStr(1 + fechaAnterior.getMonth()) + "-" +
+                                      $scope.padStr(fechaAnterior.getDate())
+                    });
                  }
                  for(i=0; i<7-primerDiaMes; i++){
               
@@ -899,7 +967,11 @@ angular.module('novaventa.controllers', [])
                      finMes = true;
                      reiniciarDia = false;
                   }
-                  semana.push({ "dia": diaMes + 1 });
+                  semana.push({ "dia": diaMes + 1, 
+                    "fechaCompleta":  $scope.padStr(nuevaFecha.getFullYear()) + "-" +
+                                      $scope.padStr(1 + nuevaFecha.getMonth()) + "-" +
+                                      $scope.padStr(nuevaFecha.getDate()) 
+                                      });
                   indiceDias++;
                   diaMes++;
               }
@@ -914,7 +986,11 @@ angular.module('novaventa.controllers', [])
                      finMes = true;
                      reiniciarDia = false;
                   }
-                  semana.push({ "dia": diaMes + 1 });
+                  semana.push({ "dia": diaMes + 1, 
+                    "fechaCompleta":  $scope.padStr(nuevaFecha.getFullYear()) + "-" +
+                                      $scope.padStr(1 + nuevaFecha.getMonth()) + "-" +
+                                      $scope.padStr(nuevaFecha.getDate())  
+                            });
                   indiceDias++;
                   diaMes++;
               }
