@@ -66,20 +66,14 @@ angular.module('novaventa.controllers', [])
 	   //Registro en Analytics      
        GA.trackPage($rootScope.gaPlugin, "App Iniciada");  
 
-		// An alert dialog
-         $scope.showAlert = function() {
+      $scope.mostrarAyuda = function(titulo, mensaje) {
            var alertPopup = $ionicPopup.alert({
-             title: 'Don\'t eat that!',
-             template: 'It might taste good'
-           });
-           alertPopup.then(function(res) {
-             console.log('Thank you for not eating my delicious ice cream cone');
+             title: titulo,
+             template: mensaje
            });
          };
 
         $scope.inicializar = function(){
-
-			//$scope.showAlert();
 			
             $rootScope.datos = {};
             $rootScope.puntos = {};
@@ -93,7 +87,7 @@ angular.module('novaventa.controllers', [])
                 if(Internet.get()){
 
                     $scope.loading =  $ionicLoading.show({
-                        template: 'Iniciando sesión...'
+                        template: 'Iniciando sesión'
                     });
 
                     resultado = Mama.autenticar($rootScope.datos.cedula, $rootScope, $http, function(success, data){
@@ -140,10 +134,10 @@ angular.module('novaventa.controllers', [])
                             }else{
 
                                 if(data.tiposUsuarios){
-                                    alert("Tu rol no es válido para nuestra Aplicación");
+                                    $scope.mostrarAyuda("Inicio de sesión","Tu rol no es válido para nuestra Aplicación");
                                 }else{
                                     $scope.mostrarMensajeError = true;
-                                    alert("En este momento no podemos consultar tu información");
+                                    a$scope.mostrarAyuda("Inicio de sesión","En este momento no podemos consultar tu información");
                                 }
 
                             }
@@ -155,7 +149,7 @@ angular.module('novaventa.controllers', [])
 
                 }else{
                     $scope.mostrarMensajeError = true;
-                    alert("Por favor verifica tu conexión a internet")
+                    $scope.mostrarAyuda("Inicio de sesión","Por favor verifica tu conexión a internet")
                 }
 
             }else{
@@ -174,10 +168,17 @@ angular.module('novaventa.controllers', [])
 
     })
 
-    .controller('LoginCtrl', function($scope, $rootScope, $ionicLoading, $state, $http, $ionicHistory, Mama, Internet, GA) {
+    .controller('LoginCtrl', function($scope, $rootScope, $ionicLoading, $ionicPopup, $state, $http, $ionicHistory, Mama, Internet, GA) {
 
        //Registro en Analytics      
-       GA.trackPage($rootScope.gaPlugin, "Inicio de sesión");  
+       GA.trackPage($rootScope.gaPlugin, "Inicio de sesión");
+       
+       $scope.mostrarAyuda = function(titulo, mensaje) {
+           var alertPopup = $ionicPopup.alert({
+             title: titulo,
+             template: mensaje
+           });
+         };
 
     	$scope.datosInicio = {cedula: '' };
     
@@ -185,11 +186,29 @@ angular.module('novaventa.controllers', [])
         $scope.capturarCedula = function() {
 
             $rootScope.datos = { cedula: $scope.datosInicio.cedula }
+            
+            //Cédula vacía
+            if(!$rootScope.datos.cedula){
+                $scope.mostrarAyuda("Inicio de sesión","Debes ingresar la cédula");
+                return;
+            }
+
+            //Cantidad de caracteres
+            if(String($rootScope.datos.cedula).length < 6 || String($rootScope.datos.cedula).length > 10){
+                $scope.mostrarAyuda("Inicio de sesión","Debes ingresar entre 6 y 10 dígitos");
+                return;
+            }
+
+            //Caracteres especiales
+            if(String($rootScope.datos.cedula).indexOf(".") >= 0 || String($rootScope.datos.cedula).indexOf(",") >= 0){
+                $scope.mostrarAyuda("Inicio de sesión","Debes ingresar sólo dígitos");
+                return;
+            }
 
             if(Internet.get()){
 
                 $scope.loading =  $ionicLoading.show({
-                    template: 'Iniciando sesión...'
+                    template: 'Iniciando sesión'
                 });
 
             	resultado = Mama.autenticar($scope.datosInicio.cedula, $rootScope, $http, function(success, data){
@@ -264,9 +283,9 @@ angular.module('novaventa.controllers', [])
                         }else{
 
                             if(data.tiposUsuarios){
-                                alert("Tu rol no es válido para nuestra Aplicación");
+                                $scope.mostrarAyuda("Inicio de sesión","Tu rol no es válido para nuestra Aplicación");
                             }else{
-                                alert("En este momento no podemos consultar tu información");
+                                $scope.mostrarAyuda("Inicio de sesión","En este momento no podemos consultar tu información");
                             }
                         }
 
@@ -276,7 +295,7 @@ angular.module('novaventa.controllers', [])
             	});
             	
             }else{
-                alert("Por favor verifica tu conexión a internet");
+                $scope.mostrarAyuda("Inicio de sesión","Por favor verifica tu conexión a internet");
             }
         }
     })
@@ -389,15 +408,22 @@ angular.module('novaventa.controllers', [])
 
     })
 
-    .controller('MisPuntosCtrl', function($scope, $rootScope, $state, $ionicLoading, $http, Mama, Internet, GA) {
+    .controller('MisPuntosCtrl', function($scope, $rootScope, $state, $ionicLoading, $ionicPopup, $http, Mama, Internet, GA) {
 
          //Registro en Analytics      
        GA.trackPage($rootScope.gaPlugin, "Mis Puntos");
+       
+       $scope.mostrarAyuda = function(titulo, mensaje) {
+           var alertPopup = $ionicPopup.alert({
+             title: titulo,
+             template: mensaje
+           });
+         };
 
         if(Internet.get()){
         
            $scope.loading =  $ionicLoading.show({
-                    template: 'Estamos consultando tus puntos...'
+                    template: 'Estamos consultando tus puntos'
                 });
           
             Mama.getPuntos($rootScope.datos.cedula, $rootScope, $http, function (success, data){
@@ -407,11 +433,11 @@ angular.module('novaventa.controllers', [])
 
                 }else{
                     $ionicLoading.hide();
-                    alert("En este momento no podemos acceder a tu información");
+                    $scope.mostrarAyuda("Mis Puntos","En este momento no podemos acceder a tu información");
                 }
             });
         }else{
-            alert("Por favor verifica tu conexión a internet");
+            $scope.mostrarAyuda("Mis Puntos","Por favor verifica tu conexión a internet");
         }
 
         $scope.campanaVencimientoPuntos = function(){
@@ -467,7 +493,7 @@ angular.module('novaventa.controllers', [])
         if(Internet.get()){
 
             $scope.loading =  $ionicLoading.show({
-                template: 'Estamos consultando el estado de tu pedido...'
+                template: 'Estamos consultando el estado de tu pedido'
             });
 
             Mama.getTrazabilidadPedido($rootScope.datos.cedula, $rootScope, $http, function (success, data){
@@ -480,11 +506,11 @@ angular.module('novaventa.controllers', [])
 
                 }else{
                     $ionicLoading.hide();
-                    alert("En este momento no podemos acceder a tu información");
+                    $scope.mostrarAyuda("Mi Pedido","En este momento no podemos acceder a tu información");
                 }
             });
         }else{
-            alert("Por favor verifica tu conexión a internet");
+            $scope.mostrarAyuda("Mi Pedido","Por favor verifica tu conexión a internet");
         }
        
        $scope.verAyudaNovedad = function(){
@@ -586,10 +612,17 @@ angular.module('novaventa.controllers', [])
         }
     })
 
-    .controller('PuntosPagoCtrl', function($scope, $rootScope, $ionicLoading, $state, $http, PuntosPago, Internet, GA) {
+    .controller('PuntosPagoCtrl', function($scope, $rootScope, $ionicLoading, $state, $http, $ionicPopup, PuntosPago, Internet, GA) {
 
          //Registro en Analytics      
        GA.trackPage($rootScope.gaPlugin, "Puntos de Pago");
+       
+       $scope.mostrarAyuda = function(titulo, mensaje) {
+            var alertPopup = $ionicPopup.alert({
+                title: titulo,
+                template: mensaje
+                });
+            };
 
 		//Establecer la posición por defecto para el Mapa si no se ha iniciado el GPS
 		$rootScope.posicion = { latitud: 6.222611, longitud: -75.57935};
@@ -613,7 +646,7 @@ angular.module('novaventa.controllers', [])
                   if(Internet.get()){
 
                    $scope.loading =  $ionicLoading.show({
-                            template: 'Estamos buscando los puntos cercanos a ti...'
+                            template: 'Estamos buscando los puntos cercanos a ti'
                         });
 
                     PuntosPago.get(position.coords.latitude, position.coords.longitude, $http, function(success, data){
@@ -624,13 +657,13 @@ angular.module('novaventa.controllers', [])
 
                     }else{
                          $ionicLoading.hide();
-                        alert("En este momento no podemos acceder a la información de puntos de pago");
+                         $scope.mostrarAyuda("Puntos de Pago","En este momento no podemos acceder a la información de puntos de pago");
                     }
 
                 });
 
                 }else{
-                    alert("Por favor verifica tu conexión a internet");
+                    $scope.mostrarAyuda("Puntos de Pago","Por favor verifica tu conexión a internet");
                 }
 
 
@@ -653,12 +686,12 @@ angular.module('novaventa.controllers', [])
 
         if(navigator && navigator.geolocation){
            $scope.loading =  $ionicLoading.show({
-                                template: 'Estamos detectando tu ubicación...'
+                                template: 'Estamos detectando tu ubicación'
                             });
 
            navigator.geolocation.getCurrentPosition($scope.onSuccess, $scope.onError, { maximumAge: 3000, timeout: 8000, enableHighAccuracy: true });
         }else{
-            alert("Lo sentimos, no es posible detectar tu ubicación, veras los puntos cercanos a tu zona");
+            $scope.mostrarAyuda("Puntos de Pago","Lo sentimos, no es posible detectar tu ubicación, veras los puntos cercanos a tu zona");
             $state.go("app.menu.tabs.puntospago.puntospagomapa");
         }
 
@@ -669,6 +702,13 @@ angular.module('novaventa.controllers', [])
 
          //Registro en Analytics      
        GA.trackPage($rootScope.gaPlugin, "Puntos de Pago - Mapa");
+       
+       $scope.mostrarAyuda = function(titulo, mensaje) {
+            var alertPopup = $ionicPopup.alert({
+                title: titulo,
+                template: mensaje
+                });
+            };
 
         $scope.intentosGps = 0;
 
@@ -731,7 +771,7 @@ angular.module('novaventa.controllers', [])
             if(Internet.get()){
 
                 $scope.loading =  $ionicLoading.show({
-                    template: 'Estamos buscando los puntos cercanos a ti...'
+                    template: 'Estamos buscando los puntos cercanos a ti'
                 });
 
                 PuntosPago.get(position.coords.latitude, position.coords.longitude, $http, function(success, data){
@@ -743,13 +783,13 @@ angular.module('novaventa.controllers', [])
 
                     }else{
                         $ionicLoading.hide();
-                        alert("En este momento no podemos acceder a la información de puntos de pago");
+                        $scope.mostrarAyuda("Puntos de Pago","En este momento no podemos acceder a la información de puntos de pago");
                     }
 
                 });
 
             }else{
-                alert("Por favor verifica tu conexión a internet");
+                $scope.mostrarAyuda("Puntos de Pago","Por favor verifica tu conexión a internet");
             }
 
 
@@ -767,10 +807,10 @@ angular.module('novaventa.controllers', [])
         }
 
         if($rootScope.errorPosicion){
-            alert("Lo sentimos, no podemos encontrar tu ubicación, si dispones de GPS debes prenderlo para mejorar tu experiencia");
+            $scope.mostrarAyuda("Puntos de Pago","Lo sentimos, no podemos encontrar tu ubicación, si dispones de GPS debes prenderlo para mejorar tu experiencia");
 
             $scope.loading =  $ionicLoading.show({
-                template: 'Esperando activación de GPS...'
+                template: 'Esperando activación de GPS'
             });
 
             $scope.interval = setInterval(function(){
@@ -784,7 +824,7 @@ angular.module('novaventa.controllers', [])
                     
                     //Mostrar Puntos Acorde a la Zona de la Mamá
                     $scope.loading =  $ionicLoading.show({
-                    template: 'Estamos buscando los puntos cercanos tu zona...'
+                    template: 'Estamos buscando los puntos cercanos tu zona'
                 });
 
                 PuntosPago.get(6.222611, -75.57935, $http, function(success, data){
@@ -796,7 +836,7 @@ angular.module('novaventa.controllers', [])
 
                     }else{
                         $ionicLoading.hide();
-                        alert("En este momento no podemos acceder a la información de puntos de pago");
+                        $scope.mostrarAyuda("Puntos de Pago","En este momento no podemos acceder a la información de puntos de pago");
                     }
 
                 });
