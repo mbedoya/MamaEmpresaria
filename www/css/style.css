@@ -17,3 +17,10 @@
    font-size: 22px;
    margin-left: 2px !important;
 }
+
+.leyenda-campana{
+   background-color: #E0EBEB;
+   height: 10px;
+   width: 50px;
+   margin-right: 10px;
+}
