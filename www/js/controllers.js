@@ -544,7 +544,14 @@ angular.module('novaventa.controllers', [])
         }
 
         $scope.fechaCorreteo = function(){
-            return $rootScope.fechas[$rootScope.fechas.length-1].fecha;
+            fecha = null;
+            for (i = 0; i < $rootScope.fechas.length; i++){
+                if($rootScope.fechas[i].actividad.toLowerCase() == 'fecha correteo'){
+                     fecha = $rootScope.fechas[i].fecha;
+                     break;
+                }
+            }
+            return fecha;
         }
 
         $scope.mostrarNovedad = function(novedad){
@@ -555,6 +562,27 @@ angular.module('novaventa.controllers', [])
                 mostrar = true;
             }
             return mostrar;
+        }
+
+        $scope.padStr = function(i) {
+           return (i < 10) ? "0" + i : "" + i;
+        }
+        
+        $scope.hoyEsCorreteo = function(){
+        
+           var temp = new Date();
+           var dateStr = $scope.padStr(temp.getFullYear()) + "-" +
+                  $scope.padStr(1 + temp.getMonth()) + "-" +
+                  $scope.padStr(temp.getDate());
+           
+           correteo = false;
+            for (i = 0; i < $rootScope.fechas.length; i++){
+                if($rootScope.fechas[i].fecha == dateStr){
+                     correteo = true;
+                     break;
+                }
+            }
+            return correteo;
         }
     })
 
