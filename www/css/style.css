@@ -4,3 +4,16 @@
     border-color: #fff !important;
     padding-bottom: 0px;
 }
+
+.calendario .item {
+    padding-left: 6px !important;
+}
+
+.calendario .campana-actual {
+    background-color: #E0EBEB;
+}
+
+.calendario .item-icon-left .icon, .item-icon-right .icon{
+   font-size: 22px;
+   margin-left: 2px !important;
+}
