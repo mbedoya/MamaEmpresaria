@@ -850,8 +850,96 @@ angular.module('novaventa.controllers', [])
     })
     
     .controller('InformacionFechasCtrl', function($scope, $state, $ionicActionSheet) {
-
-
+    
+       $scope.semanas = null;
+    
+       $scope.padStr = function(i) {
+           return (i < 10) ? "0" + i : "" + i;
+        }   
+    
+       $scope.semanasCalendario = function(){
+          
+          var fechaActual = new Date();
+          
+          var dateStr = $scope.padStr(fechaActual.getFullYear()) + "-" +
+                  $scope.padStr(1 + fechaActual.getMonth()) + "-" +
+                  $scope.padStr('01');
+          
+          var primerDiaMes = new Date(dateStr).getDay();
+          var inicioMes = new Date(dateStr);
+          
+          //Objeto con todas las semanas
+          var semanas = new Array();
+          
+          var finMes = false;
+          var diaMes = 0;
+          var indiceDias = 0;
+          var mesActual = fechaActual.getMonth();
+          var reiniciarDia = true;
+          
+          while(!finMes){
+            
+             //Objeto con cada semana
+             var semana = new Array();
+             //Si no hay registros entonces adicionar a la primera semana los registros necesarios del mes anterior
+             
+             if(semanas.length == 0){
+                for(j=primerDiaMes; j>0; j--){
+                    var fechaAnterior = new Date();
+                    fechaAnterior.setDate(inicioMes.getDate()-j);
+                    semana.push({ "dia": fechaAnterior.getDate()});
+                 }
+                 for(i=0; i<7-primerDiaMes; i++){
+              
+                  var nuevaFecha = new Date();
+                  nuevaFecha.setDate(inicioMes.getDate() + indiceDias);
+                  console.log(nuevaFecha);
+                  if(nuevaFecha.getMonth() != mesActual && reiniciarDia){
+                     diaMes = 0;
+                     finMes = true;
+                     reiniciarDia = false;
+                  }
+                  semana.push({ "dia": diaMes + 1 });
+                  indiceDias++;
+                  diaMes++;
+              }
+              }else{
+                 for(i=0; i<7; i++){
+              
+                  var nuevaFecha = new Date();
+                  nuevaFecha.setDate(inicioMes.getDate() + indiceDias);
+                  console.log(nuevaFecha);
+                  if(nuevaFecha.getMonth() != mesActual && reiniciarDia){
+                     diaMes = 0;
+                     finMes = true;
+                     reiniciarDia = false;
+                  }
+                  semana.push({ "dia": diaMes + 1 });
+                  indiceDias++;
+                  diaMes++;
+              }
+              }
+            
+              
+              //al terminar la semana verificar nuevamente si el inicio de la semana entrante no corresponde a 
+              //otro mes
+              var nuevaFecha = new Date();
+                  nuevaFecha.setDate(inicioMes.getDate() + indiceDias);
+                  console.log(nuevaFecha);
+                  if(nuevaFecha.getMonth() != mesActual){
+                     finMes = true;
+                  }
+              
+              semanas.push(semana);    
+          }
+          
+          console.log(semanas);
+          console.log(primerDiaMes);
+          
+          $scope.semanas = semanas;
+       }
+       
+       $scope.semanasCalendario();
 
     })
     

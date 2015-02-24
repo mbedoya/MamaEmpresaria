@@ -20,6 +20,15 @@
 
 <div class="calendario">
 
+<div class="row" ng-repeat="semana in semanas">
+  <div class="col" ng-repeat="dia in semana">
+      <a class="item item-icon-right">
+         <i class="icon ion-ios-compose-outline" ng-show="false"></i>
+         {{ dia.dia }}
+      </a>
+  </div>
+</div>
+
 
 <div class="row">
   <div class="col">
