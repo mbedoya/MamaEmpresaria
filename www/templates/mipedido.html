@@ -22,12 +22,12 @@
         
         <div class="list" ng-show="pedido().razonRechazo && hoyEsCorreteo()">
             <div class="item">
-                Aún no tenemos información sobre tu pedido <br />, si lo enviaste hoy por favor verifica mañana. <br />
-                Si enviaste tu pedido antes verifica <br />
-                las siguientes opciones: <br />
-                1) Que tu pedido no se haya quedado en estado <br /> 
+                Aún no tenemos información sobre tu pedido <br />. Si lo enviaste hoy por favor verifica mañana. <br />
+                Si ya hiciste el envío de tu pedido y aún <br />
+                no registra verifica: <br />
+                1) Que no se haya quedado en estado <br /> 
                 "Guardado" en la página web. <br />
-                2) Que hayas dejado el pedido en el buzón en la <br /> fecha y hora adecuados.
+                2) Que lo hayas llevado al buzón en los horarios y fechas establecidas.
             </div>
         </div>
         
@@ -46,7 +46,7 @@
                <h2 class="balanced">Recibido
                </h2>
                <p >{{ buscarEstado('Recibido').fecha | date: 'dd'}} de {{ buscarEstado('Recibido').fecha | date: 'MMMM'}}</p>
-                <div style="border-left: solid 1px #ccc; padding-left: 5px;" ng-show="pedido.estado != 'Cargue'">&nbsp;
+                <div style="border-left: solid 1px #ccc; padding-left: 5px;" >&nbsp;
                 </div>
             </a>
             
@@ -55,16 +55,26 @@
                <h2 class="dark">Recibido
                </h2>
                <p>&nbsp;</p>
-                <div style="border-left: solid 1px #ccc; padding-left: 5px;" ng-show="pedido.estado != 'Cargue'">&nbsp;
+                <div style="border-left: solid 1px #ccc; padding-left: 5px;" >&nbsp;
                 </div>
             </a>
+            
+            <a class="item item-avatar" href="#" ng-show="estadoEncontrado('Anulado')" >
+               <img src="img/cancel.png">
+               <h2 class="balanced">Anulado
+               </h2>
+               <p >{{ buscarEstado('Anulado').fecha | date: 'dd'}} de {{ buscarEstado('Anulado').fecha | date: 'MMMM'}}</p>
+                <div style="border-left: solid 1px #ccc; padding-left: 5px;" >&nbsp;
+                </div>
+            </a>
+
             
             <a class="item item-avatar" href="#" ng-show="estadoEncontrado('Facturado') && !estadoEncontrado('Anulado')" >
                <img src="img/invoice.jpg">
                <h2 class="balanced">Facturado
                </h2>
                <p>{{ buscarEstado('Facturado').fecha | date: 'dd'}} de {{ buscarEstado('Facturado').fecha | date: 'MMMM'}}</p>
-                <div style="border-left: solid 1px #ccc; padding-left: 5px;" ng-show="pedido.estado != 'Cargue'">&nbsp;
+                <div style="border-left: solid 1px #ccc; padding-left: 5px;" >&nbsp;
                 </div>
             </a>
             
@@ -73,7 +83,7 @@
                <h2 class="dark">Facturado
                </h2>
                <p>&nbsp;</p>
-                <div style="border-left: solid 1px #ccc; padding-left: 5px;" ng-show="pedido.estado != 'Cargue'">&nbsp;
+                <div style="border-left: solid 1px #ccc; padding-left: 5px;" >&nbsp;
                 </div>
             </a>
             
@@ -82,7 +92,7 @@
                <h2 class="balanced">En proceso de empaque
                </h2>
                <p>{{ buscarEstado('En proceso de empaque').fecha | date: 'dd'}} de {{ buscarEstado('En proceso de empaque').fecha | date: 'MMMM'}}</p>
-                <div style="border-left: solid 1px #ccc; padding-left: 5px;" ng-show="pedido.estado != 'Cargue'">&nbsp;
+                <div style="border-left: solid 1px #ccc; padding-left: 5px;" >&nbsp;
                 </div>
             </a>
             
@@ -91,7 +101,7 @@
                <h2 class="dark">En proceso de empaque
                </h2>
                <p>&nbsp;</p>
-                <div style="border-left: solid 1px #ccc; padding-left: 5px;" ng-show="pedido.estado != 'Cargue'">&nbsp;
+                <div style="border-left: solid 1px #ccc; padding-left: 5px;" >&nbsp;
                 </div>
             </a>
             
