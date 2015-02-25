@@ -10,6 +10,17 @@
                 {{ buscarEstado('Novedad').motivo }}
             </a>
         </div>
+        
+        <div class="list list-inset" >
+            <a class="item item-icon-right assertive" href="#">
+                <i class="icon ion-ios-arrow-down" ></i>
+                Tu pedido tiene presenta algunos agotados.
+            </a>
+            <a class="item assertive" href="#" ng-repeat="agotado in agotados()" >
+                <h2>{{ agotado.nombre }}</h2>
+                <p>{{ agotado.tipoAgotado }}</p>
+            </a>
+        </div>
 
         <div class="list list-inset" ng-show="estadoEncontrado('Anulado') && estadoEncontrado('Novedad')">
             <div class="item">

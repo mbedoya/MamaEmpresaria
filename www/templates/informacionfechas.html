@@ -70,7 +70,9 @@
 
   <a class="item" href="#" ng-repeat="detalle in detalleFecha">
     <h2>{{ detalle.hora }}</h2>
-    <p>{{ detalle.actividad }} en {{ detalle.lugar }}</p>
+     <p>{{ detalle.actividad }} en {{ detalle.lugar }} <br />
+        {{ detalle.direccion }}
+    </p>
   </a>
   
   <a class="item" href="#">

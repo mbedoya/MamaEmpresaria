@@ -248,11 +248,20 @@ angular.module('novaventa.controllers', [])
                                 });
                                 
                                 
-                            Mama.getTrazabilidadPedido($rootScope.datos.cedula, $rootScope, $http, function (success, data){
+                              Mama.getTrazabilidadPedido($rootScope.datos.cedula, $rootScope, $http, function (success, data){
                                 if(success){
                                     $rootScope.pedido = data;
-                                    console.log("Pedido");
-                                    console.log($rootScope.pedido);
+                                    
+                                    Mama.getAgotadosPedido($rootScope.pedido.numeroPedido, $rootScope, $http, function (success, data){
+                                    if(success){
+                                      //$ionicLoading.hide();
+                                      $rootScope.agotados = data;
+                                    }else{
+                                      //$ionicLoading.hide();
+                                    //$scope.mostrarAyuda("Mi Pedido","En este momento no podemos acceder a tu información");
+                                   }
+                                });
+                                    
 
                                 }else{
                                     //$ionicLoading.hide();
@@ -490,6 +499,12 @@ angular.module('novaventa.controllers', [])
                 template: mensaje
                 });
             };
+            
+            
+        $scope.agotados = function(){
+           console.log($rootScope.agotados.agotadosME);
+           return $rootScope.agotados.agotadosME;
+        }
 
         if(Internet.get()){
 
@@ -502,6 +517,19 @@ angular.module('novaventa.controllers', [])
                     $ionicLoading.hide();
                     $rootScope.pedido = data;
 
+                    Mama.getAgotadosPedido($rootScope.pedido.numeroPedido, $rootScope, $http, function (success, data){
+                   if(success){
+                       //$ionicLoading.hide();
+                       $rootScope.agotados = data;
+                       
+                       console.log($rootScope.agotados);
+
+                   }else{
+                       //$ionicLoading.hide();
+                       //$scope.mostrarAyuda("Mi Pedido","En este momento no podemos acceder a tu información");
+                   }
+                   });
+                    
                     console.log("Pedido");
                     console.log($rootScope.pedido);
 
@@ -510,6 +538,8 @@ angular.module('novaventa.controllers', [])
                     $scope.mostrarAyuda("Mi Pedido","En este momento no podemos acceder a tu información");
                 }
             });
+            
+            
         }else{
             $scope.mostrarAyuda("Mi Pedido","Por favor verifica tu conexión a internet");
         }

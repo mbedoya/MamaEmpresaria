@@ -35,6 +35,20 @@ angular.module('novaventa.services', [])
                         fx(false, {});
                     });
             },
+            getAgotadosPedido: function(pedido, rootScope, http, fx){
+            
+               //var urlServicio = rootScope.configuracion.ip_servidores +  "/AntaresWebServices/pedidos/PedidoCampagna/" + cedula;
+               var urlServicio = "http://www.mocky.io/v2/54ee3b594e65b0e60a4fb38f";
+
+                http.get(urlServicio).
+                    success(function(data, status, headers, config) {
+                        fx(true, data);
+                    }).
+                    error(function(data, status, headers, config) {
+                        fx(false, {});
+                    });
+               
+            },
             getRecordatorios: function(ano, campana, zona, rootScope, http, fx){
                 var urlServicio = rootScope.configuracion.ip_servidores +  "/AntaresWebServices/interfaceAntares/getRecordatoriosAntares/"+ ano +"/" + campana + "/" + zona;
 
