@@ -3,9 +3,17 @@
     	
     	
     	<div class="row">
-  <div class="col"><</div>
-  <div class="col col-50">{{ fechaVisibleCalendario() | date: 'MMMM' }} de {{ fechaVisibleCalendario() | date: 'yyyy' }}</div>
-  <div class="" >
+  <div class="col" >
+     <a class="item" href="#" ng-click="disminuirMes()" >
+        <
+     </a>
+  </div>
+  <div class="col col-50">
+    <a class="item" href="#" ng-click="disminuirMes()" >
+  {{ fechaVisibleCalendario() | date: 'MMMM' }} de {{ fechaVisibleCalendario() | date: 'yyyy' }}
+    </a>
+  </div>
+  <div class="col" >
      <a class="item" href="#" ng-click="aumentarMes()" >
         >
      </a>
@@ -26,7 +34,7 @@
 
 <div class="row" ng-repeat="semana in semanas">
   <div class="col" ng-repeat="dia in semana">
-      <a class="item item-icon-right" ng-show="!fechaEsCampanaVisible(dia.fechaCompleta)">
+      <a class="item item-icon-right" href="#" ng-click="seleccionarFecha(dia.fechaCompleta)" ng-show="!fechaEsCampanaVisible(dia.fechaCompleta)">
          <i class="icon ion-ios-compose-outline" ng-show="false"></i>
          <i class="icon ion-laptop" ng-show="fechaEsCorreteo(dia.fechaCompleta)"></i>
          <i class="icon ion-ios-people-outline" ng-show="fechaEsEncuentro(dia.fechaCompleta)"></i>
@@ -34,7 +42,7 @@
          {{ dia.dia }}
       </a>
       
-      <a class="item item-icon-right campana-actual" ng-show="fechaEsCampanaVisible(dia.fechaCompleta)">
+      <a class="item item-icon-right campana-actual" href="#" ng-click="seleccionarFecha(dia.fechaCompleta)" ng-show="fechaEsCampanaVisible(dia.fechaCompleta)">
          <i class="icon ion-ios-compose-outline" ng-show="false"></i>
          <i class="icon ion-laptop" ng-show="fechaEsCorreteo(dia.fechaCompleta)"></i>
          <i class="icon ion-ios-people-outline" ng-show="fechaEsEncuentro(dia.fechaCompleta)"></i>
@@ -57,17 +65,12 @@
 <div class="list">
 
   <div class="item item-divider">
-    Jueves, 26 de Febrero
+    {{ fechaSeleccionada | date: 'MMMM' }} {{ fechaSeleccionada | date: 'dd' }} de {{ fechaSeleccionada | date: 'yyyy' }}
   </div>
 
-  <a class="item" href="#">
-    <h2>10:00 am</h2>
-    <p>Encuentro en la casa Las Esperanzas</p>
-  </a>
-  
-  <a class="item" href="#">
-    <h2>12:00 m</h2>
-    <p>Taller Empresarias del Futuro</p>
+  <a class="item" href="#" ng-repeat="detalle in detalleFecha">
+    <h2>{{ detalle.hora }}</h2>
+    <p>{{ detalle.actividad }} en {{ detalle.lugar }}</p>
   </a>
   
   <a class="item" href="#">

@@ -113,7 +113,7 @@ angular.module('novaventa.controllers', [])
                                 $rootScope.datos.cupo = data.cupo;
                                 $rootScope.datos.saldo = data.saldoBalance;
                                 $rootScope.datos.valorFlexibilizacion = data.valorFlexibilizacion;
-                                
+                                $rootScope.zona = data.listaZonas[0];
 
                                 $rootScope.campana = {numero: '-', fechaMontajePedido:'-'};
 
@@ -234,6 +234,7 @@ angular.module('novaventa.controllers', [])
                             $rootScope.datos.cupo = data.cupo;
                             $rootScope.datos.saldo = data.saldoBalance;
                             $rootScope.datos.valorFlexibilizacion = data.valorFlexibilizacion;
+                            $rootScope.zona = data.listaZonas[0];
 
                             $rootScope.campana = {numero: '-', fechaMontajePedido:'-'};
 
@@ -849,11 +850,26 @@ angular.module('novaventa.controllers', [])
 
     })
     
-    .controller('InformacionFechasCtrl', function($scope, $rootScope, $state, $ionicActionSheet) {
+    .controller('InformacionFechasCtrl', function($scope, $rootScope, $state, $ionicPopup, $http, Mama) {
+    
+       $scope.mostrarAyuda = function(titulo, mensaje) {
+            var alertPopup = $ionicPopup.alert({
+                title: titulo,
+                template: mensaje
+                });
+            };
+    
+       $scope.detalleFecha = null;
     
        $scope.semanas = null;
        
+       //El calendario inicia en el mes actual
        $scope.fechaCalendario = new Date();
+       
+       $scope.fechaSeleccionada = $scope.fechaCalendario;
+       
+       //Fechas de la campana que se está visualizando
+       $scope.fechas = $rootScope.fechas;
        
        $scope.campana = $rootScope.campana.numero;
     
@@ -863,6 +879,42 @@ angular.module('novaventa.controllers', [])
        
        $scope.fechaVisibleCalendario = function(){
           return $scope.fechaCalendario;
+       }
+       
+       $scope.disminuirMes = function(){
+       
+          //Establecer la fecha al día 1 del mes actual
+          var cadenaFecha = $scope.fechaCalendario.getFullYear() + "-" +
+                  $scope.padStr(1 + $scope.fechaCalendario.getMonth()) + "-" + '01'; 
+       
+          //Devolverse 1 mes
+          $scope.fechaCalendario = new Date(cadenaFecha);
+          $scope.fechaCalendario.setDate($scope.fechaCalendario.getDate() - 2);
+          
+          //Establecer la fecha al día 1 del mes siguiente
+          //La fecha se está retornando 1 día al hacer el new Date()
+          //, no se sabe la razón, por esto se pone 02
+          cadenaFecha = $scope.fechaCalendario.getFullYear() + "-" +
+                  $scope.padStr(1 + $scope.fechaCalendario.getMonth()) + "-" + '02';
+          
+          $scope.fechaCalendario = new Date(cadenaFecha);
+          
+          //Aumentar la campana
+          $scope.campana = $scope.campana - 1;
+          
+          Mama.getRecordatorios($scope.fechaCalendario.getFullYear(), $scope.campana, $rootScope.zona, $rootScope, $http, function (success, data){
+                if(success){
+                    $scope.fechas = data.listaRecordatorios;
+                    
+                    console.log($scope.fechas);
+                    
+                    //Generar el calendario nuevamente
+                    $scope.semanasCalendario();
+                    
+                }else{
+                   $scope.mostrarAyuda("Fechas","No es posible consultar la información para la campaña " + $scope.campana);
+                }
+         });
        }
        
        $scope.aumentarMes = function(){
@@ -883,8 +935,22 @@ angular.module('novaventa.controllers', [])
           
           $scope.fechaCalendario = new Date(cadenaFecha);
           
-          //Generar el calendario nuevamente
-          $scope.semanasCalendario();
+          //Aumentar la campana
+          $scope.campana = $scope.campana + 1;
+          
+          Mama.getRecordatorios($scope.fechaCalendario.getFullYear(), $scope.campana, $rootScope.zona, $rootScope, $http, function (success, data){
+                if(success){
+                    $scope.fechas = data.listaRecordatorios;
+                    
+                    console.log($scope.fechas);
+                    
+                    //Generar el calendario nuevamente
+                    $scope.semanasCalendario();
+                    
+                }else{
+                   $scope.mostrarAyuda("Fechas","No es posible consultar la información para la campaña " + $scope.campana);
+                }
+         });
        }
        
        $scope.numeroCampana = function(){
@@ -896,13 +962,13 @@ angular.module('novaventa.controllers', [])
             
             var fechaCalendario = new Date(fecha);
             
-            for (i = 0; i < $rootScope.fechas.length; i++){
+            for (i = 0; i < $scope.fechas.length; i++){
             
                 var fechaMinimaCampana = new Date(fecha);
-                fechaMinimaCampana.setDate(new Date($rootScope.fechas[i].fecha).getDate() - 21); 
+                fechaMinimaCampana.setDate(new Date($scope.fechas[i].fecha).getDate() - 21); 
             
-                if($rootScope.fechas[i].actividad.toLowerCase() == 'fecha correteo' && 
-                  fechaCalendario <= new Date($rootScope.fechas[i].fecha) &&
+                if($scope.fechas[i].actividad.toLowerCase() == 'fecha correteo' && 
+                  fechaCalendario <= new Date($scope.fechas[i].fecha) &&
                   fechaCalendario >= fechaMinimaCampana){
                      encontrado = true;
                      break;
@@ -913,9 +979,9 @@ angular.module('novaventa.controllers', [])
        
        $scope.fechaEsCorreteo = function(fecha){
             encontrado = false;
-            for (i = 0; i < $rootScope.fechas.length; i++){
-                if($rootScope.fechas[i].actividad.toLowerCase() == 'fecha correteo' && 
-                  $rootScope.fechas[i].fecha == fecha ){
+            for (i = 0; i < $scope.fechas.length; i++){
+                if($scope.fechas[i].actividad.toLowerCase() == 'fecha correteo' && 
+                  $scope.fechas[i].fecha == fecha ){
                      encontrado = true;
                      break;
                 }
@@ -925,9 +991,9 @@ angular.module('novaventa.controllers', [])
        
        $scope.fechaEsEncuentro = function(fecha){
             encontrado = false;
-            for (i = 0; i < $rootScope.fechas.length; i++){
-                if($rootScope.fechas[i].actividad.toLowerCase() == 'encuentro' && 
-                  $rootScope.fechas[i].fecha == fecha ){
+            for (i = 0; i < $scope.fechas.length; i++){
+                if($scope.fechas[i].actividad.toLowerCase() == 'encuentro' && 
+                  $scope.fechas[i].fecha == fecha ){
                      encontrado = true;
                      break;
                 }
@@ -937,16 +1003,33 @@ angular.module('novaventa.controllers', [])
        
        $scope.fechaEsRepartoPedido = function(fecha){
             encontrado = false;
-            for (i = 0; i < $rootScope.fechas.length; i++){
-                if($rootScope.fechas[i].actividad.toLowerCase() == 'reparto de pedido 1' && 
-                  $rootScope.fechas[i].fecha == fecha ){
+            for (i = 0; i < $scope.fechas.length; i++){
+                if($scope.fechas[i].actividad.toLowerCase() == 'reparto de pedido 1' && 
+                  $scope.fechas[i].fecha == fecha ){
                      encontrado = true;
                      break;
                 }
             }
             return encontrado;
        }
-    
+       
+       $scope.seleccionarFecha = function(fecha){
+       
+           var listaEventos = new Array();
+           
+           for (i = 0; i < $scope.fechas.length; i++){
+                if($scope.fechas[i].fecha == fecha){
+                   listaEventos.push($scope.fechas[i]);
+                }
+            }
+            
+            $scope.fechaSeleccionada = new Date(fecha);
+            //Esto se hace por bug en manejo de fechas
+            $scope.fechaSeleccionada.setDate($scope.fechaSeleccionada.getDate() + 1);
+            
+            $scope.detalleFecha = listaEventos;
+       }
+         
        $scope.semanasCalendario = function(){
           
           var fechaActual = $scope.fechaCalendario;
@@ -1051,6 +1134,11 @@ angular.module('novaventa.controllers', [])
        }
        
        $scope.semanasCalendario();
+       
+       //Seleccionar la fecha actual
+       $scope.seleccionarFecha($scope.padStr($scope.fechaCalendario.getFullYear()) + "-" +
+                  $scope.padStr(1 + $scope.fechaCalendario.getMonth()) + "-" +
+                  $scope.fechaCalendario.getDate());
 
     })
     

@@ -34,6 +34,17 @@ angular.module('novaventa.services', [])
                     error(function(data, status, headers, config) {
                         fx(false, {});
                     });
+            },
+            getRecordatorios: function(ano, campana, zona, rootScope, http, fx){
+                var urlServicio = rootScope.configuracion.ip_servidores +  "/AntaresWebServices/interfaceAntares/getRecordatoriosAntares/"+ ano +"/" + campana + "/" + zona;
+
+                http.get(urlServicio).
+                    success(function(data, status, headers, config) {
+                        fx(true, data);
+                    }).
+                    error(function(data, status, headers, config) {
+                        fx(false, {});
+                    });
             }
         }
     })
