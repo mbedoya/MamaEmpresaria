@@ -73,12 +73,18 @@
     {{ fechaSeleccionada | date: 'MMMM' }} {{ fechaSeleccionada | date: 'dd' }} de {{ fechaSeleccionada | date: 'yyyy' }}
   </div>
 
-  <a class="item" href="#" ng-repeat="detalle in detalleFecha">
-    <h2>{{ detalle.hora }}</h2>
+</div>
+
+<div class="row" ng-repeat="detalle in detalleFecha">
+
+  <div class="col" href="#" >
+    <p>{{ detalle.hora }}</p>
      <p>{{ detalle.actividad }} <span ng-show="detalle.lugar">en</span> {{ detalle.lugar }} <br />
         {{ detalle.direccion }}
     </p>
-  </a>
+  </div>
+
+</div>
   
   <a class="item positive" href="#" ng-show="detalleFecha.length == 0">
     No tienes eventos para este día.
@@ -88,8 +94,6 @@
     <h2>&nbsp;</h2>
     <p>&nbsp;</p>
   </a>
-
-</div>
     	
     </ion-content>
 </ion-view>
