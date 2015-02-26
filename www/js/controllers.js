@@ -219,9 +219,9 @@ angular.module('novaventa.controllers', [])
                     if(data && data.razonRechazo){
 
                         if(data.razonRechazo == "El usuario no se encuentra registrado en Antares."){
-                            alert("Lo sentimos no existe información para la cédula ingresada. Comunícate con tu Mamá Líder o la línea de atención", "");
+                            $scope.mostrarAyuda("Inicio de sesión","Lo sentimos no existe información para la cédula ingresada. Comunícate con tu Mamá Líder o la línea de atención", "");
                         }else{
-                            alert(data.razonRechazo);
+                            $scope.mostrarAyuda("Inicio de sesión",data.razonRechazo);
                         }
                     }else{
 
