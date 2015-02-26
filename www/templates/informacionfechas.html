@@ -4,12 +4,12 @@
     	<div class="titulo-calendario">
     	<div class="row">
   <div class="col sin-borde" >
-     <a class="item sin-borde" href="#" ng-click="disminuirMes()" >
+     <a class="item sin-borde" href="#" ng-click="disminuirMes()" ng-show="mostrarAtras()" >
         <
      </a>
   </div>
   <div class="col col-50">
-    <a class="item" href="#" ng-click="disminuirMes()" >
+    <a class="item" href="#" >
   {{ fechaVisibleCalendario() | date: 'MMMM' }} de {{ fechaVisibleCalendario() | date: 'yyyy' }}
     </a>
   </div>

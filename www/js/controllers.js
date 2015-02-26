@@ -927,6 +927,10 @@ angular.module('novaventa.controllers', [])
           return $scope.fechaCalendario;
        }
        
+       $scope.mostrarAtras = function(){
+          return $scope.campana > $rootScope.campana.numero;
+       }
+       
        $scope.disminuirMes = function(){
        
           //Establecer la fecha al día 1 del mes actual
