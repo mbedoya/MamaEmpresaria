@@ -59,6 +59,9 @@
       <span class="leyenda-campana">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       </span>
       Campaña {{ numeroCampana() }}
+      <span class="leyenda-campana-siguiente">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      </span>
+      Campaña {{ numeroCampana() + 1 }}
  </div> 
 
 
@@ -72,7 +75,7 @@
 
   <a class="item" href="#" ng-repeat="detalle in detalleFecha">
     <h2>{{ detalle.hora }}</h2>
-     <p>{{ detalle.actividad }} en {{ detalle.lugar }} <br />
+     <p>{{ detalle.actividad }} <span ng-show="detalle.lugar">en</span> {{ detalle.lugar }} <br />
         {{ detalle.direccion }}
     </p>
   </a>

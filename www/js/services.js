@@ -86,9 +86,9 @@ angular.module('novaventa.services', [])
         return {
             get: function() {
                 //Se puede establecer el tipo de conexión a Internet?
-                alert(connection);
+                //alert(connection);
                 if(connection && connection.type){
-                   alert(connection.type);
+                   //alert(connection.type);
                    return connection.type.toLowerCase() != "none";
                 }else{
                    return true;
