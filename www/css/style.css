@@ -7,6 +7,8 @@
 
 .calendario .item {
     padding-left: 6px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
 }
 
 .calendario .campana-actual {

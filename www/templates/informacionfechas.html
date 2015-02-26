@@ -34,7 +34,7 @@
 
 <div class="row" ng-repeat="semana in semanas">
   <div class="col" ng-repeat="dia in semana">
-      <a class="item item-icon-right" href="#" ng-click="seleccionarFecha(dia.fechaCompleta)" ng-show="!fechaEsCampanaVisible(dia.fechaCompleta)">
+      <a id='{{dia.fechaCompleta}}' class="item item-icon-right {{estiloTexto(dia.fechaCompleta)}}" href="#" ng-click="seleccionarFecha(dia.fechaCompleta)" ng-show="!fechaEsCampanaVisible(dia.fechaCompleta)">
          <i class="icon ion-ios-compose-outline" ng-show="false"></i>
          <i class="icon ion-laptop" ng-show="fechaEsCorreteo(dia.fechaCompleta)"></i>
          <i class="icon ion-ios-people-outline" ng-show="fechaEsEncuentro(dia.fechaCompleta)"></i>
@@ -42,7 +42,7 @@
          {{ dia.dia }}
       </a>
       
-      <a class="item item-icon-right campana-actual" href="#" ng-click="seleccionarFecha(dia.fechaCompleta)" ng-show="fechaEsCampanaVisible(dia.fechaCompleta)">
+      <a id='{{dia.fechaCompleta}}' class="item item-icon-right campana-actual {{estiloTexto(dia.fechaCompleta)}}" href="#" ng-click="seleccionarFecha(dia.fechaCompleta)" ng-show="fechaEsCampanaVisible(dia.fechaCompleta)">
          <i class="icon ion-ios-compose-outline" ng-show="false"></i>
          <i class="icon ion-laptop" ng-show="fechaEsCorreteo(dia.fechaCompleta)"></i>
          <i class="icon ion-ios-people-outline" ng-show="fechaEsEncuentro(dia.fechaCompleta)"></i>
@@ -75,7 +75,7 @@
     </p>
   </a>
   
-  <a class="item" href="#">
+  <a id="final" class="item" href="#">
     <h2>&nbsp;</h2>
     <p>&nbsp;</p>
   </a>

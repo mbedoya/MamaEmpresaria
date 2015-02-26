@@ -888,6 +888,8 @@ angular.module('novaventa.controllers', [])
                 template: mensaje
                 });
             };
+            
+       $scope.cadenaFechaSeleccionada = '';     
     
        $scope.detalleFecha = null;
     
@@ -905,6 +907,20 @@ angular.module('novaventa.controllers', [])
     
        $scope.padStr = function(i) {
            return (i < 10) ? "0" + i : "" + i;
+       }
+       
+       $scope.estiloTexto = function(fecha){
+          var fechaActual = $scope.fechaCalendario;
+          
+          var dateStr = $scope.padStr(fechaActual.getFullYear()) + "-" +
+                  $scope.padStr(1 + fechaActual.getMonth()) + "-" +
+                  fechaActual.getDate();
+       
+          if(fecha == dateStr){
+             return "assertive";
+          }else{
+            return "";
+          }
        }
        
        $scope.fechaVisibleCalendario = function(){
@@ -1045,6 +1061,15 @@ angular.module('novaventa.controllers', [])
        
        $scope.seleccionarFecha = function(fecha){
        
+          if($scope.cadenaFechaSeleccionada != ''){
+            $("#" + $scope.cadenaFechaSeleccionada).removeClass("positive");
+          }
+          
+          $scope.cadenaFechaSeleccionada = fecha;
+          $("#" + $scope.cadenaFechaSeleccionada).addClass("positive");
+          
+          console.log(fecha);
+       
            var listaEventos = new Array();
            
            for (i = 0; i < $scope.fechas.length; i++){
@@ -1142,15 +1167,9 @@ angular.module('novaventa.controllers', [])
               
               //al terminar la semana verificar nuevamente si el inicio de la semana entrante no corresponde a 
               //otro mes
-              console.log('Indice dias:' + indiceDias);
-              console.log('Inicio de mes:' + inicioMes);
-              console.log('Calculo nueva fecha:' + inicioMes.getDate() + indiceDias);
                var nuevaFecha = new Date();
                   nuevaFecha.setTime( inicioMes.getTime() + indiceDias * 86400000 );
-                  
-                  console.log('Nueva fecha:' + nuevaFecha.getMonth());
-                  console.log(nuevaFecha);
-                  
+                                    
                   if(nuevaFecha.getMonth() != mesActual){
                      finMes = true;
                   }
@@ -1159,8 +1178,6 @@ angular.module('novaventa.controllers', [])
           }
           
           $scope.semanas = semanas;
-          
-          console.log($scope.semanas);
        }
        
        $scope.semanasCalendario();
