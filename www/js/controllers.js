@@ -87,7 +87,7 @@ angular.module('novaventa.controllers', [])
                 if(Internet.get()){
 
                     $scope.loading =  $ionicLoading.show({
-                        template: 'Iniciando sesión'
+                        template: 'Iniciando sesión <br /><br /> <img style="max-width:50px; max-height:50px;" src="img/icon.png">'
                     });
 
                     resultado = Mama.autenticar($rootScope.datos.cedula, $rootScope, $http, function(success, data){
