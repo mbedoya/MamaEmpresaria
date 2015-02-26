@@ -1,4 +1,4 @@
-angular.module('novaventa.controllers', [])
+angular.module('novaventa.controllers', ['novaventa.filters'])
 
     .controller('AppCtrl', function($scope, $state, $rootScope, $ionicHistory) {
 
