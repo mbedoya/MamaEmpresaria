@@ -77,7 +77,8 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
 			
             $rootScope.datos = {};
             $rootScope.puntos = {};
-            $rootScope.configuracion = { ip_servidores: 'http://200.47.173.66:9081' };
+            //$rootScope.configuracion = { ip_servidores: 'http://200.47.173.66:9081' };
+            $rootScope.configuracion = { ip_servidores: 'http://transferenciaelectronica.novaventa.com.co/' };
 
             //Almacenar la cédula si hay almacenamiento local
             if(localStorage && localStorage.cedula){
@@ -584,7 +585,7 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
 
         $scope.cambiarNombreEstado = function(nombre){
 
-            if(nombre.toLowerCase() == "ingresado"){
+            if(nombre.toLowerCase() == "ingresado" || nombre.toLowerCase() == "ingresada"){
                 return "Recibido";
             }else{
                 if(nombre.toLowerCase() == "en línea"){

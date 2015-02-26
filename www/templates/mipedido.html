@@ -89,7 +89,7 @@
                 </div>
             </a>
             
-            <a class="item item-avatar" href="#" ng-show="!estadoEncontrado('Facturado') || estadoEncontrado('Anulado')" >
+            <a class="item item-avatar" href="#" ng-show="!estadoEncontrado('Facturado') && !estadoEncontrado('Anulado')" >
                <img src="img/invoice.jpg">
                <h2 class="dark">Facturado
                </h2>
@@ -98,7 +98,7 @@
                 </div>
             </a>
             
-            <a class="item item-avatar" href="#" ng-show="estadoEncontrado('En proceso de empaque')" >
+            <a class="item item-avatar" href="#" ng-show="estadoEncontrado('En proceso de empaque') && !estadoEncontrado('Anulado')" >
                <img src="img/box.png">
                <h2 class="balanced">En proceso de empaque
                </h2>
@@ -107,7 +107,7 @@
                 </div>
             </a>
             
-            <a class="item item-avatar" href="#" ng-show="!estadoEncontrado('En proceso de empaque')" >
+            <a class="item item-avatar" href="#" ng-show="!estadoEncontrado('En proceso de empaque') && !estadoEncontrado('Anulado')" >
                <img src="img/box.png">
                <h2 class="dark">En proceso de empaque
                </h2>
@@ -116,14 +116,14 @@
                 </div>
             </a>
             
-            <a class="item item-avatar" href="#" ng-show="estadoEncontrado('Entregado al transportador')" >
+            <a class="item item-avatar" href="#" ng-show="estadoEncontrado('Entregado al transportador') && !estadoEncontrado('Anulado')" >
                <img src="img/truck.png">
                <h2 class="balanced">Entregado al transportador
                </h2>
                <p>{{ buscarEstado('Entregado al transportador').fecha | date: 'dd'}} de {{ buscarEstado('Entregado al transportador').fecha | date: 'MMMM'}}</p>
             </a>
             
-            <a class="item item-avatar" href="#" ng-show="!estadoEncontrado('Entregado al transportador')" >
+            <a class="item item-avatar" href="#" ng-show="!estadoEncontrado('Entregado al transportador') && !estadoEncontrado('Anulado')" >
                <img src="img/truck.png">
                <h2 class="dark">Entregado al transportador
                </h2>
