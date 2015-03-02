@@ -1,5 +1,259 @@
-/* Empty. Add your own CSS if you like */
+/* Novaventa */
+.scroll {
+    height: 100%;
+}
+#map {
+    width: 100%;
+    height: 100%;
+}
+body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: 'Droid Sans', sans-serif;
+}
+strong{
+  font-family: 'Droid Sans Bold', sans-serif;
+}
 
+/* Fuentes */
+@font-face {
+  font-family: "Droid Sans";
+  src: url("../lib/ionic/fonts/DroidSans.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Droid Sans Bold";
+  src: url("../lib/ionic/fonts/DroidSans-Bold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Barra superior */
+.has-header {
+  top:50px;
+}
+.bar.bar-stable {
+  background:#005e81;
+  border-bottom:3px solid #055073;
+  height:50px;
+}
+.bar .title.title-left {
+  display:none;
+}
+.bar .buttons {
+  width:100%;
+}
+
+/* Hamburguesa */
+.bar-stable .left-buttons .button-clear {
+  color: white;
+  margin: -6px -5px 0px -3px;
+  border-radius: 0;
+  padding: 7px 10px 39px 8px;
+  border-right: 3px solid #055073;
+}
+
+/* Logo Novaventa */
+.primary-buttons {
+  width:75%;
+  margin-right:0;
+}
+.primary-buttons .button-clear.button-clear {
+  display:inline-block;
+  background: transparent url(../img/novaventa.png) no-repeat center top;
+  width:100%;
+  height:40px;
+}
+
+/* Barra lateral */
+.menu-left .bar.bar-stable {
+  display:none;
+}
+.menu-left .has-header {
+  top:0px;
+}
+.menu-left .item {
+  font-size: 15px;
+  color: #666666;
+  padding: 14px 15px;
+}
+.menu-left .item.active {
+  background:#e4e4e4;
+  font-weight:bold;
+}
+
+/* Breadcrumb */
+.bread {
+  text-align:center;
+  border-bottom:1px solid red;
+  color:red;
+  font-size:12px;
+}
+.bread .col {
+  padding:0;
+}
+
+/* Menú inferior */
+.menu-principal > .tabs {
+  height:85px;
+}
+.tabs-dark > .tabs, .tabs.tabs-dark {
+  border-top:1px solid rgba(0,0,0,0.1);
+  background:white;
+}
+.menu-principal > .tabs > .tab-item {
+  background-image: url(../img/tabs.png);
+  background-repeat:no-repeat;
+  opacity:1;
+  position:relative;
+  font-size:13px !important;
+  overflow:visible;
+}
+.menu-principal > .tabs > .tab-item i {
+  position:absolute;
+  left:50%;
+  top:-21px;
+  margin-left:-10px !important;
+}
+.tab-inicio {
+  background-color:#1594ac;
+  background-position: center 10px;
+}
+.tab-inicio i {
+  color:#1594ac;
+}
+.tab-negocio {
+  background-color:#f5921e;
+  background-position: center -95px;
+}
+.tab-negocio i {
+  color:#f5921e;
+}
+.tab-pedido {
+  background-color:#eb0c6e;
+  background-position: center -195px;
+}
+.tab-pedido i {
+  color:#eb0c6e;
+}
+.tab-puntos {
+  background-color:#077885;
+  background-position: center -301px;
+}
+.tab-puntos i {
+  color:#077885;
+}
+.tab-mas {
+  background-color:#f55403;
+  background-position: center -405px;
+}
+.tab-mas i {
+  color:#f55403;
+}
+.menu-principal > .tabs .tab-title {
+  padding-top: 60px;
+  display: block;
+}
+
+/* Menú superior / Pestañas */
+.has-tabs-top {
+  top: 110px;
+}
+.tabs-top > .tabs, .tabs.tabs-top {
+  height:60px;
+}
+.tabs-striped.tabs-positive .tabs {
+  background:white;
+  top:50px;
+}
+.tabs-striped.tabs-positive .tabs .tab-item {
+  background:#1594ac;
+  border:2px solid #077885 !important;
+  border-radius:4px;
+  font-weight:bold;
+  box-shadow: 0px 4px 0px #077885;
+  text-shadow: 0px 2px 0px rgba(0,0,0,0.1);
+  color:white;
+  margin: 7px 1% 0px;
+  height:42px;
+  line-height: 35px;
+}
+.tabs-striped.tabs-positive .tabs .tab-item-active {
+  background:#077885;
+  border:2px solid #077885 !important;
+  box-shadow: 0px 4px 0px #056a72;
+  line-height: 35px;
+}
+
+/* PÁGINAS */
+/* Login */
+.content-login {
+  background: transparent url(../img/fondologin.png) no-repeat center top;
+}
+.login-img {
+  margin: 20px auto 20px;
+  max-width:100%;
+  display:block;
+}
+.content-login h4 {
+  color:#4d4d4d;
+  text-align:center;
+  font-family: "Droid Sans Bold", sans-serif;
+  font-size:20px;
+  margin-bottom:35px;
+}
+.content-login form {
+  width:85%;
+  margin:0 auto;
+}
+.login-label {
+  margin-top:10px;
+  font-size:18px;
+  color:#808080;
+}
+.login-input input {
+  border-radius:8px;
+  background:#e4e4e4;
+  padding:15px;
+  height:auto;
+  margin:8px 0px 25px;
+}
+.login-button button {
+  background:#eb0c6e;
+  border-radius:8px;
+  border: 2px solid #cc0a52;
+  box-shadow: 0px 4px 0px #cc0a52;
+  text-shadow: 0px 2px 0px rgba(0,0,0,0.1);
+  color:white;
+  font-family: "Droid Sans Bold";
+  font-size:18px;
+}
+.login-button button:hover {
+  color:white;
+}
+.login-button button:active, .login-button button.activated {
+  color:white;
+  border: 2px solid #b40a52;
+  box-shadow: 0px 4px 0px #b40a52;
+  text-shadow: 0px 2px 0px rgba(0,0,0,0.1);
+  background:#cc0a52;
+}
+.footer-nutresa {
+  position: absolute;
+  bottom:0;
+  width:100%;
+  border-top:1px solid #cacaca;
+  background:white;
+}
+.nutresa {
+  width:108px;
+  height:37px;
+  background: transparent url(../img/novaventa.png) no-repeat center bottom;
+  margin:15px auto;
+}
+
+
+
+/* Estilo anterior */
 .pedido .item {
     border-color: #fff !important;
     padding-bottom: 0px;
