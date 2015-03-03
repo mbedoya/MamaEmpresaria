@@ -262,7 +262,167 @@ strong{
   margin:15px auto;
 }
 
+/* Estrellas */
+.estrella {
+    margin: 15px auto;
+    text-align:center;
+}
+.estrella-img {
+    width: 60px;
+    height: 72px;
+    background-repeat:no-repeat;
+    background-color:transparent;
+    background-image: url(../img/estrella.png);
+    display:inline-block;
+    vertical-align:top;
+}
+.estrella-text {
+    font-size:20px;
+    display:inline-block;
+    vertical-align:top;
+    line-height:1.2em;
+    padding:5px 0px 0px 6px;
+    text-align:left;
+}
+.estrella-text strong {
+    font-size:25px;
+    display:block;
+    text-transform: capitalize;
+}
 
+/* Colores y segmentos */
+.esmeralda .estrella-img {
+    background-position: -1px 0;
+}
+.esmeralda .estrella-text {
+    color:#45986c;
+}
+.esmeralda .bread {
+    color:#45986c;
+    border-color:#45986c;
+}
+.esmeralda .campana-title {
+    background:#45986c;
+}
+.diamante .estrella-img {
+    background-position: -2px -91px;
+}
+.diamante .estrella-text {
+    color:#1794aa;
+}
+.diamante .bread {
+    color:#1794aa;
+    border-color:#1794aa;
+}
+.diamante .campana-title {
+    background:#1794aa;
+}
+.zafiro .estrella-img {
+    background-position: -0px -181px;
+}
+.zafiro .estrella-text {
+    color:#27667d;
+}
+.zafiro .bread {
+    color:#27667d;
+    border-color:#27667d;
+}
+.zafiro .campana-title {
+    background:#27667d;
+}
+.rubi .estrella-img {
+    background-position: -1px -274px;
+}
+.rubi .estrella-text {
+    color:#b12136;
+}
+.rubi .bread {
+    color:#b12136;
+    border-color:#b12136;
+}
+.rubi .campana-title {
+    background:#b12136;
+}
+.negocio-content .bread {
+    color:#f5921e;
+    border-color:#f5921e;
+}
+.pedido-content .bread {
+    color:#eb0c6e;
+    border-color:#eb0c6e;
+}
+.puntos-content .bread {
+    color:#077885;
+    border-color:#077885;
+}
+.mas-content .bread {
+    color:#f74094;
+    border-color:#f74094;
+}
+
+/* Íconos para listado */
+.icono {
+    width:54px;
+    height:54px;
+    background-repeat:no-repeat;
+    background-color: transparent;
+    background-image: url(../img/icono.png);
+    vertical-align: top;
+    position: absolute;
+    top: 16px;
+    left: 16px;
+}
+.icono.regalo {
+    background-position: -4px 0px;
+}
+.icono.bocina {
+    background-position: -113px -5px;
+}
+.icono.punto {
+    background-position: -221px -4px;
+}
+.icono.caja {
+    background-position: -5px -113px;
+}
+.icono.moneda {
+    background-position: -112px -112px;
+}
+.icono.calendario {
+    background-position: -219px -112px;
+}
+.list .item > i.icon.ion-ios-arrow-forward:before {
+    background:#1594ac;
+    color:white;
+    padding: 4px;
+    width:29px;;
+    border-radius:50%;
+}
+
+/* Inicio */
+.home-content .list {
+    text-align: center;
+}
+.home-content .list a {
+    text-align:left;
+}
+.campana-title {
+    padding:10px 15px;
+    background:#ccc;
+    border-radius:8px;
+    display:inline-block;
+    text-align:center;
+    font-size:24px;
+    color:white;
+    margin: 0px 10px 15px;
+}
+.list h2, .list a {
+    color: #4d4d4d;
+    font-size: 16px;
+}
+.list p {
+    font-size:14px;
+    color:#808080;
+}
 
 /* Estilo anterior */
 .pedido .item {
@@ -304,3 +464,5 @@ strong{
    width: 50px;
    margin-right: 10px;
 }
+
+

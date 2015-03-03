@@ -14,11 +14,9 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
             });
             $state.go('app.login');
         };
-
     })
     
     .controller('TabsCtrl', function($scope, $state, $ionicActionSheet) {
-
 
         $scope.mostrarOpcionesMas = function() {
            // Show the action sheet
@@ -30,7 +28,6 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
      ],
      cancelText: 'Cancelar',
      cancel: function() {
-          // add cancel code..
         },
      buttonClicked: function(index) {
      
@@ -99,9 +96,9 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
                         if(data && data.razonRechazo){
 
                             if(data.razonRechazo == "El usuario no se encuentra registrado en Antares."){
-                                alert("Lo sentimos no existe información para la cédula ingresada. Comunícate con tu Mamá Líder o la línea de atención", "");
+                                $scope.mostrarAyuda("Inicio de sesión","Lo sentimos no existe información para esta cédula. Comunícate con la Línea de atención");
                             }else{
-                                alert(data.razonRechazo);
+                                $scope.mostrarAyuda("Inicio de sesión",data.razonRechazo);
                             }
                         }else{
 
@@ -150,12 +147,11 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
 
                 }else{
                     $scope.mostrarMensajeError = true;
-                    $scope.mostrarAyuda("Inicio de sesión","Por favor verifica tu conexión a internet")
+                    $scope.mostrarAyuda("Inicio de sesión","Esta aplicación sólo funciona con internet, verifica tu conexión")
                 }
 
             }else{
 
-                console.log("hay almacenamiento local");
                 $ionicHistory.nextViewOptions({
                     disableBack: true
                 });
@@ -190,19 +186,19 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
             
             //Cédula vacía
             if(!$rootScope.datos.cedula){
-                $scope.mostrarAyuda("Inicio de sesión","Debes ingresar la cédula");
+                $scope.mostrarAyuda("Inicio de sesión","Ingresa tu cédula");
                 return;
             }
 
             //Cantidad de caracteres
             if(String($rootScope.datos.cedula).length < 6 || String($rootScope.datos.cedula).length > 10){
-                $scope.mostrarAyuda("Inicio de sesión","Debes ingresar entre 6 y 10 dígitos");
+                $scope.mostrarAyuda("Inicio de sesión","Ingresa entre 6 y 10 dígitos");
                 return;
             }
 
             //Caracteres especiales
             if(String($rootScope.datos.cedula).indexOf(".") >= 0 || String($rootScope.datos.cedula).indexOf(",") >= 0){
-                $scope.mostrarAyuda("Inicio de sesión","Debes ingresar sólo dígitos");
+                $scope.mostrarAyuda("Inicio de sesión","Ingresa sólo números únicamente");
                 return;
             }
 
@@ -220,7 +216,7 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
                     if(data && data.razonRechazo){
 
                         if(data.razonRechazo == "El usuario no se encuentra registrado en Antares."){
-                            $scope.mostrarAyuda("Inicio de sesión","Lo sentimos no existe información para la cédula ingresada. Comunícate con tu Mamá Líder o la línea de atención", "");
+                            $scope.mostrarAyuda("Inicio de sesión","Lo sentimos no existe información para esta cédula. Comunícate con la Línea de atención");
                         }else{
                             $scope.mostrarAyuda("Inicio de sesión",data.razonRechazo);
                         }
@@ -362,6 +358,10 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
 
         $scope.segmento = function(){
             return $rootScope.datos.segmento;
+        }
+
+        $scope.segmentoFormateado = function(){
+            return $rootScope.datos.segmento.toLocaleLowerCase().replace("í","i");
         }
 
         $scope.saldo = function(){
@@ -1278,7 +1278,7 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
         $scope.mostrarAyudaFlexibilizacion = function() {
 
             if($scope.flexibilizacionPago() > 0){
-                $scope.mostrarAyuda('Mi Negocio','Este beneficio te permite cubrir parte de tu pago en caso de tener inconvenientes con tus clientes. Paga ' + $filter('currency')( $scope.flexibilizacionPago() )+ ' y cancela los ' + $filter('currency')($scope.flexibilizacionDeuda()) + ' que quedas debiendo antes de tu próximo pedido');
+                $scope.mostrarAyuda('Mi Negocio','Este beneficio te permite cubrir parte de tu pago en caso de tener inconvenientes con tus clientes.  Paga ' + $filter('currency')( $scope.flexibilizacionPago() )+ ' y cancela los ' + $filter('currency')($scope.flexibilizacionDeuda()) + ' que quedas debiendo antes de tu próximo pedido');
             }else{
                 if($scope.flexibilizacionPago() == 0){
                     $scope.mostrarAyuda('Mi Negocio','Este beneficio te permite cubrir parte de tu pago en caso de tener inconvenientes con tus clientes.');

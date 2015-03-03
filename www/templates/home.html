@@ -1,19 +1,19 @@
 <ion-view view-title="" >
-    <ion-content >
+    <ion-content class="{{ segmentoFormateado() }}" >
         <div class="row bread">
          <div class="col" style="text-align: center;">{{ nombre() }}</div>
        </div>
         <div class="list" ng-init="init()">
-            <label class="item">
-                Estás en Campaña {{campana.numero}}
-            </label>
-            <label class="item item-icon-right">
-                <i class="icon ion-star"></i>
-                Mamá Empresaria {{ segmento() | pascal }}
-            </label>
+            <div class="estrella">
+                <span class="estrella-img"></span>
+                <span class="estrella-text">Mamá Empresaria <strong>{{ segmento() | pascal }}</strong></span>
+            </div>
+            <div class="campana-title">
+                Estás en <strong>Campaña {{campana.numero}}</strong>
+            </div>
             
             <a class="item item-avatar" href="#" ng-show="mostrarSaldoPagar() && saldo()>0" ng-click="mostrarAyudaSaldoPagar()">
-              <img src="img/coins.png">
+                <div class="icono bocina"></div>
                 <!-- <i class="icon ion-plus-circled"></i> -->
               <h2>Tienes un pago pendiente de <br /> {{ saldo() | currency }}.
                 Realízalo antes del <br /> {{campana.fechaMontajePedido | date: 'dd' }} de {{campana.fechaMontajePedido | date: 'MMMM' }}
@@ -25,20 +25,20 @@
             </a>
 
             <a class="item item-avatar" href="#" ng-show="mostrarSaldoPagar() && saldo()==0" >
-                <img src="img/coins.png">
+                <div class="icono bocina"></div>
                 <h2>No tienes pagos pendientes
                 </h2>
             </a>
             
             <a class="item item-avatar" href="#" ng-show="mostrarSaldoFavor()">
-              <img src="img/coins.png">
+                <div class="icono bocina"></div>
               <h2>Tienes un saldo a favor de <br /> {{ saldo() | currency }}
               </h2>
             <p>&nbsp;</p>
             </a>
                         
             <a class="item item-avatar" href="#" ng-show="mostrarCupo()">
-              <img src="img/creditcard.png">
+                <div class="icono moneda"></div>
               <h2>Realiza tu próximo pedido <br /> máximo por {{ cupo() | currency}}
               </h2>
             <p>&nbsp;</p>
@@ -46,7 +46,7 @@
             
             <!-- ng-show="diasParaPago()>-1" -->
             <a class="item item-avatar" href="#" >
-              <img src="img/calendar.png">
+                <div class="icono calendario"></div>
               <h2>Realiza tu próximo pedido el<br />
                   {{campana.fechaMontajePedido | date: 'dd' }} de {{campana.fechaMontajePedido | date: 'MMMM' }}
               </h2>
