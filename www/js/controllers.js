@@ -450,6 +450,10 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
         }else{
             $scope.mostrarAyuda("Mis Puntos","Por favor verifica tu conexión a internet");
         }
+        
+        $rootScope.on('online', function(event, args){
+           alert("Mis Puntos Online");
+        });
 
         $scope.campanaVencimientoPuntos = function(){
             return String($rootScope.puntos.agnoCampagnaVencimiento).substring(4,2) + " de " + String($rootScope.puntos.agnoCampagnaVencimiento).substring(0,4);

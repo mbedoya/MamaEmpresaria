@@ -16,6 +16,11 @@ angular.module('novaventa', ['ionic', 'novaventa.controllers', 'novaventa.servic
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
+    
+    document.addEventListener("online", function(){
+       alert('online');
+       $rootScope.broadcast('online');   
+    }, false);
 
   });
 })
