@@ -9,7 +9,7 @@
             </label>
             <label class="item item-icon-right">
                 <i class="icon ion-star"></i>
-                Mamá Empresaria {{ segmento() }}
+                Mamá Empresaria {{ segmento() | pascal }}
             </label>
             
             <a class="item item-avatar" href="#" ng-show="mostrarSaldoPagar() && saldo()>0" ng-click="mostrarAyudaSaldoPagar()">

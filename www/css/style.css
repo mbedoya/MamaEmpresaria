@@ -190,7 +190,7 @@ strong{
   background: transparent url(../img/fondologin.png) no-repeat center top;
 }
 .login-img {
-  margin: 5px auto 20px;
+  margin: 5px auto 10px;
   max-width:100%;
   display:block;
 }
@@ -207,7 +207,8 @@ strong{
     text-align:center;
     font-family: "Droid Sans Bold", sans-serif;
     font-size:18px;
-    margin-bottom:35px;
+    margin-top:0px;
+    margin-bottom:20px;
     font-weight: normal;
 }
 
