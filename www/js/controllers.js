@@ -459,7 +459,7 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
           }  
          }
         
-        $rootScope.on('online', function(event, args){
+        $scope.$on('online', function(event, args){
            $scope.inicializar();
         });
         
@@ -562,7 +562,7 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
          }
         }
         
-        $rootScope.on('online', function(event, args){
+        $scope.$on('online', function(event, args){
            $scope.inicializar();
         });
         
@@ -1237,7 +1237,7 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
           $scope.semanas = semanas;
        }
        
-       $rootScope.on('online', function(event, args){
+       $scope.$on('online', function(event, args){
           $scope.semanasCalendario();
         });
        
