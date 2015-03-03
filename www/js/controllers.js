@@ -60,7 +60,6 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
         }
         
         document.addEventListener("online", function(){
-          alert('online');
           $rootScope.broadcast('online');   
         }, false);     
               
@@ -436,8 +435,10 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
              template: mensaje
            });
          };
-
-        if(Internet.get()){
+         
+         
+         $scope.inicializar = function(){
+            if(Internet.get()){
         
            $scope.loading =  $ionicLoading.show({
                     template: 'Estamos consultando tus puntos'
@@ -453,13 +454,16 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
                     $scope.mostrarAyuda("Mis Puntos","En este momento no podemos acceder a tu información");
                 }
             });
-        }else{
+          }else{
             $scope.mostrarAyuda("Mis Puntos","Por favor verifica tu conexión a internet");
-        }
+          }  
+         }
         
         $rootScope.on('online', function(event, args){
-           alert("Mis Puntos Online");
+           $scope.inicializar();
         });
+        
+        $scope.inicializar();
 
         $scope.campanaVencimientoPuntos = function(){
             return String($rootScope.puntos.agnoCampagnaVencimiento).substring(4,2) + " de " + String($rootScope.puntos.agnoCampagnaVencimiento).substring(0,4);
@@ -516,6 +520,8 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
            console.log($rootScope.agotados.agotadosME);
            return $rootScope.agotados.agotadosME;
         }
+        
+        $scope.inicializar = function(){
 
         if(Internet.get()){
 
@@ -551,9 +557,16 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
             });
             
             
-        }else{
+         }else{
             $scope.mostrarAyuda("Mi Pedido","Por favor verifica tu conexión a internet");
+         }
         }
+        
+        $rootScope.on('online', function(event, args){
+           $scope.inicializar();
+        });
+        
+        $scope.inicializar();
        
        $scope.verAyudaNovedad = function(){
          $scope.mostrarAyuda('Novedades', 'Debes cancelar $50.000 antes del 24 de febrero para que tu pedido sea enviado');
@@ -1223,6 +1236,10 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
           
           $scope.semanas = semanas;
        }
+       
+       $rootScope.on('online', function(event, args){
+          $scope.semanasCalendario();
+        });
        
        $scope.semanasCalendario();
        
