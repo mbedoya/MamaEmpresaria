@@ -60,7 +60,7 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
         }
         
         document.addEventListener("online", function(){
-          $rootScope.broadcast('online');   
+          $rootScope.$broadcast('online');   
         }, false);     
               
      }, 2000);
@@ -460,7 +460,6 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
          }
         
         $scope.$on('online', function(event, args){
-           alert('init puntos');
            $scope.inicializar();
         });
         
