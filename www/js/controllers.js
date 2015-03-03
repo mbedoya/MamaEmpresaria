@@ -57,7 +57,13 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
     	    $rootScope.gaPlugin.init(function(){
               }, function(){
               }, "UA-59821648-1", 10);
-             }  
+        }
+        
+        document.addEventListener("online", function(){
+          alert('online');
+          $rootScope.broadcast('online');   
+        }, false);     
+              
      }, 2000);
 
 	   //Registro en Analytics      
