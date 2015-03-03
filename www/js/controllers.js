@@ -414,7 +414,7 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
         }
         
         $scope.mostrarAyudaSaldoPagar = function(){
-           $scope.mostrarAyuda('Pagos','El pago que dejas de hacer es debido al beneficio que tienes llamado "Flexibilización", los $' + $scope.flexibilizacionDeuda() + ' que quedas debiendo, los debes cancelar antes de tu próximo pedido.');
+           //$scope.mostrarAyuda('Pagos','El pago que dejas de hacer es debido al beneficio que tienes llamado "Flexibilización", los $' + $scope.flexibilizacionDeuda() + ' que quedas debiendo, los debes cancelar antes de tu próximo pedido.');
         }
 
     })
@@ -1229,6 +1229,62 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
              var nombre = $rootScope.datos.nombre.split(' ');
              return nombre[0].substring(0,1).toUpperCase() + nombre[0].substring(1,nombre[0].length).toLowerCase();
          }
+
+    })
+
+    .controller('MiNegocioCtrl', function($scope, $rootScope, $ionicPopup, $filter) {
+
+        $scope.mostrarAyuda = function(titulo, mensaje) {
+            var alertPopup = $ionicPopup.alert({
+                title: titulo,
+                template: mensaje
+            });
+        };
+
+        $scope.mostrarSaldoFavor = function(){
+            return ($rootScope.datos && $rootScope.datos.saldo && Number($rootScope.datos.saldo) < 0);
+        }
+
+        $scope.mostrarSaldoPagar = function(){
+            return !$scope.mostrarSaldoFavor();
+        }
+
+        $scope.saldo = function(){
+            return Math.abs(Number($rootScope.datos.saldo)) ;
+        }
+
+        $scope.flexibilizacion = function(){
+            return $rootScope.datos.valorFlexibilizacion;
+        }
+
+        $scope.flexibilizacionPago = function(){
+            //La flexibilización es mayor que el valor a Pagar?
+            if(Number($rootScope.datos.valorFlexibilizacion)>Number($rootScope.datos.saldo)){
+                return 0;
+            }else{
+                return Number($rootScope.datos.saldo)-Number($rootScope.datos.valorFlexibilizacion);
+            }
+        }
+
+        $scope.flexibilizacionDeuda = function(){
+            //La flexibilización es mayor que el valor a Pagar?
+            if(Number($rootScope.datos.valorFlexibilizacion)>Number($rootScope.datos.saldo)){
+                return Number($rootScope.datos.saldo);
+            }else{
+                return Number($rootScope.datos.valorFlexibilizacion);
+            }
+        }
+
+        $scope.mostrarAyudaFlexibilizacion = function() {
+
+            if($scope.flexibilizacionPago() > 0){
+                $scope.mostrarAyuda('Mi Negocio','Este beneficio te permite cubrir parte de tu pago en caso de tener inconvenientes con tus clientes. Paga ' + $filter('currency')( $scope.flexibilizacionPago() )+ ' y cancela los ' + $filter('currency')($scope.flexibilizacionDeuda()) + ' que quedas debiendo antes de tu próximo pedido');
+            }else{
+                if($scope.flexibilizacionPago() == 0){
+                    $scope.mostrarAyuda('Mi Negocio','Este beneficio te permite cubrir parte de tu pago en caso de tener inconvenientes con tus clientes.');
+                }
+            }
+        }
 
     })
 

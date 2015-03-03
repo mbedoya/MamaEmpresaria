@@ -3,26 +3,38 @@
        <span class="padding-left">Mi Negocio</span>	
 
         <div class="list">
+            <!--
             <a class="item" href="#">
                 En tu último pedido tus ganancias fueron:
                 <span class="item-note">
                   $52.000
                 </span>
-            </a>
-            <a class="item" href="#" >
+            </a> -->
+            <a class="item item-avatar" href="#" ng-show="mostrarSaldoPagar()" >
+                <img src="img/coins.png">
                 <h2>Debes pagar:
                 </h2>
-                <p>Este valor ya incluye los descuentos ($20.000) <br />
+                <p>Este valor ya incluye los descuentos <br />
                 realizados por Notas Crédito</p>
                 <span class="item-note">
-                  $520.000
+                  {{ saldo() | currency }}
                 </span>
             </a>
-            <a class="item" href="#" >
-                <h2>Para tu próximo pedido puedes dejar <br /> de pagar:
+            <a class="item item-avatar" href="#" ng-show="mostrarSaldoFavor()" >
+                <img src="img/coins.png">
+                <h2>Tienes un saldo a favor de:
                 </h2>
                 <span class="item-note">
-                  $50.000
+                  {{ saldo() | currency }}
+                </span>
+            </a>
+            <a class="item item-avatar item-icon-right" href="#" ng-click="mostrarAyudaFlexibilizacion()" >
+                <img src="img/thumbsup.png">
+                <i class="icon ion-plus-circled"></i>
+                <h2>Cuentas con un beneficio <br /> de flexibilizazión de:
+                </h2>
+                <span class="item-note">
+                  {{ flexibilizacion() | currency }}
                 </span>
             </a>
         </div>

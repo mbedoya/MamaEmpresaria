@@ -92,7 +92,8 @@ angular.module('novaventa', ['ionic', 'novaventa.controllers', 'novaventa.servic
                 url: "/minegocio",
                 views: {
                     'negocio-content': {
-                        templateUrl: "templates/minegocio.html"
+                        templateUrl: "templates/minegocio.html",
+                        controller: 'MiNegocioCtrl'
                     }
                 }
             })
