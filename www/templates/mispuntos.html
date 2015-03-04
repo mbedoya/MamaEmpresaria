@@ -9,14 +9,14 @@
             </label>
             <label class="item" ng-show="mostrarPuntosPorPerder()">
                 Puntos a perder <br />
-                (si no pagas antes de {{fechaMontajePedidoCampana() | date: 'MMMM dd' | lowercase}} )
+                (si no pagas antes del {{fechaMontajePedidoCampana() | date: 'dd' | lowercase}} de {{fechaMontajePedidoCampana() | date: 'MMMM' | lowercase}} )
                 <span class="item-note">
                     {{ puntosPorPerder() }}
                 </span>
             </label>
             <label class="item" ng-show="mostrarPuntosAVencer()">
                 Puntos a vencer <br />
-                campaña {{campanaVencimientoPuntos()}}
+                esta campaña <!--  {{campanaVencimientoPuntos()}} -->
                 <span class="item-note">
                     {{ puntosAVencer() }}
                 </span>

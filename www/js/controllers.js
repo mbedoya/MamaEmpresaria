@@ -21,10 +21,18 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
         $scope.mostrarOpcionesMas = function() {
            // Show the action sheet
       var hojaOpciones = $ionicActionSheet.show({
+
+          /*
+
+           buttons: [
+           { text: 'Club de Privilegios' },
+           { text: 'Información general' },
+           { text: 'Contacto' }
+           ],
+
+           */
      buttons: [
-       { text: 'Club de Privilegios' },
-       { text: 'Información general' },
-       { text: 'Contacto' }
+       { text: 'Fechas importantes' }
      ],
      cancelText: 'Cancelar',
      cancel: function() {
@@ -32,7 +40,8 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
      buttonClicked: function(index) {
      
        if(index == 0){
-          $state.go('app.menu.tabs.mas.club.piedrapreciosa');
+           $state.go('app.menu.tabs.mas.informacion.fechas');
+          //$state.go('app.menu.tabs.mas.club.piedrapreciosa');
        }else{
           if(index == 1){
             $state.go('app.menu.tabs.mas.informacion.fechas');
@@ -448,6 +457,7 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
                 if(success){
 					$ionicLoading.hide();
                     $rootScope.puntos = data;
+                    console.log(data);
 
                 }else{
                     $ionicLoading.hide();
@@ -466,7 +476,7 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
         $scope.inicializar();
 
         $scope.campanaVencimientoPuntos = function(){
-            return String($rootScope.puntos.agnoCampagnaVencimiento).substring(4,2) + " de " + String($rootScope.puntos.agnoCampagnaVencimiento).substring(0,4);
+            return String($rootScope.puntos.agnoCampagnaVencimiento).substr(4,2) + " de " + String($rootScope.puntos.agnoCampagnaVencimiento).substr(0,4);
         }
 
         $scope.puntosDisponibles = function(){
@@ -1305,7 +1315,7 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
         $scope.mostrarAyudaFlexibilizacion = function() {
 
             if($scope.flexibilizacionPago() > 0){
-                $scope.mostrarAyuda('Mi Negocio','Este beneficio te permite cubrir parte de tu pago en caso de tener inconvenientes con tus clientes.  Paga ' + $filter('currency')( $scope.flexibilizacionPago() )+ ' y cancela los ' + $filter('currency')($scope.flexibilizacionDeuda()) + ' que quedas debiendo antes de tu próximo pedido');
+                $scope.mostrarAyuda('Mi Negocio','Este beneficio te permite cubrir parte de tu pago en caso de tener inconvenientes con tus clientes.  De ser necesario usa los ' + $filter('currency')($scope.flexibilizacionDeuda()) + ' o parte de estos. Ejemplo: Paga $XXXXX y queda debiendo $YYYY, debes cancelar este valor antes de tu próximo pedido.');
             }else{
                 if($scope.flexibilizacionPago() == 0){
                     $scope.mostrarAyuda('Mi Negocio','Este beneficio te permite cubrir parte de tu pago en caso de tener inconvenientes con tus clientes.');

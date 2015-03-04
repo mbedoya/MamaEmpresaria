@@ -424,6 +424,33 @@ strong{
     color:#808080;
 }
 
+/* Pedido */
+.pedido .item {
+    border-top: none;
+    border-bottom: none;
+    padding-top:8px;
+    padding-bottom: 1px;
+    background: transparent url(../img/linea.png) repeat-y 63px top;
+}
+.list.pedido img {
+    width: 100px;
+    height: 102px;
+    border-radius: 0px;
+    position: static;
+    float: left;
+    margin-right:10px;
+}
+.list.pedido h2 {
+    padding: 20px 0px 0px 0px;
+    font-size: 20px;
+    color: #808080;
+    font-family: 'Droid Sans Bold', sans-serif;
+}
+.list.pedido .item.selected h2, .list.pedido .item.selected p {
+    color:#eb0c6e;
+}
+
+
 /* Estilo anterior */
 .pedido .item {
     border-color: #fff !important;

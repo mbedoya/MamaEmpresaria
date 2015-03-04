@@ -8,6 +8,8 @@
             </div>
             <a class="item assertive" ng-click="verAyudaNovedad()" href="#">
                 {{ buscarEstado('Novedad').motivo }}
+                <br />
+                Si ya pagaste omite este mensaje.
             </a>
         </div>
         
@@ -55,7 +57,7 @@
             <div ng-show="!pedido().razonRechazo"> 
             
             <a class="item item-avatar" href="#" ng-show="estadoEncontrado('Recibido')" >
-               <img src="img/invoice.jpg">
+               <img src="img/pedido1.jpg">
                <h2 class="balanced">Recibido
                </h2>
                <p >{{ buscarEstado('Recibido').fecha | date: 'dd'}} de {{ buscarEstado('Recibido').fecha | date: 'MMMM'}}</p>
@@ -64,7 +66,7 @@
             </a>
             
             <a class="item item-avatar" href="#" ng-show="!estadoEncontrado('Recibido')" >
-               <img src="img/invoice.jpg">
+               <img src="img/pedido1.jpg">
                <h2 class="dark">Recibido
                </h2>
                <p>&nbsp;</p>
@@ -123,13 +125,14 @@
                <h2 class="balanced">Entregado al transportador
                </h2>
                <p>{{ buscarEstado('Entregado al transportador').fecha | date: 'dd'}} de {{ buscarEstado('Entregado al transportador').fecha | date: 'MMMM'}}</p>
+                <p>Posible fecha de entrega: 16 de Febrero</p>
             </a>
             
             <a class="item item-avatar" href="#" ng-show="!estadoEncontrado('Entregado al transportador') && !estadoEncontrado('Anulado')" >
                <img src="img/truck.png">
                <h2 class="dark">Entregado al transportador
                </h2>
-               <p>&nbsp;</p>
+                <p>Posible fecha de entrega: 16 de Febrero</p>
             </a>
             
             </div>
