@@ -255,16 +255,14 @@ strong{
   border-top:1px solid #cacaca;
   background:white;
 }
-.nutresa {
-  width:108px;
-  height:37px;
-  background: transparent url(../img/novaventa.png) no-repeat center bottom;
+.footer-nutresa img {
   margin:15px auto;
+  display:block;
 }
 
 /* Estrellas */
 .estrella {
-    margin: 15px auto;
+    margin: 20px auto 15px auto;
     text-align:center;
 }
 .estrella-img {
@@ -400,28 +398,37 @@ strong{
 
 /* Inicio */
 .home-content .list {
-    text-align: center;
+  text-align: center;
 }
 .home-content .list a {
-    text-align:left;
+  text-align:left;
 }
+.alternate {
+  background:#f0f0f0;
+}
+
+.campana{
+   margin: 0px auto;
+   text-align: center;
+}
+
 .campana-title {
-    padding:10px 15px;
-    background:#ccc;
-    border-radius:8px;
-    display:inline-block;
-    text-align:center;
-    font-size:24px;
-    color:white;
-    margin: 0px 10px 15px;
+  padding:10px 15px;
+  background:#ccc;
+  border-radius:8px;
+  display:inline-block;
+  text-align:center;
+  font-size:24px;
+  color:white;
+  margin: 0px 10px 15px;
 }
 .list h2, .list a {
-    color: #4d4d4d;
-    font-size: 16px;
+  color: #4d4d4d;
+  font-size: 16px;
 }
 .list p {
-    font-size:14px;
-    color:#808080;
+  font-size:14px;
+  color:#808080;
 }
 
 /* Pedido */

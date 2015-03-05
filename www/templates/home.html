@@ -8,11 +8,13 @@
                 <span class="estrella-img"></span>
                 <span class="estrella-text">Mamá Empresaria <strong>{{ segmento() | pascal }}</strong></span>
             </div>
+            <div class="campana">
             <div class="campana-title">
                 Estás en <strong>Campaña {{campana.numero}}</strong>
             </div>
+            </div>
             
-            <a class="item item-avatar" href="#" ng-show="mostrarSaldoPagar() && saldo()>0" ng-click="mostrarAyudaSaldoPagar()">
+            <a class="item item-avatar alternate" href="#" ng-show="mostrarSaldoPagar() && saldo()>0" ng-click="mostrarAyudaSaldoPagar()">
                 <div class="icono bocina"></div>
                 <!-- <i class="icon ion-plus-circled"></i> -->
               <h2>Tienes un pago pendiente de <br /> {{ saldo() | currency }}.
@@ -24,13 +26,13 @@
                 -->
             </a>
 
-            <a class="item item-avatar" href="#" ng-show="mostrarSaldoPagar() && saldo()==0" >
+            <a class="item item-avatar alternate" href="#" ng-show="mostrarSaldoPagar() && saldo()==0" >
                 <div class="icono bocina"></div>
                 <h2>No tienes pagos pendientes
                 </h2>
             </a>
             
-            <a class="item item-avatar" href="#" ng-show="mostrarSaldoFavor()">
+            <a class="item item-avatar alternate" href="#" ng-show="mostrarSaldoFavor()">
                 <div class="icono bocina"></div>
               <h2>Tienes un saldo a favor de <br /> {{ saldo() | currency }}
               </h2>
@@ -45,7 +47,7 @@
             </a>
             
             <!-- ng-show="diasParaPago()>-1" -->
-            <a class="item item-avatar" href="#" >
+            <a class="item item-avatar {{ estiloAlternateFechaPago() }}" href="#" >
                 <div class="icono calendario"></div>
               <h2>Realiza tu próximo pedido el<br />
                   {{campana.fechaMontajePedido | date: 'dd' }} de {{campana.fechaMontajePedido | date: 'MMMM' }}

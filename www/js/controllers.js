@@ -352,6 +352,14 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
 
             return etiqueta;
         }
+        
+        $scope.estiloAlternateFechaPago = function(){
+           if($scope.mostrarCupo){
+              return "alternate";
+           }else{
+              return "";
+           }
+        }
 
         $scope.mostrarSaldoFavor = function(){
             return ($rootScope.datos && $rootScope.datos.saldo && Number($rootScope.datos.saldo) < 0);
