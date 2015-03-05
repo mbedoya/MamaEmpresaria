@@ -53,6 +53,8 @@ strong{
 }
 
 /* Logo Novaventa */
+
+/*
 .primary-buttons {
   width:75%;
   margin-right:0;
@@ -61,6 +63,7 @@ strong{
   display:inline-block;
   width:100%;
 }
+*/
 
 /* Barra lateral */
 .menu-left .bar.bar-stable {
@@ -118,6 +121,10 @@ strong{
   top:-21px;
   margin-left:-10px !important;
 }
+.tab-item{
+   color: #FFF;
+}
+
 .tab-inicio {
   background-color:#1594ac;
   background-position: center 10px;
