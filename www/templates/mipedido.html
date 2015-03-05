@@ -1,6 +1,8 @@
 <ion-view view-title="" >
     <ion-content>
-        <span class="padding-left">Mi Pedido</span>
+        <div class="row bread">
+            <div >Mi Pedido</div>
+        </div>
         
         <div class="list list-inset" ng-show="!estadoEncontrado('Facturado') && estadoEncontrado('Novedad') && mostrarNovedad(buscarEstado('Novedad').motivo)">
             <div class="item">
@@ -54,27 +56,23 @@
 
         <div class="list pedido">
             
-            <div ng-show="!pedido().razonRechazo"> 
-            
-            <a class="item item-avatar" href="#" ng-show="estadoEncontrado('Recibido')" >
-               <img src="img/pedido1.jpg">
-               <h2 class="balanced">Recibido
-               </h2>
-               <p >{{ buscarEstado('Recibido').fecha | date: 'dd'}} de {{ buscarEstado('Recibido').fecha | date: 'MMMM'}}</p>
-                <div style="border-left: solid 1px #ccc; padding-left: 5px;" >&nbsp;
-                </div>
+            <div ng-show="!pedido().razonRechazo">
+
+            <a class="item selected" href="#" ng-show="estadoEncontrado('Recibido')" >
+                <img src="img/pedido1-selected.png">
+                <h2 class="balanced">Recibido
+                </h2>
+                <p >{{ buscarEstado('Recibido').fecha | date: 'dd'}} de {{ buscarEstado('Recibido').fecha | date: 'MMMM'}}</p>
+            </a>
+
+            <a class="item" href="#" ng-show="!estadoEncontrado('Recibido')" >
+                <img src="img/pedido1.png">
+                <h2 class="balanced">Recibido
+                </h2>
+                <p >&nbsp;</p>
             </a>
             
-            <a class="item item-avatar" href="#" ng-show="!estadoEncontrado('Recibido')" >
-               <img src="img/pedido1.jpg">
-               <h2 class="dark">Recibido
-               </h2>
-               <p>&nbsp;</p>
-                <div style="border-left: solid 1px #ccc; padding-left: 5px;" >&nbsp;
-                </div>
-            </a>
-            
-            <a class="item item-avatar" href="#" ng-show="estadoEncontrado('Anulado')" >
+            <a class="item selected" href="#" ng-show="estadoEncontrado('Anulado')" >
                <img src="img/cancel.png">
                <h2 class="balanced">Anulado
                </h2>
@@ -84,55 +82,47 @@
             </a>
 
             
-            <a class="item item-avatar" href="#" ng-show="estadoEncontrado('Facturado') && !estadoEncontrado('Anulado')" >
-               <img src="img/invoice.jpg">
+            <a class="item selected" href="#" ng-show="estadoEncontrado('Facturado') && !estadoEncontrado('Anulado')" >
+                <img src="img/pedido2-selected.png">
                <h2 class="balanced">Facturado
                </h2>
                <p>{{ buscarEstado('Facturado').fecha | date: 'dd'}} de {{ buscarEstado('Facturado').fecha | date: 'MMMM'}}</p>
-                <div style="border-left: solid 1px #ccc; padding-left: 5px;" >&nbsp;
-                </div>
             </a>
             
-            <a class="item item-avatar" href="#" ng-show="!estadoEncontrado('Facturado') && !estadoEncontrado('Anulado')" >
-               <img src="img/invoice.jpg">
-               <h2 class="dark">Facturado
+            <a class="item" href="#" ng-show="!estadoEncontrado('Facturado') && !estadoEncontrado('Anulado')" >
+                <img src="img/pedido2.png">
+               <h2 class="balanced">Facturado
                </h2>
                <p>&nbsp;</p>
-                <div style="border-left: solid 1px #ccc; padding-left: 5px;" >&nbsp;
-                </div>
             </a>
             
-            <a class="item item-avatar" href="#" ng-show="estadoEncontrado('En proceso de empaque') && !estadoEncontrado('Anulado')" >
-               <img src="img/box.png">
+            <a class="item selected" href="#" ng-show="estadoEncontrado('En proceso de empaque') && !estadoEncontrado('Anulado')" >
+               <img src="img/pedido3-selected.png">
                <h2 class="balanced">En proceso de empaque
                </h2>
                <p>{{ buscarEstado('En proceso de empaque').fecha | date: 'dd'}} de {{ buscarEstado('En proceso de empaque').fecha | date: 'MMMM'}}</p>
-                <div style="border-left: solid 1px #ccc; padding-left: 5px;" >&nbsp;
-                </div>
             </a>
             
-            <a class="item item-avatar" href="#" ng-show="!estadoEncontrado('En proceso de empaque') && !estadoEncontrado('Anulado')" >
-               <img src="img/box.png">
-               <h2 class="dark">En proceso de empaque
+            <a class="item" href="#" ng-show="!estadoEncontrado('En proceso de empaque') && !estadoEncontrado('Anulado')" >
+               <img src="img/pedido3.png">
+               <h2 class="balanced">En proceso de empaque
                </h2>
                <p>&nbsp;</p>
-                <div style="border-left: solid 1px #ccc; padding-left: 5px;" >&nbsp;
-                </div>
             </a>
             
-            <a class="item item-avatar" href="#" ng-show="estadoEncontrado('Entregado al transportador') && !estadoEncontrado('Anulado')" >
-               <img src="img/truck.png">
+            <a class="item selected" href="#" ng-show="estadoEncontrado('Entregado al transportador') && !estadoEncontrado('Anulado')" >
+               <img src="img/pedido4-selected.png">
                <h2 class="balanced">Entregado al transportador
                </h2>
                <p>{{ buscarEstado('Entregado al transportador').fecha | date: 'dd'}} de {{ buscarEstado('Entregado al transportador').fecha | date: 'MMMM'}}</p>
-                <p>Posible fecha de entrega: 16 de Febrero</p>
+                <p>Posiblemente recibas tu pedido el<br /> 16 de Febrero</p>
             </a>
             
-            <a class="item item-avatar" href="#" ng-show="!estadoEncontrado('Entregado al transportador') && !estadoEncontrado('Anulado')" >
-               <img src="img/truck.png">
-               <h2 class="dark">Entregado al transportador
+            <a class="item" href="#" ng-show="!estadoEncontrado('Entregado al transportador') && !estadoEncontrado('Anulado')" >
+               <img src="img/pedido4.png">
+               <h2 class="balanced">Entregado al transportador
                </h2>
-                <p>Posible fecha de entrega: 16 de Febrero</p>
+                <p>Posiblemente recibas tu pedido el<br /> 16 de Febrero</p>
             </a>
             
             </div>

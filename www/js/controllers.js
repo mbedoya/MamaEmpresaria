@@ -65,7 +65,7 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
         	$rootScope.gaPlugin = window.plugins.gaPlugin;
     	    $rootScope.gaPlugin.init(function(){
               }, function(){
-              }, "UA-59821648-1", 10);
+              }, "UA-60445801-1", 10);
         }
         
         document.addEventListener("online", function(){

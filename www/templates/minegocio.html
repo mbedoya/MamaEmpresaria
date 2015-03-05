@@ -1,7 +1,8 @@
 <ion-view view-title="" >
     <ion-content>
-       <span class="padding-left">Mi Negocio</span>	
-
+        <div class="row bread">
+            <div >Mi Negocio</div>
+        </div>
         <div class="list">
             <!--
             <a class="item" href="#">
@@ -10,18 +11,18 @@
                   $52.000
                 </span>
             </a> -->
-            <a class="item item-avatar" href="#" ng-show="mostrarSaldoPagar()" >
-                <img src="img/coins.png">
+            <a class="item item-avatar alternate" href="#" ng-show="mostrarSaldoPagar()" >
+                <div class="icono bocina"></div>
                 <h2>Debes pagar:
                 </h2>
-                <p>Este valor ya incluye los descuentos <br />
-                realizados por Notas Crédito</p>
+                <p>Este valor ya incluye los saldos <br />
+                a favor o en contra que puedas tener</p>
                 <span class="item-note">
                   {{ saldo() | currency }}
                 </span>
             </a>
-            <a class="item item-avatar" href="#" ng-show="mostrarSaldoFavor()" >
-                <img src="img/coins.png">
+            <a class="item item-avatar alternate" href="#" ng-show="mostrarSaldoFavor()" >
+                <div class="icono bocina"></div>
                 <h2>Tienes un saldo a favor de:
                 </h2>
                 <span class="item-note">
@@ -29,7 +30,7 @@
                 </span>
             </a>
             <a class="item item-avatar item-icon-right" href="#" ng-click="mostrarAyudaFlexibilizacion()" >
-                <img src="img/thumbsup.png">
+                <div class="icono moneda"></div>
                 <i class="icon ion-plus-circled"></i>
                 <h2>Cuentas con un beneficio <br /> de flexibilizazión de máximo:
                 </h2>
