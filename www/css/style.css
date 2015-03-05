@@ -100,6 +100,12 @@ strong{
   border-top:1px solid rgba(0,0,0,0.1);
   background:white;
 }
+
+.tabs-light > .tabs, .tabs.tabs-light {
+  border-top:1px solid rgba(0,0,0,0.1);
+  background:white;
+}
+
 .menu-principal > .tabs > .tab-item {
   background-image: url(../img/tabs.png);
   background-repeat:no-repeat;
