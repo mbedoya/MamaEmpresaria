@@ -59,9 +59,7 @@ strong{
 }
 .primary-buttons .button-clear.button-clear {
   display:inline-block;
-  background: transparent url(../img/novaventa.png) no-repeat center top;
   width:100%;
-  height:40px;
 }
 
 /* Barra lateral */
