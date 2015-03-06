@@ -13,13 +13,10 @@
             </a> -->
             <a class="item item-avatar alternate" href="#" ng-show="mostrarSaldoPagar()" >
                 <div class="icono bocina"></div>
-                <h2>Debes pagar:
+                <h2>Debes pagar: <strong> {{ saldo() | currency }} </strong>
                 </h2>
                 <p>Este valor ya incluye los saldos <br />
                 a favor o en contra que puedas tener</p>
-                <span class="item-note">
-                  <strong> {{ saldo() | currency }} </strong>
-                </span>
             </a>
             <a class="item item-avatar alternate" href="#" ng-show="mostrarSaldoFavor()" >
                 <div class="icono bocina"></div>

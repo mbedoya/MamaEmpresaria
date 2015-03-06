@@ -98,31 +98,31 @@
             
             <a class="item selected" href="#" ng-show="estadoEncontrado('En proceso de empaque') && !estadoEncontrado('Anulado')" >
                <img src="img/pedido3-selected.png">
-               <h2 class="balanced">En proceso de empaque
+               <h2 class="balanced">En proceso de <br /> empaque
                </h2>
                <p>{{ buscarEstado('En proceso de empaque').fecha | date: 'dd'}} de {{ buscarEstado('En proceso de empaque').fecha | date: 'MMMM'}}</p>
             </a>
             
             <a class="item" href="#" ng-show="!estadoEncontrado('En proceso de empaque') && !estadoEncontrado('Anulado')" >
                <img src="img/pedido3.png">
-               <h2 class="balanced">En proceso de empaque
+               <h2 class="balanced">En proceso de <br /> empaque
                </h2>
                <p>&nbsp;</p>
             </a>
             
             <a class="item selected" href="#" ng-show="estadoEncontrado('Entregado al transportador') && !estadoEncontrado('Anulado')" >
                <img src="img/pedido4-selected.png">
-               <h2 class="balanced">Entregado al transportador
+               <h2 class="balanced">Entregado al <br /> transportador
                </h2>
                <p>{{ buscarEstado('Entregado al transportador').fecha | date: 'dd'}} de {{ buscarEstado('Entregado al transportador').fecha | date: 'MMMM'}}</p>
-                <p ng-show="fechaRepartoPedido() != ''">Posiblemente recibas tu pedido el {{ fechaRepartoPedido() | date:'dd' }} de {{ fechaRepartoPedido() | date:'MMMM' }}</p>
+                <p ng-show="fechaRepartoPedido() != ''">Posiblemente recibas tu <br /> pedido el {{ fechaRepartoPedido() | date:'dd' }} de {{ fechaRepartoPedido() | date:'MMMM' }}</p>
             </a>
             
             <a class="item" href="#" ng-show="!estadoEncontrado('Entregado al transportador') && !estadoEncontrado('Anulado')" >
                <img src="img/pedido4.png">
-               <h2 class="balanced">Entregado al transportador
+               <h2 class="balanced">Entregado al <br /> transportador
                </h2>
-                <p ng-show="fechaRepartoPedido() != ''">Posiblemente recibas tu pedido el {{ fechaRepartoPedido() | date:'dd' }} de {{ fechaRepartoPedido() | date:'MMMM' }}</p>
+                <p ng-show="fechaRepartoPedido() != ''">Posiblemente recibas tu <br /> pedido el {{ fechaRepartoPedido() | date:'dd' }} de {{ fechaRepartoPedido() | date:'MMMM' }}</p>
             </a>
             
             </div>
@@ -137,6 +137,10 @@
                 </div>
             </a> -->
         </div>
+
+        <a class="item">
+            <h2>&nbsp;</h2>
+        </a>
 
     </ion-content>
 </ion-view>
