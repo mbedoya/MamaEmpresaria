@@ -159,11 +159,11 @@ strong{
   color:#077885;
 }
 .tab-mas {
-  background-color:#f55403;
+  background-color:#f74094;
   background-position: center -405px;
 }
 .tab-mas i {
-  color:#f55403;
+  color:#f74094;
 }
 .menu-principal > .tabs .tab-title {
   padding-top: 60px;
@@ -513,6 +513,15 @@ strong{
    height: 10px;
    width: 50px;
    margin-right: 10px;
+}
+
+/* Action Sheet (Más +) */
+.action-sheet-group {
+  background-color:#f74094;
+}
+
+.action-sheet .button {
+  color: #FFF;
 }
 
 
