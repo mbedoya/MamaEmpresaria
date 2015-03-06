@@ -2,7 +2,7 @@
     <ion-tab title="Inicio" href="#/app/menu/tabs/home" icon-on="ion-arrow-up-b" icon-off="" class="tab-inicio">
         <ion-nav-view name="home-content"></ion-nav-view>
     </ion-tab>
-    <ion-tab id="tabMiNegocio" title="Mi Negocio" href="#/app/menu/tabs/minegocio" icon-on="ion-arrow-up-b" icon-off="" class="tab-negocio">
+    <ion-tab id="tabMiNegocio" title="Mi Negocio" href="#/app/menu/tabs/minegocio" icon-on="ion-arrow-up-b" icon-off="" class="tab-negocio" ng-if="mostrarMiNegocio()" >
         <ion-nav-view name="negocio-content"></ion-nav-view>
     </ion-tab>
     <!-- badge="1" badge-style="badge-assertive" -->

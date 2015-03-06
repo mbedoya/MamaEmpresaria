@@ -73,7 +73,7 @@ angular.module('novaventa', ['ionic', 'novaventa.controllers', 'novaventa.servic
                 views: {
                     'menu-content': {
                         templateUrl: "templates/tabs.html",
-                        controller: 'TabsCtrl' 
+                        controller: 'TabsCtrl'
                     }
                 }
             })

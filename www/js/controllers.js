@@ -16,42 +16,51 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
         };
     })
     
-    .controller('TabsCtrl', function($scope, $state, $ionicActionSheet) {
+    .controller('TabsCtrl', function($scope, $rootScope, $state, $ionicActionSheet) {
+
+        $scope.mostrarMiNegocio = function(){
+
+            console.log("Mostrar mi negocio");
+            console.log(Number($rootScope.datos.cupo) > 0 || Math.abs(Number($rootScope.datos.saldo)) > 0);
+            console.log(Math.abs(Number($rootScope.datos.saldo)));
+
+            return Number($rootScope.datos.cupo) > 0 || Math.abs(Number($rootScope.datos.saldo)) > 0;
+        }
 
         $scope.mostrarOpcionesMas = function() {
-           // Show the action sheet
-      var hojaOpciones = $ionicActionSheet.show({
+            // Show the action sheet
+            var hojaOpciones = $ionicActionSheet.show({
 
-          /*
+                /*
 
-           buttons: [
-           { text: 'Club de Privilegios' },
-           { text: 'Información general' },
-           { text: 'Contacto' }
-           ],
+                 buttons: [
+                 { text: 'Club de Privilegios' },
+                 { text: 'Información general' },
+                 { text: 'Contacto' }
+                 ],
 
-           */
-     buttons: [
-       { text: 'Fechas importantes' }
-     ],
-     cancelText: 'Cancelar',
-     cancel: function() {
-        },
-     buttonClicked: function(index) {
-     
-       if(index == 0){
-           $state.go('app.menu.tabs.mas.informacion.fechas');
-          //$state.go('app.menu.tabs.mas.club.piedrapreciosa');
-       }else{
-          if(index == 1){
-            $state.go('app.menu.tabs.mas.informacion.fechas');
-          }else{
-             $state.go('app.menu.tabs.mas.contacto');
-          }
-       }
-       
-     }
-   });
+                 */
+                buttons: [
+                    { text: 'Fechas importantes' }
+                ],
+                cancelText: 'Cancelar',
+                cancel: function() {
+                },
+                buttonClicked: function(index) {
+
+                    if(index == 0){
+                        $state.go('app.menu.tabs.mas.informacion.fechas');
+                        //$state.go('app.menu.tabs.mas.club.piedrapreciosa');
+                    }else{
+                        if(index == 1){
+                            $state.go('app.menu.tabs.mas.informacion.fechas');
+                        }else{
+                            $state.go('app.menu.tabs.mas.contacto');
+                        }
+                    }
+
+                }
+            });
         };
 
     })
@@ -1317,6 +1326,10 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
 
         $scope.mostrarSaldoPagar = function(){
             return !$scope.mostrarSaldoFavor();
+        }
+
+        $scope.cupo = function(){
+            return $rootScope.datos.cupo;
         }
 
         $scope.saldo = function(){
