@@ -1177,8 +1177,8 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
             //Si la fecha es correteo mostramos una información diferente
             if(fechaEsCorreteo){
                listaEventos = [];
-               listaEventos.push({ "actividad": "Puedes montar tu pedido este día, por la Página web, antes de las 12 del medio día." });
-               listaEventos.push({ "actividad": "Realiza cancelar tu pedido anterior este día antes de las 4 de la tarde." });
+               listaEventos.push({ "actividad": "Monta tu pedido este día, por la Página web, antes de las 12 del medio día." });
+               listaEventos.push({ "actividad": "Cancela tu pedido anterior este día antes de las 4 de la tarde." });
             }
             
             if(fechaEsRepartoPedido){
