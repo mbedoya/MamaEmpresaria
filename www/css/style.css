@@ -480,39 +480,110 @@ strong{
     padding-bottom: 0px;
 }
 
-.calendario .item {
-    padding-left: 6px !important;
-    padding-top: 10px !important;
-    padding-bottom: 10px !important;
+.titulo-calendario .row {
+  background:#f74094;
+  border-radius:8px;
+  padding:0;
+  margin:10px;
+  width: auto;
 }
-
 .titulo-calendario .item {
-    border: solid 0px !important;
-    padding-top: 5px !important;
-    padding-bottom: 5px !important;
+  background:transparent;
+  border: none;
+  padding: 5px 10px;
 }
-
+.titulo-calendario .arrowleft {
+  text-align:left;
+}
+.titulo-calendario .col-50 {
+  text-align:center;
+}
+.titulo-calendario .arrowright {
+  text-align:right;
+}
+.titulo-calendario a {
+  color:white;
+  text-transform:uppercase;
+  font-family: 'Droid Sans Bold', sans-serif;
+}
+.row.no-padding, .col.no-padding {
+  padding:0;
+}
+.week.col {
+  color:#005e81;
+  text-align:center;
+  border-top: 1px solid #005e81;
+  border-bottom: 2px solid #005e81;
+  border-left: 1px solid #cacaca;
+  border-right: 1px solid #cacaca;
+  padding: 7px 5px;
+  margin-right: -1px;
+  font-family: 'Droid Sans Bold', sans-serif;
+}
+.calendario .row, .calendario .col {
+  padding: 0;
+}
+.calendario .row:first-of-type .item {
+  border-top:none;
+}
+.calendario .item {
+  padding:8px 5px;
+  text-align:center;
+  color:#808080;
+}
+.calendario .item-icon-left .icon, .calendario .item-icon-right .icon{
+  font-size: 18px;
+  position:static;
+  display:inline-block;
+  margin:0 0 0 3px;
+}
+.calendario .item-icon-left .icon:before, .calendario .item-icon-right .icon:before {
+  width:16px;
+}
+.calendario .evento {
+  color:#f74094;
+  font-family: 'Droid Sans Bold', sans-serif;
+}
+.calendario .positive {
+  background:#f74094;
+  font-family: 'Droid Sans Bold', sans-serif;
+  color:white;
+}
 .calendario .campana-actual {
     background-color: #E0EBEB;
 }
-
-.calendario .item-icon-left .icon, .item-icon-right .icon{
-   font-size: 22px;
-   margin-left: 2px !important;
+.campanas {
+  color:#666;
+  text-align: center;
 }
-
+.campanas span {
+  border: solid 1px #ccc;
+   border-radius:2px;
+}
 .leyenda-campana{
    background-color: #E0EBEB;
    height: 10px;
    width: 50px;
-   margin-right: 10px;
+   margin: 0px 10px 0px 0px;
 }
-
 .leyenda-campana-siguiente{
-   border: solid 1px #E0EBEB;
    height: 10px;
    width: 50px;
-   margin-right: 10px;
+   margin: 0px 10px 0px 15px;
+}
+.mas-content .dia {
+  margin-bottom:0;
+}
+.mas-content .dia .item {
+  background:#979797;
+  color:white;
+  font-size:16px;
+}
+.detalle a.item-avatar {
+  padding-left:50px;
+}
+.detalle a.item-avatar img {
+  width: auto !important;
 }
 
 /* Action Sheet (Más +) */
@@ -520,8 +591,15 @@ strong{
   background-color:#f74094;
 }
 
+.action-sheet-group[ng-if="cancelText"] {
+  background-color:#red !important;
+}
+
 .action-sheet .button {
   color: #FFF;
 }
 
+.item-note{
+  color: #444;
+}
 

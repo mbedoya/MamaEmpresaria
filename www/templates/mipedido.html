@@ -115,14 +115,14 @@
                <h2 class="balanced">Entregado al transportador
                </h2>
                <p>{{ buscarEstado('Entregado al transportador').fecha | date: 'dd'}} de {{ buscarEstado('Entregado al transportador').fecha | date: 'MMMM'}}</p>
-                <p>Posiblemente recibas tu pedido el<br /> 16 de Febrero</p>
+                <p ng-show="fechaRepartoPedido() != ''">Posiblemente recibas tu pedido el {{ fechaRepartoPedido() | date:'dd' }} de {{ fechaRepartoPedido() | date:'MMMM' }}</p>
             </a>
             
             <a class="item" href="#" ng-show="!estadoEncontrado('Entregado al transportador') && !estadoEncontrado('Anulado')" >
                <img src="img/pedido4.png">
                <h2 class="balanced">Entregado al transportador
                </h2>
-                <p>Posiblemente recibas tu pedido el<br /> 16 de Febrero</p>
+                <p ng-show="fechaRepartoPedido() != ''">Posiblemente recibas tu pedido el {{ fechaRepartoPedido() | date:'dd' }} de {{ fechaRepartoPedido() | date:'MMMM' }}</p>
             </a>
             
             </div>

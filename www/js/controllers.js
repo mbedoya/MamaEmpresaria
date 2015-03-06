@@ -212,7 +212,7 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
 
             //Caracteres especiales
             if(String($rootScope.datos.cedula).indexOf(".") >= 0 || String($rootScope.datos.cedula).indexOf(",") >= 0){
-                $scope.mostrarAyuda("Inicio de sesión","Ingresa sólo números únicamente");
+                $scope.mostrarAyuda("Inicio de sesión","Ingresa sólo números");
                 return;
             }
 
@@ -424,15 +424,29 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
            }
         }
         
+        $scope.padStr = function(i) {
+           return (i < 10) ? "0" + i : "" + i;
+        }
+        
         $scope.diasParaPago = function(){
+        
+           var fechaActual = new Date();
+           var stringFecha = $scope.padStr(fechaActual.getFullYear()) + "-" +
+                  $scope.padStr(1 + fechaActual.getMonth()) + "-" + fechaActual.getDate()
+          
+        
            if($rootScope.campana && $rootScope.campana.fechaMontajePedido){
                var t2 = new Date($rootScope.campana.fechaMontajePedido).getTime();
-               var t1 = new Date().getTime();
+               var t1 = new Date(stringFecha).getTime();
 
                return parseInt((t2-t1)/(24*3600*1000));    
            }else{
-              return -1;
+              return -2;
            }
+        }
+        
+        $scope.esAntesMedioDia = function(){
+           return new Date().getHours() < 12;
         }
         
         $scope.mostrarAyudaSaldoPagar = function(){
@@ -587,12 +601,23 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
         $scope.inicializar();
        
        $scope.verAyudaNovedad = function(){
-         $scope.mostrarAyuda('Novedades', 'Debes cancelar $50.000 antes del 24 de febrero para que tu pedido sea enviado');
+         //$scope.mostrarAyuda('Novedades', 'Debes cancelar $50.000 antes del 24 de febrero para que tu pedido sea enviado');
        }
 
         $scope.pedido = function(){
             return $rootScope.pedido;
         }
+        
+        $scope.fechaRepartoPedido = function(){
+            var fecha = '';
+            for (i = 0; i < $rootScope.fechas.length; i++){
+                if($rootScope.fechas[i].actividad.toLowerCase() == 'reparto de pedido 1'){
+                     fecha = $rootScope.fechas[i].fecha;
+                     break;
+                }
+            }
+            return fecha;
+       }
         
         $scope.estadoEncontrado = function(estado){
            var encontrado = false;

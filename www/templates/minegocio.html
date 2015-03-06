@@ -18,7 +18,7 @@
                 <p>Este valor ya incluye los saldos <br />
                 a favor o en contra que puedas tener</p>
                 <span class="item-note">
-                  {{ saldo() | currency }}
+                  <strong> {{ saldo() | currency }} </strong>
                 </span>
             </a>
             <a class="item item-avatar alternate" href="#" ng-show="mostrarSaldoFavor()" >
@@ -26,7 +26,7 @@
                 <h2>Tienes un saldo a favor de:
                 </h2>
                 <span class="item-note">
-                  {{ saldo() | currency }}
+                  <strong> {{ saldo() | currency }} </strong>
                 </span>
             </a>
             <a class="item item-avatar item-icon-right" href="#" ng-click="mostrarAyudaFlexibilizacion()" >
@@ -35,7 +35,7 @@
                 <h2>Cuentas con un beneficio <br /> de flexibilizazión de máximo:
                 </h2>
                 <span class="item-note">
-                  {{ flexibilizacion() | currency }}
+                  <strong> {{ flexibilizacion() | currency }} </strong>
                 </span>
             </a>
         </div>

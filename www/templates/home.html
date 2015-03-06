@@ -59,7 +59,10 @@
 
             <a class="item item-avatar {{ estiloAlternateFechaPago() }}" href="#" ng-show="diasParaPago()==-1" >
                 <div class="icono calendario"></div>
-                <h2>Realiza tu pedido hoy por la Página <br /> Web antes de las <br /> 12:00 del medio día
+                <h2 ng-show="esAntesMedioDia()">Realiza tu pedido hoy por la <br />Página Web antes de las <br />12:00 del medio día
+                </h2>
+                <h2 ng-show="!esAntesMedioDia()">Mamá ya no puedes montar pedido. <br /> 
+                   El horario para Campaña {{campana.numero}} ya cerró.
                 </h2>
                 <p>&nbsp;</p>
             </a>

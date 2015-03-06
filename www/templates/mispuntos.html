@@ -5,30 +5,30 @@
                 <div class="icono punto"></div>
                 Puntos disponibles
                 <span class="item-note">
-                    {{ puntosDisponibles() }}
+                    <strong>{{ puntosDisponibles() }}</strong>
                 </span>
             </label>
-            <label class="item" ng-show="mostrarPuntosPorPerder()">
+            <label class="item item-avatar" ng-show="mostrarPuntosPorPerder()">
+                <div class="icono bocina"></div>
                 Puntos a perder <br />
                 (si no pagas antes del {{fechaMontajePedidoCampana() | date: 'dd' | lowercase}} de {{fechaMontajePedidoCampana() | date: 'MMMM' | lowercase}} )
                 <span class="item-note">
-                    {{ puntosPorPerder() }}
+                    <strong> {{ puntosPorPerder() }} </strong>
                 </span>
             </label>
-            <label class="item" ng-show="mostrarPuntosAVencer()">
+            <label class="item item-avatar" ng-show="mostrarPuntosAVencer()">
+                <div class="icono calendario"></div>
                 Puntos a vencer <br />
                 esta campaña <!--  {{campanaVencimientoPuntos()}} -->
                 <span class="item-note">
-                    {{ puntosAVencer() }}
+                    <strong> {{ puntosAVencer() }} </strong>
                 </span>
             </label>
-            <label class="item item-input">
-                <span class="input-label">&nbsp;</span>
-            </label>
-            <a class="item item-icon-right" href="#/app/menu/tabs/mispremiosredimidos" ng-show="mostrarPuntosRedimidos()">
+            <a class="item item-avatar item-icon-right" href="#/app/menu/tabs/mispremiosredimidos" ng-show="mostrarPuntosRedimidos()">
+               <div class="icono regalo"></div>
                 Puntos redimidos campaña anterior
                 <span class="item-note">
-                  {{ puntosRedimidos() }}
+                  <strong> {{ puntosRedimidos() }} </strong>
                 </span>
                 <i class="icon ion-chevron-right"></i>
             </a>

@@ -3,12 +3,13 @@
          <span class="padding-left">Mis Puntos > Mis Premios Redimidos</span>
     
         <div class="list"  >
-            <a class="item item-icon-left" ng-repeat="premio in puntos.productosRedimidos" >
-                <i class="icon ion-android-star"></i>
-                {{ premio.cantidad }} {{ premio.premioRedimido }}
-                <span class="item-note">
-                  {{ premio.puntosRedimidos }}
-                </span>
+            <a class="item item-thumbnail-left" ng-repeat="premio in puntos.productosRedimidos" >
+               <img src="img/catalogo.png">
+               <h2>{{ premio.premioRedimido }}</h2>
+               <p>{{ premio.puntosRedimidos }} puntos</p>
+               <p>{{ premio.cantidad }} <span ng-show="premio.cantidad == 1">unidad</span>
+                  <span ng-show="premio.cantidad > 1">unidades</span>
+               </p>
             </a>
         </div>
     </ion-content>
