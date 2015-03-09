@@ -1427,11 +1427,32 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
                 return Number($rootScope.datos.valorFlexibilizacion);
             }
         }
+        
+        $scope.flexibilizacionEjemploPago = function(){
+            //La flexibilización es mayor que el valor a Pagar?
+            if(Number($rootScope.datos.valorFlexibilizacion)>Number($rootScope.datos.saldo)){
+                return 0;
+            }else{
+                return Number($rootScope.datos.saldo)-Number($rootScope.datos.valorFlexibilizacion)/2;
+            }
+        }
+
+        $scope.flexibilizacionEjemploDeuda = function(){
+            //La flexibilización es mayor que el valor a Pagar?
+            if(Number($rootScope.datos.valorFlexibilizacion)>Number($rootScope.datos.saldo)){
+                return Number($rootScope.datos.saldo);
+            }else{
+                return Number($rootScope.datos.valorFlexibilizacion)/2;
+            }
+        }
+        
 
         $scope.mostrarAyudaFlexibilizacion = function() {
 
             if($scope.flexibilizacionPago() > 0){
-                $scope.mostrarAyuda('Mi Negocio','Este beneficio te permite cubrir parte de tu pago en caso de tener inconvenientes con tus clientes.  De ser necesario usa los ' + $filter('currency')($scope.flexibilizacionDeuda()) + ' o parte de estos. Ejemplo: Paga $XXXXX y queda debiendo $YYYY, debes cancelar este valor antes de tu próximo pedido.');
+                $scope.mostrarAyuda('Mi Negocio','Este beneficio te permite cubrir parte de tu pago en caso de tener inconvenientes con tus clientes.  De ser necesario usa los ' + $filter('currency')($scope.flexibilizacionDeuda()) + ' o parte de estos. Ejemplo: Paga ' +
+                $filter('currency')($scope.flexibilizacionEjemploPago()) + ' y queda debiendo ' +
+                $filter('currency')($scope.flexibilizacionEjemploDeuda()) + ', debes cancelar este valor antes de tu próximo pedido.');
             }else{
                 if($scope.flexibilizacionPago() == 0){
                     $scope.mostrarAyuda('Mi Negocio','Este beneficio te permite cubrir parte de tu pago en caso de tener inconvenientes con tus clientes.');
