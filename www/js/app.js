@@ -45,6 +45,16 @@ angular.module('novaventa', ['ionic', 'novaventa.controllers', 'novaventa.servic
                     }
                 }
             })
+            
+            .state('app.bienvenida', {
+                url: "/bienvenida",
+                views: {
+                    'app-view': {
+                        templateUrl: "templates/bienvenida.html",
+                        controller: 'BienvenidaCtrl'
+                    }
+                }
+            })
 
             .state('app.login', {
                 url: "/login",

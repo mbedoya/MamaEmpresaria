@@ -404,13 +404,90 @@ strong{
 .icono.calendario {
     background-position: -219px -112px;
 }
+
+/* Flecha ver más */
 .list .item > i.icon.ion-ios-arrow-forward:before {
-    background:#1594ac;
-    color:white;
-    padding: 4px;
-    width:29px;;
-    border-radius:50%;
+  background:#1594ac;
+  color:white;
+  padding: 4px;
+  width:27px;
+  font-size:19px;
+  border-radius:50%;
 }
+
+/* Bienvenida */
+.content-bienvenida {
+  background: url(../img/estrellas2.png) no-repeat right bottom;
+}
+.content-bienvenida h3 {
+  background: url(../img/fondobienvenida.png) no-repeat center bottom;
+  text-align:center;
+  color:white;
+  display:block;
+  font-size:22px;
+  margin-bottom:0px;
+}
+
+.zafiro .content-bienvenida h3{
+  background-color: #27667d;
+}
+
+.esmeralda .content-bienvenida h3{
+    background-color: #45986c;
+}
+.diamante .content-bienvenida h3{
+    background-color: #1794aa;
+}
+.rubi .content-bienvenida h3{
+    background-color: #b12136;
+}
+
+.content-bienvenida h3 strong {
+  display: block;
+  font-size:26px;
+  margin-bottom:5px;
+}
+.content-bienvenida h3 span {
+  background: url(../img/estrellas.png) no-repeat 10px 10px;
+  padding:25px 20px 80px;
+  display:block;
+}
+.content-bienvenida .estrella {
+  margin:0px;
+}
+.bienvenida-img {
+  margin: 10px auto 10px;
+  max-width:55%;
+  display:block;
+}
+.content-bienvenida form {
+  width:60%;
+  margin:0 auto;
+}
+.bienvenida-button button {
+  background:#1594ac;
+  border-radius:8px;
+  border: 2px solid #077885;
+  box-shadow: 0px 4px 0px #077885;
+  text-shadow: 0px 2px 0px rgba(0,0,0,0.1);
+  color:white;
+  font-family: "Droid Sans Bold";
+  font-size:18px;
+}
+.bienvenida-button button:hover {
+  color:white;
+}
+.bienvenida-button button:active, .bienvenida-button button.activated {
+  color:white;
+  border: 2px solid #077885 !important;
+  box-shadow: 0px 4px 0px #056a72;
+  text-shadow: 0px 2px 0px rgba(0,0,0,0.1);
+  background:#077885;
+}
+.content-bienvenida .bar-footer {
+  position:static;
+}
+
 
 /* Inicio */
 .home-content .list {

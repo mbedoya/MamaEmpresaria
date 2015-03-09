@@ -64,6 +64,41 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
         };
 
     })
+    
+    .controller('BienvenidaCtrl', function($scope, $state, $rootScope, $ionicHistory) {
+
+       $scope.segmentoFormateado = function(){
+            if(localStorage){
+               return localStorage.segmento.toLocaleLowerCase().replace("í","i");     
+            }else{
+               return ""; 
+            }
+        }
+        
+        $scope.segmento = function(){
+            if(localStorage){
+               return localStorage.segmento;     
+            }else{
+               return ""; 
+            }
+        }
+        
+        $scope.nombre = function(){
+            if(localStorage){
+               return localStorage.nombre;     
+            }else{
+               return "Mamá Empresaria"; 
+            }
+        }
+
+        $scope.ingresar = function() {
+            $ionicHistory.nextViewOptions({
+                disableBack: true
+            });
+        
+            $state.go('app.menu.tabs.home');
+        };
+    })
 
 	.controller('InicializacionCtrl', function($scope, $rootScope, $ionicPopup, $ionicLoading, $ionicHistory, $http, $state, Internet, Mama, GA) {
 
@@ -92,6 +127,30 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
              template: mensaje
            });
          };
+         
+         $scope.segmentoFormateado = function(){
+            if(localStorage){
+               return localStorage.segmento.toLocaleLowerCase().replace("í","i");     
+            }else{
+               return ""; 
+            }
+        }
+        
+        $scope.segmento = function(){
+            if(localStorage){
+               return localStorage.segmento;     
+            }else{
+               return ""; 
+            }
+        }
+        
+        $scope.nombre = function(){
+            if(localStorage){
+               return localStorage.nombre;     
+            }else{
+               return "Mamá Empresaria"; 
+            }
+        }
 
         $scope.inicializar = function(){
 			
@@ -298,17 +357,28 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
                                 }
                             });
 
-                            //Almacenar la cédula si hay almacenamiento local
-                            if(localStorage){
-                                localStorage.cedula = $scope.datosInicio.cedula;
-                            }
+                            var irABienvenida = !(localStorage && localStorage.nombre);
 
+                            //Almacenar la cédula si hay almacenamiento local
+                            if(localStorage ){
+                                
+                                localStorage.cedula = $scope.datosInicio.cedula;
+                                localStorage.nombre = $rootScope.datos.nombre;
+                                localStorage.segmento = $rootScope.datos.segmento;
+                                
+                            }
+                            
                             $scope.datosInicio = {cedula: '' };
 
                             $ionicHistory.nextViewOptions({
                              disableBack: true
                             });
-                            $state.go('app.menu.tabs.home');
+                            
+                            if(irABienvenida){
+                               $state.go('app.bienvenida');
+                            }else{
+                               $state.go('app.menu.tabs.home');
+                            }
 
                         }else{
 
