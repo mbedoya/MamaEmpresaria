@@ -14,15 +14,16 @@
             </div>
             </div>
             
-            <a class="item item-avatar alternate" href="#" ng-show="mostrarSaldoPagar() && saldo()>0" ng-click="mostrarAyudaSaldoPagar()">
+            <a class="item item-avatar alternate" href="#" ng-show="mostrarSaldoPagar() && saldo()>0 && !((encuentroRealizado() && !pedido().razonRechazo))  " ng-click="mostrarAyudaSaldoPagar()">
                 <div class="icono bocina"></div>
                 <!-- <i class="icon ion-plus-circled"></i> -->
               <h2>Tienes un pago pendiente de <br /> {{ saldo() | currency }}.
-                Realízalo máximo el <br /> {{campana.fechaMontajePedido | date: 'dd' }} de  {{campana.fechaMontajePedido | date: 'MMMM' }} antes de las 4 de la tarde
+                Realízalo <span ng-show="diasParaPago()>-1">máximo el <br /> {{campana.fechaMontajePedido | date: 'dd' }} de  {{campana.fechaMontajePedido | date: 'MMMM' }}</span>
+                 <span ng-show="diasParaPago()<=0">hoy</span> antes de las 4 de la tarde
               </h2>
             </a>
 
-            <a class="item item-avatar alternate" href="#" ng-show="mostrarSaldoPagar() && saldo()==0" >
+            <a class="item item-avatar alternate" href="#" ng-show="( mostrarSaldoPagar() && saldo()==0 ) || (encuentroRealizado() && !pedido().razonRechazo)" >
                 <div class="icono bocina"></div>
                 <h2>No tienes pagos pendientes
                 </h2>
@@ -50,14 +51,14 @@
               <p>Te quedan {{ diasParaPago() }} días</p>
             </a>
 
-            <a class="item item-avatar {{ estiloAlternateFechaPago() }}" href="#" ng-show="diasParaPago()==0" >
+            <a class="item item-avatar {{ estiloAlternateFechaPago() }}" href="#" ng-show="diasParaPago()==0 && pedido().razonRechazo" >
                 <div class="icono calendario"></div>
                 <h2>Realiza tu pedido el día de hoy
                 </h2>
                 <p>Realízalo por la Página Web hasta <br /> mañana antes de las 12:00 del medio día</p>
             </a>
 
-            <a class="item item-avatar {{ estiloAlternateFechaPago() }}" href="#" ng-show="diasParaPago()==-1" >
+            <a class="item item-avatar {{ estiloAlternateFechaPago() }}" href="#" ng-show="diasParaPago()==-1 && pedido().razonRechazo" >
                 <div class="icono calendario"></div>
                 <h2 ng-show="esAntesMedioDia()">Realiza tu pedido hoy por la <br />Página Web antes de las <br />12:00 del medio día
                 </h2>

@@ -4,14 +4,19 @@
             Mi Pedido
         </div>
         
-        <div class="list list-inset" ng-show="!estadoEncontrado('Facturado') && estadoEncontrado('Novedad') && mostrarNovedad(buscarEstado('Novedad').motivo)">
+        <div class="list list-inset no-procesado" ng-show="!estadoEncontrado('Facturado') && estadoEncontrado('Novedad') && !estadoEncontrado('Anulado') && mostrarNovedad(buscarEstado('Novedad').motivo)">
             <div class="item">
+                <span class="highlighted">
                 Tu pedido presenta novedad. <br />Te invitamos a resolverla
+                    </span>
             </div>
             <a class="item assertive" ng-click="verAyudaNovedad()" href="#">
                 {{ buscarEstado('Novedad').motivo }}
-                <br />
-                Si ya pagaste omite este mensaje.
+                <p>
+                    Recuerda que durante el día se están<br />
+                    reflejando los pagos, si ya pagaste <br />
+                    omite este mensaje.
+                </p>
             </a>
         </div>
         
@@ -28,30 +33,31 @@
         </div>
         -->
 
-        <div class="list list-inset" ng-show="estadoEncontrado('Anulado') && estadoEncontrado('Novedad')">
+        <div class="list list-inset no-procesado" ng-show="estadoEncontrado('Anulado') && estadoEncontrado('Novedad')">
             <div class="item">
-                Tu pedido no será enviado,<br /> puedes ver el detalle a continuación:
+                <span class="highlighted">Tu pedido no será enviado,<br /> puedes ver el detalle a continuación:</span>
             </div>
-            <a class="item assertive" ng-click="verAyudaNovedad()" href="#">
+            <p class="item assertive" ng-click="verAyudaNovedad()">
                 {{ buscarEstado('Novedad').motivo }}
-            </a>
+            </p>
         </div>
         
-        <div class="list" ng-show="pedido().razonRechazo && hoyEsCorreteo()">
+        <div class="list no-procesado" ng-show="pedido().razonRechazo && hoyEsCorreteo()">
             <div class="item">
-                Aún no tenemos información sobre tu pedido <br />. Si lo enviaste hoy por favor verifica mañana. <br />
+                <span class="highlighted">Aún no tenemos información sobre tu pedido <br />. Si lo enviaste hoy por favor verifica mañana. <br />
                 Si ya hiciste el envío de tu pedido y aún <br />
-                no registra verifica: <br />
-                1) Que no se haya quedado en estado <br /> 
-                "Guardado" en la página web. <br />
-                2) Que lo hayas llevado al buzón en los horarios y fechas establecidas.
+                no registra verifica: <br /></span>
+                <p><strong>1</strong> Que no se haya quedado en estado
+                "Guardado" en la página web. </p>
+                <p><strong>2</strong> Que lo hayas llevado al buzón en los horarios y fechas establecidas.</p>
             </div>
         </div>
         
-        <div class="list" ng-show="pedido().razonRechazo && !hoyEsCorreteo()">
-           <a class="item" href="#" >
-                Aún no tenemos información sobre tu pedido<br /> de esta campaña, te invitamos <br /> a consultar a partir del {{fechaCorreteo() | date: 'dd' }} de {{fechaCorreteo() | date: 'MMMM' }}.
-            </a>
+        <div class="list no-procesado" ng-show="pedido().razonRechazo && !hoyEsCorreteo()">
+           <div class="item" href="#" >
+                <span class="highlighted"> Aún no tenemos información sobre tu pedido<br /> de esta campaña, te invitamos <br />
+                    a consultar a partir del {{fechaCorreteo() | date: 'dd' }} de {{fechaCorreteo() | date: 'MMMM' }}.</span>
+            </div>
         </div>
 
         <div class="list pedido">
@@ -73,14 +79,11 @@
             </a>
             
             <a class="item selected" href="#" ng-show="estadoEncontrado('Anulado')" >
-               <img src="img/cancel.png">
+               <img src="img/anulado.png">
                <h2 class="balanced">Anulado
                </h2>
                <p >{{ buscarEstado('Anulado').fecha | date: 'dd'}} de {{ buscarEstado('Anulado').fecha | date: 'MMMM'}}</p>
-                <div style="border-left: solid 1px #ccc; padding-left: 5px;" >&nbsp;
-                </div>
             </a>
-
             
             <a class="item selected" href="#" ng-show="estadoEncontrado('Facturado') && !estadoEncontrado('Anulado')" >
                 <img src="img/pedido2-selected.png">

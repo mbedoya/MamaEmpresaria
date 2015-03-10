@@ -680,3 +680,33 @@ strong{
   color: #444;
 }
 
+/*  Titulos y textos  */
+
+.no-procesado .item {
+    font-size:15px;
+    line-height:1.3em;
+    border-color: #FFF;
+}
+.no-procesado .highlighted {
+    display:inline-block;
+    text-align: center;
+    color:white;
+    background:#f74094;
+    border-radius:4px;
+    padding:4px 12px;
+    font-family: 'Droid Sans Bold', sans-serif;
+    margin: 0px 0px 8px 0px;
+}
+.no-procesado p {
+    margin-top:5px;
+}
+.no-procesado p strong {
+    background: #1594ac;
+    color: white;
+    display: inline-block;
+    padding: 0px 6px;
+    border-radius: 50%;
+    font-size: 12px;
+}
+
+

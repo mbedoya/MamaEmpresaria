@@ -100,7 +100,7 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
         };
     })
 
-	.controller('InicializacionCtrl', function($scope, $rootScope, $ionicPopup, $ionicLoading, $ionicHistory, $http, $state, Internet, Mama, GA) {
+	.controller('InicializacionCtrl', function($scope, $rootScope, $ionicPopup, $ionicLoading, $ionicHistory, $http, $state, $filter, Internet, Mama, GA) {
 
         $scope.mostrarMensajeError = false;
 
@@ -178,7 +178,7 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
                         if(data && data.razonRechazo){
 
                             if(data.razonRechazo == "El usuario no se encuentra registrado en Antares."){
-                                $scope.mostrarAyuda("Inicio de sesión","Lo sentimos no existe información para esta cédula. Comunícate con la Línea de atención");
+                                $scope.mostrarAyuda("Inicio de sesión","Lo sentimos no existe información para esta cédula. Comunícate con la Línea de Atención");
                             }else{
                                 $scope.mostrarAyuda("Inicio de sesión",data.razonRechazo);
                             }
@@ -206,6 +206,28 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
                                         console.log("Error consultando los datos de campaña");
                                     });
 
+
+                                Mama.getTrazabilidadPedido($rootScope.datos.cedula, $rootScope, $http, function (success, data){
+                                    if(success){
+                                        $rootScope.pedido = data;
+
+                                        //Mama.getAgotadosPedido($rootScope.pedido.numeroPedido, $rootScope, $http, function (success, data){
+                                        //if(success){
+                                        //$ionicLoading.hide();
+                                        //  $rootScope.agotados = data;
+                                        //}else{
+                                        //$ionicLoading.hide();
+                                        //$scope.mostrarAyuda("Mi Pedido","En este momento no podemos acceder a tu información");
+                                        //}
+                                        //});
+
+
+                                    }else{
+                                        //$ionicLoading.hide();
+                                        //alert("En este momento no podemos acceder a tu información");
+                                    }
+                                });
+
 								$ionicHistory.nextViewOptions({
                                  disableBack: true
                                 });
@@ -213,11 +235,14 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
 
                             }else{
 
-                                if(data.tiposUsuarios){
-                                    $scope.mostrarAyuda("Inicio de sesión","Tu rol no es válido para nuestra Aplicación");
+                                if(data.tiposUsuarios && data.tiposUsuarios.length > 0 && (data.tiposUsuarios[0] == "2")){
+                                    $scope.mostrarAyuda("Inicio de sesión","Hola Mamá, te invitamos a montar tu primer pedido para disfurtar de esta Aplicación, para este cuentas con un cupo de " + $filter('currency')(data.cupo, '$', 0));
                                 }else{
-                                    $scope.mostrarMensajeError = true;
-                                    $scope.mostrarAyuda("Inicio de sesión","En este momento no podemos consultar tu información");
+                                    if(data.tiposUsuarios){
+                                        $scope.mostrarAyuda("Inicio de sesión","Tu rol no es válido para nuestra Aplicación");
+                                    }else{
+                                        $scope.mostrarAyuda("Inicio de sesión","En este momento no podemos consultar tu información");
+                                    }
                                 }
 
                             }
@@ -247,7 +272,7 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
 
     })
 
-    .controller('LoginCtrl', function($scope, $rootScope, $ionicLoading, $ionicPopup, $state, $http, $ionicHistory, Mama, Internet, GA) {
+    .controller('LoginCtrl', function($scope, $rootScope, $ionicLoading, $ionicPopup, $state, $http, $filter, $ionicHistory, Mama, Internet, GA) {
 
        //Registro en Analytics      
        GA.trackPage($rootScope.gaPlugin, "Inicio de sesión");
@@ -298,7 +323,7 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
                     if(data && data.razonRechazo){
 
                         if(data.razonRechazo == "El usuario no se encuentra registrado en Antares."){
-                            $scope.mostrarAyuda("Inicio de sesión","Lo sentimos no existe información para esta cédula. Comunícate con la Línea de atención");
+                            $scope.mostrarAyuda("Inicio de sesión","Lo sentimos no existe información para esta cédula. Comunícate con la Línea de Atención");
                         }else{
                             $scope.mostrarAyuda("Inicio de sesión",data.razonRechazo);
                         }
@@ -327,19 +352,19 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
                                 });
                                 
                                 
-                              Mama.getTrazabilidadPedido($rootScope.datos.cedula, $rootScope, $http, function (success, data){
+                            Mama.getTrazabilidadPedido($rootScope.datos.cedula, $rootScope, $http, function (success, data){
                                 if(success){
                                     $rootScope.pedido = data;
                                     
-                                    Mama.getAgotadosPedido($rootScope.pedido.numeroPedido, $rootScope, $http, function (success, data){
-                                    if(success){
+                                    //Mama.getAgotadosPedido($rootScope.pedido.numeroPedido, $rootScope, $http, function (success, data){
+                                    //if(success){
                                       //$ionicLoading.hide();
-                                      $rootScope.agotados = data;
-                                    }else{
+                                    //  $rootScope.agotados = data;
+                                    //}else{
                                       //$ionicLoading.hide();
                                     //$scope.mostrarAyuda("Mi Pedido","En este momento no podemos acceder a tu información");
-                                   }
-                                });
+                                   //}
+                                //});
                                     
 
                                 }else{
@@ -382,11 +407,16 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
 
                         }else{
 
-                            if(data.tiposUsuarios){
-                                $scope.mostrarAyuda("Inicio de sesión","Tu rol no es válido para nuestra Aplicación");
+                            if(data.tiposUsuarios && data.tiposUsuarios.length > 0 && (data.tiposUsuarios[0] == "2")){
+                                $scope.mostrarAyuda("Inicio de sesión","Hola Mamá, te invitamos a montar tu primer pedido para disfurtar de esta Aplicación, para este cuentas con un cupo de " + $filter('currency')(data.cupo, '$', 0));
                             }else{
-                                $scope.mostrarAyuda("Inicio de sesión","En este momento no podemos consultar tu información");
+                                if(data.tiposUsuarios){
+                                    $scope.mostrarAyuda("Inicio de sesión","Tu rol no es válido para nuestra Aplicación");
+                                }else{
+                                    $scope.mostrarAyuda("Inicio de sesión","En este momento no podemos consultar tu información");
+                                }
                             }
+
                         }
 
 
@@ -414,6 +444,29 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
 
         $scope.mostrarCupo = function(){
             return Number($rootScope.datos.cupo) > 0;
+        }
+
+        $scope.pedido = function(){
+            return $rootScope.pedido;
+        }
+
+        //Indica si ya se hizo el Encuentro para la campaña actual
+        $scope.encuentroRealizado = function(){
+
+            var realizado = false;
+
+            for (i = 0; i < $rootScope.fechas.length; i++){
+                if($rootScope.fechas[i].actividad.toLowerCase() == 'encuentro'){
+                    if(new Date() >= new Date($rootScope.fechas[i].fecha)){
+                        realizado = true;
+                        break;
+                    }
+                }
+            }
+
+            console.log("Encuentro realizado " + realizado);
+
+            return realizado;
         }
 
         $scope.etiquetaSaldo = function(){
@@ -634,43 +687,47 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
         
         $scope.inicializar = function(){
 
-        if(Internet.get()){
+            /*
+            if(Internet.get()){
 
-            $scope.loading =  $ionicLoading.show({
-                template: 'Estamos consultando el estado de tu pedido'
-            });
+                $scope.loading =  $ionicLoading.show({
+                    template: 'Estamos consultando el estado de tu pedido'
+                });
 
-            Mama.getTrazabilidadPedido($rootScope.datos.cedula, $rootScope, $http, function (success, data){
-                if(success){
-                    $ionicLoading.hide();
-                    $rootScope.pedido = data;
+                Mama.getTrazabilidadPedido($rootScope.datos.cedula, $rootScope, $http, function (success, data){
+                    if(success){
+                        $ionicLoading.hide();
+                        $rootScope.pedido = data;
 
-                    Mama.getAgotadosPedido($rootScope.pedido.numeroPedido, $rootScope, $http, function (success, data){
-                   if(success){
-                       //$ionicLoading.hide();
-                       $rootScope.agotados = data;
-                       
-                       console.log($rootScope.agotados);
+                        Mama.getAgotadosPedido($rootScope.pedido.numeroPedido, $rootScope, $http, function (success, data){
+                            if(success){
+                                //$ionicLoading.hide();
+                                $rootScope.agotados = data;
 
-                   }else{
-                       //$ionicLoading.hide();
-                       //$scope.mostrarAyuda("Mi Pedido","En este momento no podemos acceder a tu información");
-                   }
-                   });
-                    
-                    console.log("Pedido");
-                    console.log($rootScope.pedido);
+                                console.log($rootScope.agotados);
 
-                }else{
-                    $ionicLoading.hide();
-                    $scope.mostrarAyuda("Mi Pedido","En este momento no podemos acceder a tu información");
-                }
-            });
-            
-            
-         }else{
-            $scope.mostrarAyuda("Mi Pedido","Por favor verifica tu conexión a internet");
-         }
+                            }else{
+                                //$ionicLoading.hide();
+                                //$scope.mostrarAyuda("Mi Pedido","En este momento no podemos acceder a tu información");
+                            }
+                        });
+
+                        console.log("Pedido");
+                        console.log($rootScope.pedido);
+
+                    }else{
+                        $ionicLoading.hide();
+                        $scope.mostrarAyuda("Mi Pedido","En este momento no podemos acceder a tu información");
+                    }
+                });
+
+
+            }else{
+                $scope.mostrarAyuda("Mi Pedido","Por favor verifica tu conexión a internet");
+            }
+
+            */
+
         }
         
         $scope.$on('online', function(event, args){
@@ -1242,7 +1299,6 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
                    if($scope.fechas[i].actividad.toLowerCase() == "fecha correteo"){
                      fechaEsCorreteo = true;
                    }
-                   
                    if($scope.fechas[i].actividad.toLowerCase() == "reparto de pedido 1"){
                       fechaEsRepartoPedido = true;
                    }
@@ -1262,8 +1318,13 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
             
             if(fechaEsRepartoPedido){
                listaEventos = [];
-               listaEventos.push({ "actividad": "Entrega de pedido." });
+               listaEventos.push({ "actividad": "Posible entrega de pedido." });
             }
+
+            //Eliminar evento fecha de pago
+           if(listaEventos.length == 1 && listaEventos[0].actividad.toLowerCase() == "fecha de pago"){
+               listaEventos = [];
+           }
             
             $scope.detalleFecha = listaEventos;
        }
