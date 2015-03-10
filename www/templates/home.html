@@ -14,7 +14,7 @@
             </div>
             </div>
             
-            <a class="item item-avatar alternate" href="#" ng-show="mostrarSaldoPagar() && saldo()>0 && !((encuentroRealizado() && !pedido().razonRechazo))  " ng-click="mostrarAyudaSaldoPagar()">
+            <a class="item item-avatar alternate" href="#" ng-show="mostrarSaldoPagar() && saldo()>0 && !saldoEsDeProximaCampana()" ng-click="mostrarAyudaSaldoPagar()">
                 <div class="icono bocina"></div>
                 <!-- <i class="icon ion-plus-circled"></i> -->
               <h2>Tienes un pago pendiente de <br /> {{ saldo() | currency }}.
@@ -23,7 +23,7 @@
               </h2>
             </a>
 
-            <a class="item item-avatar alternate" href="#" ng-show="( mostrarSaldoPagar() && saldo()==0 ) || (encuentroRealizado() && !pedido().razonRechazo)" >
+            <a class="item item-avatar alternate" href="#" ng-show="( mostrarSaldoPagar() && saldo()==0 ) || saldoEsDeProximaCampana()" >
                 <div class="icono bocina"></div>
                 <h2>No tienes pagos pendientes
                 </h2>

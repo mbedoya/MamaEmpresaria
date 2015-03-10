@@ -11,12 +11,19 @@
                     </span>
             </div>
             <a class="item assertive" ng-click="verAyudaNovedad()" href="#">
-                {{ buscarEstado('Novedad').motivo }}
-                <p>
+                <div ng-show="motivoNovedadEncontrado('morosa')">
+                    Mamá, en estos momentos cuentas con un <br />
+                    saldo pendiente por pagar de {{ saldo() | currency:"$":0 }}. <br />
+                    Cancélalo lo más pronto posible.<br /> 
                     Recuerda que durante el día se están<br />
-                    reflejando los pagos, si ya pagaste <br />
-                    omite este mensaje.
-                </p>
+                    reflejando los pagos.<br />
+                    Si ya cancelaste ignora este mensaje.
+                </div>
+                <div ng-show="motivoNovedadEncontrado('cupo')">
+                    
+                </div>
+                
+                {{ buscarEstado('Novedad').motivo }}
             </a>
         </div>
         
@@ -40,6 +47,16 @@
             <p class="item assertive" ng-click="verAyudaNovedad()">
                 {{ buscarEstado('Novedad').motivo }}
             </p>
+            
+            <p class="item assertive" ng-show="motivoNovedadEncontrado('morosa')">
+                    Mamá, en estos momentos cuentas con un <br />
+                    saldo pendiente por pagar de {{ saldo() | currency:"$":0 }}. <br />
+                    Cancélalo lo más pronto posible.<br /> 
+                    Recuerda que durante el día se están<br />
+                    reflejando los pagos.<br />
+                    Si ya cancelaste ignora este mensaje.
+                </p>
+            
         </div>
         
         <div class="list no-procesado" ng-show="pedido().razonRechazo && hoyEsCorreteo()">

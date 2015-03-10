@@ -709,4 +709,25 @@ strong{
     font-size: 12px;
 }
 
+/* Varios */
 
+.mensaje-internet{
+  color: #FFF;
+  width: 100%;
+  text-align:center;
+  padding: 10px;
+}
+
+.zafiro .mensaje-internet{
+  background-color: #27667d;
+}
+
+.esmeralda .mensaje-internet{
+    background-color: #45986c;
+}
+.diamante .mensaje-internet{
+    background-color: #1794aa;
+}
+.rubi .mensaje-internet{
+    background-color: #b12136;
+}

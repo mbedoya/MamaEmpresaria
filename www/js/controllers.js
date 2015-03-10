@@ -241,7 +241,8 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
                                     if(data.tiposUsuarios){
                                         $scope.mostrarAyuda("Inicio de sesión","Tu rol no es válido para nuestra Aplicación");
                                     }else{
-                                        $scope.mostrarAyuda("Inicio de sesión","En este momento no podemos consultar tu información");
+                                        $scope.mostrarMensajeError = true;
+                                        $scope.mostrarAyuda("Inicio de sesión","Mamá Empresaria, esta aplicación sólo funciona con internet, verifica tu conexión. En este momento no podemos consultar tu información");
                                     }
                                 }
 
@@ -445,6 +446,39 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
         $scope.mostrarCupo = function(){
             return Number($rootScope.datos.cupo) > 0;
         }
+        
+        $scope.buscarEstado = function(estado){
+           var miestado = null;
+           
+           if($rootScope.pedido && $rootScope.pedido.historiaEstados){
+             for (i = 0; i < $rootScope.pedido.historiaEstados.length; i++) { 
+              if($scope.cambiarNombreEstado($rootScope.pedido.historiaEstados[i].estado) == estado){
+                 miestado = $rootScope.pedido.historiaEstados[i];
+                 break;
+              }
+             }
+           }
+           
+           return miestado;
+        }
+        
+        $scope.mamaEnMora = function(){
+            var estadoNovedad = $scope.buscarEstado('Novedad');
+            if(estadoNovedad){
+               if (estadoNovedad.motivo.toLowerCase().indexOf('morosa')>=0){
+                  return true;
+               }
+            }
+            
+            return false;
+        }
+        
+        // El Saldo es de la próxima campaña si
+        // ya se ha efectuado el encuentro y tengo información de pedido
+        // y no tengo novedad de morosidad
+        $scope.saldoEsDeProximaCampana = function(){
+           return $scope.encuentroRealizado() && !$scope.pedido().razonRechazo && !$scope.mamaEnMora();
+        }
 
         $scope.pedido = function(){
             return $rootScope.pedido;
@@ -519,7 +553,7 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
         }
 
         $scope.saldo = function(){
-            return Math.abs(Number($rootScope.datos.saldo)) ;
+            return Math.abs(Number($rootScope.datos.saldo));
         }
 
         $scope.cupo = function(){
@@ -735,6 +769,10 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
         });
         
         $scope.inicializar();
+        
+        $scope.saldo = function(){
+            return Math.abs(Number($rootScope.datos.saldo));
+        }
        
        $scope.verAyudaNovedad = function(){
          //$scope.mostrarAyuda('Novedades', 'Debes cancelar $50.000 antes del 24 de febrero para que tu pedido sea enviado');
@@ -742,6 +780,17 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
 
         $scope.pedido = function(){
             return $rootScope.pedido;
+        }
+        
+        $scope.motivoNovedadEncontrado = function(motivo){
+            var estadoNovedad = $scope.buscarEstado('Novedad');
+            if(estadoNovedad){
+               if (estadoNovedad.motivo.toLowerCase().indexOf(motivo.toLowerCase())>=0){
+                  return true;
+               }
+            }
+            
+            return false;
         }
         
         $scope.fechaRepartoPedido = function(){
