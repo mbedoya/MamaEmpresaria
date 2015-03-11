@@ -1168,13 +1168,9 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
           return $scope.campana > $rootScope.campana.numero;
        }
        
-       $scope.disminuirMes = function(){
+       $scope.mesAnterior = function(){
        
-          $scope.loading =  $ionicLoading.show({
-                            template: 'Cargando información de campaña.'
-                        });
-       
-          //Establecer la fecha al día 1 del mes actual
+         //Establecer la fecha al día 1 del mes actual
           var cadenaFecha = $scope.fechaCalendario.getFullYear() + "-" +
                   $scope.padStr(1 + $scope.fechaCalendario.getMonth()) + "-" + '01'; 
        
@@ -1188,9 +1184,18 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
           cadenaFecha = $scope.fechaCalendario.getFullYear() + "-" +
                   $scope.padStr(1 + $scope.fechaCalendario.getMonth()) + "-" + '02';
           
-          $scope.fechaCalendario = new Date(cadenaFecha);
+          return new Date(cadenaFecha);
+       }
+       
+       $scope.disminuirMes = function(){
+       
+          $scope.loading =  $ionicLoading.show({
+                            template: 'Cargando información de campaña.'
+                        });
+                 
+          $scope.fechaCalendario = $scope.mesAnterior();
           
-          //Aumentar la campana
+          //Disminuir la campana
           $scope.campana = $scope.campana - 1;
           
           Mama.getRecordatorios($scope.fechaCalendario.getFullYear(), $scope.campana, $rootScope.zona, $rootScope, $http, function (success, data){
@@ -1286,7 +1291,7 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
             }
             
             //Si no se ha encontrado buscar en la siguiente campana
-            if(!encontrado){
+            if(!encontrado && $scope.fechasSiguienteCampana){
                for (i = 0; i < $scope.fechasSiguienteCampana.length; i++){
                 if($scope.fechasSiguienteCampana[i].actividad.toLowerCase() == 'fecha correteo' && 
                   $scope.fechasSiguienteCampana[i].fecha == fecha ){
@@ -1310,7 +1315,7 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
             }
             
             //Si no se ha encontrado buscar en la siguiente campana
-            if(!encontrado){
+            if(!encontrado && $scope.fechasSiguienteCampana){
                for (i = 0; i < $scope.fechasSiguienteCampana.length; i++){
                 if($scope.fechasSiguienteCampana[i].actividad.toLowerCase() == 'encuentro' && 
                   $scope.fechasSiguienteCampana[i].fecha == fecha ){
@@ -1334,7 +1339,7 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
             }
             
             //Si no se ha encontrado buscar en la siguiente campana
-            if(!encontrado){
+            if(!encontrado && $scope.fechasSiguienteCampana){
                for (i = 0; i < $scope.fechasSiguienteCampana.length; i++){
                 if($scope.fechasSiguienteCampana[i].actividad.toLowerCase() == 'reparto de pedido 1' && 
                   $scope.fechasSiguienteCampana[i].fecha == fecha ){
@@ -1424,7 +1429,11 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
           var diaMes = 0;
           var indiceDias = 0;
           var mesActual = fechaActual.getMonth();
+          console.log('Mes ' + mesActual);
           var reiniciarDia = true;
+          
+          console.log('inicio');
+          console.log(inicioMes);
           
           while(!finMes){
             
@@ -1433,9 +1442,12 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
              //Si no hay registros entonces adicionar a la primera semana los registros necesarios del mes anterior
              
              if(semanas.length == 0){
+                console.log(primerDiaMes);
+                console.log('final');
                 for(j=primerDiaMes; j>0; j--){
-                    var fechaAnterior = new Date();
-                    fechaAnterior.setDate(inicioMes.getDate()-j);
+                    var fechaAnterior = new Date(dateStr);
+                    fechaAnterior.setDate(-j+1);
+                    console.log(fechaAnterior);
                     semana.push({ "dia": fechaAnterior.getDate(), 
                     "fechaCompleta":  $scope.padStr(fechaAnterior.getFullYear()) + "-" +
                                       $scope.padStr(1 + fechaAnterior.getMonth()) + "-" +
@@ -1489,7 +1501,7 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
                      finMes = true;
                   }
               
-              semanas.push(semana);    
+              semanas.push(semana); 
           }
           
           $scope.semanas = semanas;
