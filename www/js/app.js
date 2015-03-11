@@ -295,3 +295,5 @@ angular.module('novaventa', ['ionic', 'novaventa.controllers', 'novaventa.servic
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/app/inicializacion');
     });
+
+angular.module('novaventa.controllers');

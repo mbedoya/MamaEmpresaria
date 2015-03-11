@@ -19,11 +19,6 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
     .controller('TabsCtrl', function($scope, $rootScope, $state, $ionicActionSheet) {
 
         $scope.mostrarMiNegocio = function(){
-
-            console.log("Mostrar mi negocio");
-            console.log(Number($rootScope.datos.cupo) > 0 || Math.abs(Number($rootScope.datos.saldo)) > 0);
-            console.log(Math.abs(Number($rootScope.datos.saldo)));
-
             return Number($rootScope.datos.cupo) > 0 || Math.abs(Number($rootScope.datos.saldo)) > 0;
         }
 
@@ -231,6 +226,7 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
 								$ionicHistory.nextViewOptions({
                                  disableBack: true
                                 });
+                                
                                 $state.go('app.menu.tabs.home');
 
                             }else{
@@ -273,7 +269,7 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
 
     })
 
-    .controller('LoginCtrl', function($scope, $rootScope, $ionicLoading, $ionicPopup, $state, $http, $filter, $ionicHistory, Mama, Internet, GA) {
+   .controller('LoginCtrl', function($scope, $rootScope, $ionicLoading, $ionicPopup, $state, $http, $filter, $ionicHistory, Mama, Internet, GA) {
 
        //Registro en Analytics      
        GA.trackPage($rootScope.gaPlugin, "Inicio de sesión");
@@ -284,7 +280,7 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
              template: mensaje
            });
          };
-
+         
     	$scope.datosInicio = {cedula: '' };
     
     	//Autenticar a la Mamá Empresaria
@@ -399,6 +395,12 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
                             $ionicHistory.nextViewOptions({
                              disableBack: true
                             });
+   
+                            //Si se notifica inmediatamente no son alcanzados todos los controladores                         
+                            setTimeout( function(){
+                               //Notificar que el usuario se ha logueado
+                               $rootScope.$broadcast('loggedin');
+                            }, 1500);
                             
                             if(irABienvenida){
                                $state.go('app.bienvenida');
@@ -486,19 +488,20 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
 
         //Indica si ya se hizo el Encuentro para la campaña actual
         $scope.encuentroRealizado = function(){
-
+            
             var realizado = false;
-
-            for (i = 0; i < $rootScope.fechas.length; i++){
+        
+            if($rootScope.fechas && $rootScope.fechas.length > 0){
+               
+               for (i = 0; i < $rootScope.fechas.length; i++){
                 if($rootScope.fechas[i].actividad.toLowerCase() == 'encuentro'){
                     if(new Date() >= new Date($rootScope.fechas[i].fecha)){
                         realizado = true;
                         break;
                     }
                 }
+              }
             }
-
-            console.log("Encuentro realizado " + realizado);
 
             return realizado;
         }
@@ -645,7 +648,6 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
                 if(success){
 					$ionicLoading.hide();
                     $rootScope.puntos = data;
-                    console.log(data);
 
                 }else{
                     $ionicLoading.hide();
@@ -864,7 +866,6 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
         }
 
         $scope.mostrarNovedad = function(novedad){
-            console.log(novedad);
             var mostrar = false;
             if(novedad.toLowerCase().indexOf('morosa')>=0 ||
                 novedad.toLowerCase().indexOf('tope')>=0){
@@ -1139,24 +1140,8 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
                 title: titulo,
                 template: mensaje
                 });
-            };
+       };
             
-       $scope.cadenaFechaSeleccionada = '';     
-    
-       $scope.detalleFecha = null;
-    
-       $scope.semanas = null;
-       
-       //El calendario inicia en el mes actual
-       $scope.fechaCalendario = new Date();
-       
-       $scope.fechaSeleccionada = $scope.fechaCalendario;
-       
-       //Fechas de la campana que se está visualizando
-       $scope.fechas = $rootScope.fechas;
-       
-       $scope.campana = $rootScope.campana.numero;
-    
        $scope.padStr = function(i) {
            return (i < 10) ? "0" + i : "" + i;
        }
@@ -1211,8 +1196,6 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
           Mama.getRecordatorios($scope.fechaCalendario.getFullYear(), $scope.campana, $rootScope.zona, $rootScope, $http, function (success, data){
                 if(success){
                     $scope.fechas = data.listaRecordatorios;
-                    
-                    console.log($scope.fechas);
                     
                     //Generar el calendario nuevamente
                     $scope.semanasCalendario();
@@ -1301,6 +1284,18 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
                      break;
                 }
             }
+            
+            //Si no se ha encontrado buscar en la siguiente campana
+            if(!encontrado){
+               for (i = 0; i < $scope.fechasSiguienteCampana.length; i++){
+                if($scope.fechasSiguienteCampana[i].actividad.toLowerCase() == 'fecha correteo' && 
+                  $scope.fechasSiguienteCampana[i].fecha == fecha ){
+                     encontrado = true;
+                     break;
+                }
+               }
+            }
+            
             return encontrado;
        }
        
@@ -1313,6 +1308,18 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
                      break;
                 }
             }
+            
+            //Si no se ha encontrado buscar en la siguiente campana
+            if(!encontrado){
+               for (i = 0; i < $scope.fechasSiguienteCampana.length; i++){
+                if($scope.fechasSiguienteCampana[i].actividad.toLowerCase() == 'encuentro' && 
+                  $scope.fechasSiguienteCampana[i].fecha == fecha ){
+                     encontrado = true;
+                     break;
+                }
+               }
+            }
+            
             return encontrado;
        }
        
@@ -1325,6 +1332,18 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
                      break;
                 }
             }
+            
+            //Si no se ha encontrado buscar en la siguiente campana
+            if(!encontrado){
+               for (i = 0; i < $scope.fechasSiguienteCampana.length; i++){
+                if($scope.fechasSiguienteCampana[i].actividad.toLowerCase() == 'reparto de pedido 1' && 
+                  $scope.fechasSiguienteCampana[i].fecha == fecha ){
+                     encontrado = true;
+                     break;
+                }
+               }
+            }
+            
             return encontrado;
        }
        
@@ -1379,6 +1398,15 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
        }
          
        $scope.semanasCalendario = function(){
+       
+          //Obtener los recordatorios de la siguiente campana
+           Mama.getRecordatorios($scope.fechaCalendario.getFullYear(), $scope.campana+1, $rootScope.zona, $rootScope, $http, function (success, data){
+                if(success){
+                    $scope.fechasSiguienteCampana = data.listaRecordatorios;                     
+                }else{
+                   
+                }
+           });
           
           var fechaActual = $scope.fechaCalendario;
           
@@ -1399,8 +1427,6 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
           var reiniciarDia = true;
           
           while(!finMes){
-            
-            console.log(indiceDias);
             
              //Objeto con cada semana
              var semana = new Array();
@@ -1469,16 +1495,42 @@ angular.module('novaventa.controllers', ['novaventa.filters'])
           $scope.semanas = semanas;
        }
        
-       $scope.$on('online', function(event, args){
-          $scope.semanasCalendario();
-        });
+       $scope.inicializar = function(){
+            
+            $scope.cadenaFechaSeleccionada = '';     
+    
+            $scope.detalleFecha = null;
+    
+            $scope.semanas = null;
        
-       $scope.semanasCalendario();
+            //El calendario inicia en el mes actual
+            $scope.fechaCalendario = new Date();
        
-       //Seleccionar la fecha actual
-       $scope.seleccionarFecha($scope.padStr($scope.fechaCalendario.getFullYear()) + "-" +
+            $scope.fechaSeleccionada = $scope.fechaCalendario;
+       
+           //Fechas de la campana que se está visualizando
+           $scope.fechas = $rootScope.fechas;
+       
+           $scope.campana = $rootScope.campana.numero;
+           
+           $scope.semanasCalendario();
+           
+           //Seleccionar la fecha actual
+           $scope.seleccionarFecha($scope.padStr($scope.fechaCalendario.getFullYear()) + "-" +
                   $scope.padStr(1 + $scope.fechaCalendario.getMonth()) + "-" +
                   $scope.fechaCalendario.getDate());
+             
+       }
+       
+       $scope.$on('online', function(event, args){
+          $scope.inicializar();
+        });
+        
+        $scope.$on('loggedin', function(event, args){
+           $scope.inicializar();
+        });
+        
+        $scope.inicializar();
 
     })
     
