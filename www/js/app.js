@@ -133,6 +133,16 @@ angular.module('novaventa', ['ionic', 'novaventa.controllers', 'novaventa.servic
                 }
             })
             
+            .state('app.menu.tabs.mispuntos.mispremiosredimidos', {
+                url: "/mispremiosredimidos",
+                views: {
+                    'mis-puntos-puntos-content': {
+                        templateUrl: "templates/mispremiosredimidos.html",
+                        controller: 'MisPuntosCtrl'
+                    }
+                }
+            })
+            
             .state('app.menu.tabs.mispuntos.premiosredimir', {
                 url: "/premiosredimir",
                 views: {
@@ -156,16 +166,6 @@ angular.module('novaventa', ['ionic', 'novaventa.controllers', 'novaventa.servic
                 views: {
                     'mas-content': {
                         templateUrl: "templates/mas.html"
-                    }
-                }
-            })
-
-            .state('app.menu.tabs.mispuntos.mispremiosredimidos', {
-                url: "/mispremiosredimidos",
-                views: {
-                    'puntos-content': {
-                        templateUrl: "templates/mispremiosredimidos.html",
-                        controller: 'MisPuntosCtrl'
                     }
                 }
             })
