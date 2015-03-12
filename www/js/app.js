@@ -160,7 +160,7 @@ angular.module('novaventa', ['ionic', 'novaventa.controllers', 'novaventa.servic
                 }
             })
 
-            .state('app.menu.tabs.mispremiosredimidos', {
+            .state('app.menu.tabs.mispuntos.mispremiosredimidos', {
                 url: "/mispremiosredimidos",
                 views: {
                     'puntos-content': {

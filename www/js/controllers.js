@@ -329,6 +329,11 @@ var moduloControlador = angular.module('novaventa.controllers', ['novaventa.filt
         });
         
         $scope.inicializar();
+        
+        $scope.mostrarPremios = function(){
+           $state.go('app.menu.tabs.mispuntos.mispremiosredimidos');
+           //href="#/app/menu/tabs/mispremiosredimidos"
+        }
 
         $scope.campanaVencimientoPuntos = function(){
             return String($rootScope.puntos.agnoCampagnaVencimiento).substr(4,2) + " de " + String($rootScope.puntos.agnoCampagnaVencimiento).substr(0,4);
