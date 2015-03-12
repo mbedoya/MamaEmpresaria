@@ -1,5 +1,3 @@
-
-
 angular.module('novaventa', ['ionic', 'novaventa.controllers', 'novaventa.services'])
 
 .run(function($ionicPlatform, $rootScope) {
