@@ -13,6 +13,7 @@ $rootScope.zona
 Campana
 $rootScope.campana.numero
 $rootScope.campana.fechaMontajePedido
+$rootScope.campana.fechaEncuentro
 
 Recordatorios - Informacion de campana para la zona de la Mamá
 $rootScope.fechas
@@ -30,7 +31,7 @@ angular.module('novaventa.services', [])
     .factory('Mama', function() {
 
         return {
-            autenticar: function(cedula, rootScope, http, filter, fx) {
+            autenticar: function(cedula, rootScope, http, filter, factory, fx) {
             	http.get(rootScope.configuracion.ip_servidores +  "/AntaresWebServices/interfaceAntares/validacionAntares/" + cedula +"/1").
                     success(function(data, status, headers, config) {
                         
@@ -56,6 +57,36 @@ angular.module('novaventa.services', [])
                                 rootScope.datos.saldo = data.saldoBalance;
                                 rootScope.datos.valorFlexibilizacion = data.valorFlexibilizacion;
                                 rootScope.zona = data.listaZonas[0];
+                                
+                                rootScope.campana = {numero: '-', fechaMontajePedido:'-', fechaEncuentro:'-'};
+                                
+                                //Obtener el estado del pedido 
+                                factory.getTrazabilidadPedido(rootScope.datos.cedula, rootScope, http, function (success, data){
+                                    if(success){
+                                        rootScope.pedido = data;
+                                    }else{
+                                    }
+                                });
+                                
+                                //Obtener la campaña operativa
+                                factory.getRecordatoriosCampanaOperativa(rootScope.zona, rootScope, http, function (success, data){
+                                    if(success){
+                                      
+                                         //Obtener la fecha de montaje de pedido (Encuentro)
+                                         encuentro = '';
+                                         for (i = 0; i < data.listaRecordatorios.length; i++){
+                                           if(data.listaRecordatorios[i].actividad.toLowerCase() == 'encuentro'){
+                                            encuentro = data.listaRecordatorios[i].fecha;
+                                            break;
+                                           }
+                                         }
+                                        
+                                        rootScope.campana = {numero: data.listaRecordatorios[0].campagna, fechaMontajePedido: encuentro, fechaEncuentro: encuentro};
+                                        rootScope.fechas = data.listaRecordatorios;
+                                        
+                                    }else{                                        
+                                    }
+                                });
 
                             }else{
 

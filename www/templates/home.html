@@ -17,9 +17,9 @@
             <a class="item item-avatar alternate" href="#" ng-show="mostrarSaldoPagar() && saldo()>0 && !saldoEsDeProximaCampana()" ng-click="mostrarAyudaSaldoPagar()">
                 <div class="icono bocina"></div>
                 <!-- <i class="icon ion-plus-circled"></i> -->
-              <h2>Tienes un pago pendiente de <br /> {{ saldo() | currency }}.
+              <h2>Tienes un pago pendiente por <br /> {{ saldo() | currency:"$":0 }}.
                 Realízalo <span ng-show="diasParaPago()>-1">máximo el <br /> {{campana.fechaMontajePedido | date: 'dd' }} de  {{campana.fechaMontajePedido | date: 'MMMM' }}</span>
-                 <span ng-show="diasParaPago()<=0">hoy</span> antes de las 4 de la tarde
+                 <span ng-show="diasParaPago()<=0">hoy</span> antes de <br /> las 4 de la tarde
               </h2>
             </a>
 
@@ -31,14 +31,14 @@
             
             <a class="item item-avatar alternate" href="#" ng-show="mostrarSaldoFavor()">
                 <div class="icono bocina"></div>
-              <h2>Tienes un saldo a favor de <br /> {{ saldo() | currency }}
+              <h2>Tienes un saldo a favor de <br /> {{ saldo() | currency:"$":0 }}
               </h2>
             <p>&nbsp;</p>
             </a>
                         
             <a class="item item-avatar" href="#" ng-show="mostrarCupo()">
                 <div class="icono moneda"></div>
-              <h2>Realiza tu próximo pedido <br /> máximo por {{ cupo() | currency}}
+              <h2>Realiza tu próximo pedido <br /> máximo por {{ cupo() | currency:"$":0 }}
               </h2>
             <p>Si superas este valor debes cancelar <br />el excedente el día que haces tu pedido</p>
             </a>

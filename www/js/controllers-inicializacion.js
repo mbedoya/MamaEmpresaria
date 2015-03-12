@@ -72,43 +72,11 @@ moduloControlador.controller('InicializacionCtrl', function($scope, $rootScope, 
                         template: Utilidades.getPlantillaEspera('Iniciando sesión')
                     });
 
-                    Mama.autenticar($rootScope.datos.cedula, $rootScope, $http, $filter, function(success, mensajeError, data){
+                    Mama.autenticar($rootScope.datos.cedula, $rootScope, $http, $filter, Mama, function(success, mensajeError, data){
 
                         $ionicLoading.hide();
                         
                         if(success){
-                        
-                               $rootScope.campana = {numero: '-', fechaMontajePedido:'-'};
-                                
-                                Mama.getRecordatoriosCampanaOperativa($rootScope.zona, $rootScope, $http, function (success, data){
-                                    if(success){
-                                        $rootScope.campana = {numero: data.listaRecordatorios[0].campagna, fechaMontajePedido:data.listaRecordatorios[0].fecha};
-                                        $rootScope.fechas = data.listaRecordatorios;
-                                    }else{
-                                        
-                                    }
-                                });
-
-                                Mama.getTrazabilidadPedido($rootScope.datos.cedula, $rootScope, $http, function (success, data){
-                                    if(success){
-                                        $rootScope.pedido = data;
-
-                                        //Mama.getAgotadosPedido($rootScope.pedido.numeroPedido, $rootScope, $http, function (success, data){
-                                        //if(success){
-                                        //$ionicLoading.hide();
-                                        //  $rootScope.agotados = data;
-                                        //}else{
-                                        //$ionicLoading.hide();
-                                        //$scope.mostrarAyuda("Mi Pedido","En este momento no podemos acceder a tu información");
-                                        //}
-                                        //});
-
-
-                                    }else{
-                                        //$ionicLoading.hide();
-                                        //alert("En este momento no podemos acceder a tu información");
-                                    }
-                                });
 
 								$ionicHistory.nextViewOptions({
                                    historyRoot: true
