@@ -20,9 +20,14 @@ $rootScope.fechas
 
 Pedido
 $rootScope.pedido
+$rootScope.pedido.razonRechazo - Indica mensaje cuando no hay pedido para la Mama
 
 Puntos
-$rootScope.puntos
+$rootScope.puntos.puntosDisponibles
+$rootScope.puntos.puntosPorPerder
+$rootScope.puntos.puntosAVencer
+$rootScope.puntos.puntosRedimidos
+
 */
 
 
